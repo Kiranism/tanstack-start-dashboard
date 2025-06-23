@@ -1,72 +1,168 @@
-# Welcome to TanStack.com!
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/9113740/201498864-2a900c64-d88f-4ed4-b5cf-770bcb57e1f5.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/9113740/201498152-b171abb8-9225-487a-821c-6ff49ee48579.png">
+</picture>
 
-This site is built with TanStack Router!
+<div align="center"><strong>TanStack Start Dashboard Starter Template With Shadcn-ui</strong></div>
+<div align="center">Built with TanStack Start</div>
+<br />
+<div align="center">
+<a href="https://dub.sh/tanstack-start-dashboard">View Demo</a>
+<span>
+</div>
 
-- [TanStack Router Docs](https://tanstack.com/router)
+## Overview
 
-It's deployed automagically with Netlify!
+This is a starter template using the following stack:
 
-- [Netlify](https://netlify.com/)
+- Framework - [TanStack Start](https://tanstack.com/start)
+- Language - [TypeScript](https://www.typescriptlang.org)
+- Auth - pending...
+- Styling - [Tailwind CSS v4](https://tailwindcss.com)
+- Components - [Shadcn-ui](https://ui.shadcn.com)
+- Schema Validations - [Zod](https://zod.dev)
+- Data Fetching - [TanStack React Query](https://tanstack.com/query/latest)
+- Tables - [TanStack React Table](https://tanstack.com/table/latest)
+- Forms - [TanStack React Form](https://tanstack.com/form/latest) • [React Hook Form](https://react-hook-form.com)
+- Icons - [Tabler Icons](https://tabler.io/icons)
+- Linting - [ESLint](https://eslint.org)
+- Formatting - [Prettier](https://prettier.io)
 
-## Development
+_If you are looking for a Next.js dashboard template, here is the [repo](https://git.new/shadcn-dashboard)._
 
-From your terminal:
+## Pages
 
-```sh
+| Pages                                                                           | Specifications                                                                                                                                      |
+| :------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Dashboard (Overview)](https://tanstack-start-dashboard.kiranism.dev/dashboard) | Cards with Recharts graphs for analytics. Clean dashboard layout with responsive design and modern UI components.                                   |
+| [Products](https://tanstack-start-dashboard.kiranism.dev/dashboard/products)    | TanStack React Table with server-side searching, filtering, and pagination. Demonstrates advanced table functionality with type-safe data handling. |
+| [Settings](https://tanstack-start-dashboard.kiranism.dev/dashboard/settings)    | Settings page with form components using TanStack React Form and React Hook Form integration.                                                       |
+| [Not Found](https://tanstack-start-dashboard.kiranism.dev/404)                  | Custom 404 Not Found page with proper error handling and navigation.                                                                                |
+
+## Feature-based Organization
+
+```plaintext
+src/
+├── routes/ # TanStack Router directory
+│ ├── __root.tsx # Root layout component
+│ ├── index.tsx # Home page
+│ ├── dashboard/ # Dashboard route group
+│ │ ├── route.tsx # Dashboard layout
+│ │ ├── index.tsx # Dashboard overview
+│ │ ├── products.tsx # Products page
+│ │ └── settings.tsx # Settings page
+│ └── api/ # API routes
+│
+├── components/ # Shared components
+│ ├── ui/ # Shadcn-ui components
+│ ├── app-sidebar.tsx # Application sidebar
+│ ├── user-nav.tsx # User navigation component
+│ ├── path-breadcrumbs.tsx # Breadcrumb navigation
+│ └── providers.tsx # Context providers
+│
+├── features/ # Feature-based modules
+│ ├── overview/ # Dashboard overview feature
+│ ├── products/ # Products management feature
+│ └── settings/ # Settings feature
+│
+├── lib/ # Core utilities and configurations
+│ └── utils.ts # Shared utilities
+│
+├── hooks/ # Custom hooks
+│
+├── data/ # Data layer and API calls
+│
+├── styles/ # Global styles and Tailwind config
+│
+└── utils/ # Additional utilities
+```
+
+## Getting Started
+
+> [!NOTE]  
+> We are using **TanStack Start** with **React 19**, follow these steps:
+
+Clone the repo:
+
+```bash
+git clone https://github.com/kiranism/tanstack-start-dashboard.git
+```
+
+Install dependencies:
+
+```bash
 pnpm install
-pnpm dev
 ```
 
-This starts your app in development mode, rebuilding assets on file changes.
+Start the development server:
 
-## Editing and previewing the docs of TanStack projects locally
-
-The documentations for all TanStack projects except for `React Charts` are hosted on [https://tanstack.com](https://tanstack.com), powered by this TanStack Router app.
-In production, the markdown doc pages are fetched from the GitHub repos of the projects, but in development they are read from the local file system.
-
-Follow these steps if you want to edit the doc pages of a project (in these steps we'll assume it's [`TanStack/form`](https://github.com/tanstack/form)) and preview them locally :
-
-1. Create a new directory called `tanstack`.
-
-```sh
-mkdir tanstack
+```bash
+pnpm run dev
 ```
 
-2. Enter the directory and clone this repo and the repo of the project there.
+The application will be available at http://localhost:3001.
 
-```sh
-cd tanstack
-git clone git@github.com:TanStack/tanstack.com.git
-git clone git@github.com:TanStack/form.git
+### Build for Production
+
+Build the application:
+
+```bash
+pnpm run build
 ```
 
-> [!NOTE]
-> Your `tanstack` directory should look like this:
->
-> ```
-> tanstack/
->    |
->    +-- form/
->    |
->    +-- tanstack.com/
-> ```
+Start the production server:
 
-> [!WARNING]
-> Make sure the name of the directory in your local file system matches the name of the project's repo. For example, `tanstack/form` must be cloned into `form` (this is the default) instead of `some-other-name`, because that way, the doc pages won't be found.
-
-3. Enter the `tanstack/tanstack.com` directory, install the dependencies and run the app in dev mode:
-
-```sh
-cd tanstack.com
-pnpm i
-# The app will run on https://localhost:3000 by default
-pnpm dev
+```bash
+pnpm run start
 ```
 
-4. Now you can visit http://localhost:3000/form/latest/docs/overview in the browser and see the changes you make in `tanstack/form/docs`.
+## Scripts
 
-> [!NOTE]
-> The updated pages need to be manually reloaded in the browser.
+- `pnpm run dev` - Start development server on port 3001
+- `pnpm run build` - Build the application for production
+- `pnpm run start` - Start the production server
 
-> [!WARNING]
-> You will need to update the `docs/config.json` file (in the project's repo) if you add a new doc page!
+## Key Features
+
+- **🚀 TanStack Start** - Full-stack React framework with file-based routing
+- **🎨 Modern UI** - Beautiful dashboard built with Shadcn-ui components
+- **📱 Responsive Design** - Mobile-first approach with Tailwind CSS v4
+- **🔍 Type Safety** - Full TypeScript support with strict type checking
+- **📊 Data Tables** - Advanced table functionality with TanStack React Table
+- **📈 Charts & Analytics** - Interactive charts with Recharts
+- **🎭 Theme Support** - Dark/light mode with next-themes
+- **📋 Forms** - Multiple form solutions with validation
+- **🔄 Data Fetching** - Efficient data management with TanStack React Query
+- **🎯 Developer Experience** - Hot reload, TypeScript, ESLint, and Prettier
+
+## Project Structure Benefits
+
+- **Feature-based organization** - Logical grouping of related components and logic
+- **Scalable architecture** - Easy to extend and maintain as your project grows
+- **Type-safe routing** - Fully typed routes with TanStack Router
+- **Component reusability** - Shared UI components with consistent design
+- **Modern tooling** - Latest versions of React, TypeScript, and build tools
+
+## Authentication Setup
+
+This template provides space for authentication integration. You can easily add your preferred authentication solution such as:
+
+- **Clerk** - Complete authentication and user management
+- **Auth0** - Enterprise-grade authentication platform
+- **Supabase Auth** - Open source authentication with built-in user management
+- **Custom Auth** - Roll your own authentication solution
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+> [!TIP]
+> This template is designed to help you quickly bootstrap a TanStack Start project with minimal necessary boilerplate. Perfect for developers who want to build modern dashboards with the latest React ecosystem tools.
+
+Cheers! 🥂
