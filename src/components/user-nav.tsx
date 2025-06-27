@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,8 +9,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "@tanstack/react-router";
+import { signOut, useSession } from "@/lib/auth";
+import { authQueries } from "@/services/queries";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
 
 interface UserNavProps {
   user?: {
@@ -22,11 +25,14 @@ interface UserNavProps {
 export function UserNav({
   user = { name: "Demo User", email: "demo@example.com" },
 }: UserNavProps) {
-  const navigate = useNavigate();
+  const { data } = useSession();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-  const handleLogout = () => {
-    // In a real app, you would handle logout here
-    navigate({ to: "/" });
+  const handleLogout = async () => {
+    await signOut();
+    await queryClient.invalidateQueries({ queryKey: authQueries.all });
+    router.invalidate();
   };
 
   return (
@@ -34,9 +40,13 @@ export function UserNav({
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user.avatar} alt={user.name} />
+            <AvatarImage
+              src={data?.user?.image || ""}
+              alt={data?.user?.name}
+              referrerPolicy="no-referrer"
+            />
             <AvatarFallback>
-              {user.name
+              {data?.user?.name
                 .split(" ")
                 .map((n) => n[0])
                 .join("")}
@@ -47,9 +57,11 @@ export function UserNav({
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
+            <p className="text-sm font-medium leading-none">
+              {data?.user?.name}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
+              {data?.user?.email}
             </p>
           </div>
         </DropdownMenuLabel>

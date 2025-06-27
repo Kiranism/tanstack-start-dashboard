@@ -17,7 +17,7 @@ This is a starter template using the following stack:
 
 - Framework - [TanStack Start](https://tanstack.com/start)
 - Language - [TypeScript](https://www.typescriptlang.org)
-- Auth - pending...
+- Auth - [Better Auth](https://www.better-auth.com/)
 - Styling - [Tailwind CSS v4](https://tailwindcss.com)
 - Components - [Shadcn-ui](https://ui.shadcn.com)
 - Schema Validations - [Zod](https://zod.dev)

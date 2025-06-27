@@ -54,5 +54,8 @@ export const Route = createFileRoute("/dashboard/products")({
 
     // Prefetch data using React Query
     await context.queryClient.ensureQueryData(productsQueryOptions(filters));
+    return {
+      crumb: "Products",
+    };
   },
 });
