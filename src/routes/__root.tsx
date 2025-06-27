@@ -13,10 +13,18 @@ import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { NotFound } from "@/components/not-found";
 import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
+import { authQueries } from "@/services/queries";
+import { Providers } from "@/components/providers";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
+  beforeLoad: async ({ context }) => {
+    const userSession = await context.queryClient.fetchQuery(
+      authQueries.user()
+    );
+    return { userSession };
+  },
   head: () => ({
     meta: [
       {
@@ -81,9 +89,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <Providers>{children}</Providers>
         <TanStackRouterDevtools position="bottom-right" />
-        <ReactQueryDevtools buttonPosition="bottom-left" />
+        <ReactQueryDevtools buttonPosition="bottom-right" />
         <Scripts />
       </body>
     </html>

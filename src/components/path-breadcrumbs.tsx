@@ -1,4 +1,4 @@
-import { useRouter, Link } from "@tanstack/react-router";
+import { isMatch, Link, useMatches } from "@tanstack/react-router";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,55 +10,47 @@ import {
 import { Home } from "lucide-react";
 
 export function PathBreadcrumbs() {
-  const router = useRouter();
-  const pathname = router.state.location.pathname;
+  const matches = useMatches();
 
-  // Skip empty segments and remove any trailing slash
-  const pathSegments = pathname
-    .split("/")
-    .filter(Boolean)
-    .map((segment) => decodeURIComponent(segment));
+  // Don't render if any match is still pending
+  if (matches.some((match) => match.status === "pending")) return null;
 
-  // Don't render breadcrumbs if we're at the root
-  if (pathSegments.length === 0) {
+  // Filter matches that have breadcrumb data
+  const matchesWithCrumbs = matches.filter((match) =>
+    isMatch(match, "loaderData.crumb")
+  );
+
+  // Don't render breadcrumbs if no matches have crumb data
+  if (matchesWithCrumbs.length === 0) {
     return null;
   }
-
-  // Format segment for display (capitalize, replace hyphens with spaces)
-  const formatSegment = (segment: string) => {
-    // Handle dynamic route parameters (segments starting with $)
-    if (segment.startsWith("$")) {
-      return segment.substring(1);
-    }
-
-    return segment
-      .replace(/-/g, " ")
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-  };
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link to="/">
+            <Link to="/dashboard">
               <Home className="h-4 w-4" />
             </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
 
-        {pathSegments.map((segment, index) => {
-          const isLast = index === pathSegments.length - 1;
-          const path = `/${pathSegments.slice(0, index + 1).join("/")}`;
+        {matchesWithCrumbs.map((match, index) => {
+          const isLast = index === matchesWithCrumbs.length - 1;
 
           return (
-            <BreadcrumbItem key={path}>
+            <BreadcrumbItem key={match.fullPath}>
               {isLast ? (
-                <BreadcrumbPage>{formatSegment(segment)}</BreadcrumbPage>
+                <BreadcrumbPage>
+                  {(match.loaderData as any)?.crumb}
+                </BreadcrumbPage>
               ) : (
                 <BreadcrumbLink asChild>
-                  <Link to={path}>{formatSegment(segment)}</Link>
+                  <Link from={match.fullPath}>
+                    {(match.loaderData as any)?.crumb}
+                  </Link>
                 </BreadcrumbLink>
               )}
               {!isLast && <BreadcrumbSeparator />}
