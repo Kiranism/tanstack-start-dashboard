@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "node dist/server/server.js",
+    "start": "node .output/server/index.mjs",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt --write .",
@@ -81,6 +81,7 @@
     "match-sorter": "^8.2.0",
     "motion": "^11.18.2",
     "next-themes": "^0.4.6",
+    "nitro": "^3.0.260415-beta",
     "radix-ui": "^1.4.3",
     "react": "^19.0.0",
     "react-day-picker": "^9.14.0",
