@@ -6,7 +6,12 @@ node_modules
 # Build outputs
 dist
 build
+.output
+.vinxi
 *.tsbuildinfo
+
+# TanStack Router generated
+src/routeTree.gen.ts
 
 # Environment variables
 .env
@@ -49,3 +54,6 @@ coverage
 .cache
 tmp
 temp
+
+# clerk configuration (can include secrets)
+/.clerk/

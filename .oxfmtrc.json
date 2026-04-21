@@ -1,3 +1,31 @@
 {
-  "ignorePatterns": []
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "semi": true,
+  "useTabs": false,
+  "trailingComma": "none",
+  "jsxSingleQuote": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "endOfLine": "lf",
+  "experimentalSortTailwindcss": true,
+  "ignorePatterns": [
+    ".tanstack/**",
+    "dist/**",
+    "build/**",
+    "node_modules/**",
+    "scripts/**",
+    "src/routeTree.gen.ts",
+    "pnpm-lock.yaml",
+    "CHANGELOG.md"
+  ],
+  "overrides": [
+    {
+      "files": ["*.md", "*.mdc"],
+      "options": {
+        "proseWrap": "preserve"
+      }
+    }
+  ]
 }
