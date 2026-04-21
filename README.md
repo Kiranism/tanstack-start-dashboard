@@ -1,15 +1,15 @@
-<h1 align="center">Admin Dashboard Template with TanStack Start & Shadcn UI</h1>
+<h1 align="center">Admin Dashboard with TanStack Start & Shadcn UI</h1>
 
 <div align="center">Open source admin dashboard starter built with TanStack Start, shadcn/ui, Tailwind CSS, TypeScript</div>
 
 <br />
 
 <div align="center">
-  <a href="https://tanstack-start-dashboard.vercel.app"><strong>View Demo</strong></a>
+  <a href="https://dub.sh/tanstack-start-dashboard"><strong>View Demo</strong></a>
 </div>
 <br />
 <div align="center">
-  <img src="/public/shadcn-dashboard.png" alt="TanStack Start Dashboard Cover" style="max-width: 100%; border-radius: 8px;" />
+  <img src="/public/tanstack-dashboard.png" alt="TanStack Start Dashboard Cover" style="max-width: 100%; border-radius: 8px;" />
 </div>
 
 <p align="center">
@@ -28,22 +28,22 @@ It gives you a production-ready **dashboard UI** with charts, tables, forms, and
 
 ### Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| Framework | [TanStack Start](https://tanstack.com/start) |
-| Language | [TypeScript](https://www.typescriptlang.org) |
-| Build Tool | [Vite 7](https://vite.dev) |
-| Deployment | [Nitro](https://nitro.build) (Vercel, Cloudflare, Node.js) |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com) |
-| Components | [Shadcn-ui](https://ui.shadcn.com) |
-| Routing | [TanStack Router](https://tanstack.com/router) (file-based, type-safe) |
-| Data Fetching | [TanStack React Query](https://tanstack.com/query) |
-| Tables | [TanStack Table](https://tanstack.com/table) |
-| Forms | [TanStack Form](https://tanstack.com/form) + [Zod](https://zod.dev) |
-| Charts | [Recharts](https://recharts.org) |
-| State Management | [Zustand](https://zustand-demo.pmnd.rs) |
-| Command+K | [kbar](https://kbar.vercel.app/) |
-| Themes | [tweakcn](https://tweakcn.com/) |
+| Category           | Technology                                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------------------------- |
+| Framework          | [TanStack Start](https://tanstack.com/start)                                                          |
+| Language           | [TypeScript](https://www.typescriptlang.org)                                                          |
+| Build Tool         | [Vite 7](https://vite.dev)                                                                            |
+| Deployment         | [Nitro](https://nitro.build) (Vercel, Cloudflare, Node.js)                                            |
+| Styling            | [Tailwind CSS v4](https://tailwindcss.com)                                                            |
+| Components         | [Shadcn-ui](https://ui.shadcn.com)                                                                    |
+| Routing            | [TanStack Router](https://tanstack.com/router) (file-based, type-safe)                                |
+| Data Fetching      | [TanStack React Query](https://tanstack.com/query)                                                    |
+| Tables             | [TanStack Table](https://tanstack.com/table)                                                          |
+| Forms              | [TanStack Form](https://tanstack.com/form) + [Zod](https://zod.dev)                                   |
+| Charts             | [Recharts](https://recharts.org)                                                                      |
+| State Management   | [Zustand](https://zustand-demo.pmnd.rs)                                                               |
+| Command+K          | [kbar](https://kbar.vercel.app/)                                                                      |
+| Themes             | [tweakcn](https://tweakcn.com/)                                                                       |
 | Linter / Formatter | [OxLint](https://oxc.rs/docs/guide/usage/linter) / [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) |
 
 _If you are looking for a Next.js dashboard template, here is the [repo](https://git.new/shadcn-dashboard)._
@@ -80,18 +80,18 @@ _If you are looking for a Next.js dashboard template, here is the [repo](https:/
 
 ## Pages
 
-| Page | Description |
-|:-----|:------------|
-| [Dashboard Overview](/dashboard/overview) | Cards with Recharts graphs. Suspense boundaries for independent loading/error per section. |
-| [Product List (Table)](/dashboard/product) | TanStack Table + React Query (route loader prefetch + client cache) with URL search params for search, filter, pagination. |
-| [Create Product Form](/dashboard/product/new) | TanStack Form + Zod with `useMutation` for create/update. Cache invalidation on success. |
-| [Users (Table)](/dashboard/users) | Users table with React Query + URL state pattern. Same architecture as Products. |
-| [React Query Demo](/dashboard/react-query) | Pokemon API showcase demonstrating route loader + `useSuspenseQuery` pattern with client-side cache. |
-| [Kanban Board](/dashboard/kanban) | Drag n Drop task management board with dnd-kit and Zustand. Column sorting, task cards with priority badges. |
-| [Chat](/dashboard/chat) | Messaging UI with conversation list, message bubbles, quick replies, file attachments. |
-| [Notifications](/dashboard/notifications) | Notification center with bell icon badge, popover preview, and dedicated full page with tabs. |
-| [Forms](/dashboard/forms/basic) | Basic, Multi-step, Sheet/Dialog, and Advanced form patterns with TanStack Form + Zod. |
-| [Not Found](/notfound) | Custom 404 page via TanStack Router's `defaultNotFoundComponent`. |
+| Page                                          | Description                                                                                                                |
+| :-------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
+| [Dashboard Overview](/dashboard/overview)     | Cards with Recharts graphs. Suspense boundaries for independent loading/error per section.                                 |
+| [Product List (Table)](/dashboard/product)    | TanStack Table + React Query (route loader prefetch + client cache) with URL search params for search, filter, pagination. |
+| [Create Product Form](/dashboard/product/new) | TanStack Form + Zod with `useMutation` for create/update. Cache invalidation on success.                                   |
+| [Users (Table)](/dashboard/users)             | Users table with React Query + URL state pattern. Same architecture as Products.                                           |
+| [React Query Demo](/dashboard/react-query)    | Pokemon API showcase demonstrating route loader + `useSuspenseQuery` pattern with client-side cache.                       |
+| [Kanban Board](/dashboard/kanban)             | Drag n Drop task management board with dnd-kit and Zustand. Column sorting, task cards with priority badges.               |
+| [Chat](/dashboard/chat)                       | Messaging UI with conversation list, message bubbles, quick replies, file attachments.                                     |
+| [Notifications](/dashboard/notifications)     | Notification center with bell icon badge, popover preview, and dedicated full page with tabs.                              |
+| [Forms](/dashboard/forms/basic)               | Basic, Multi-step, Sheet/Dialog, and Advanced form patterns with TanStack Form + Zod.                                      |
+| [Not Found](/notfound)                        | Custom 404 page via TanStack Router's `defaultNotFoundComponent`.                                                          |
 
 ## Feature-based Organization
 
@@ -177,13 +177,13 @@ Change the Nitro preset in `vite.config.ts`:
 
 ```ts
 // Cloudflare Pages
-nitro({ preset: "cloudflare-pages" })
+nitro({ preset: "cloudflare-pages" });
 
 // Node.js server
-nitro({ preset: "node-server" })
+nitro({ preset: "node-server" });
 
 // Netlify
-nitro({ preset: "netlify" })
+nitro({ preset: "netlify" });
 ```
 
 Then run locally with:
@@ -195,15 +195,15 @@ bun run start
 
 ## Key Differences from Next.js Version
 
-| Concept | Next.js | TanStack Start |
-|---------|---------|---------------|
-| Routing | App Router (`app/`) | File-based (`routes/`) with type-safe params |
-| Data Fetching | Server Components + `HydrationBoundary` | Route `loader` + `useSuspenseQuery` |
-| Layouts | `layout.tsx` nesting | Layout routes with `<Outlet />` |
-| Server Code | `'use server'` actions | `createServerFn()` |
-| Build Tool | Webpack/Turbopack | Vite |
-| Deployment | `next start` | Nitro (any platform) |
-| URL State | nuqs | TanStack Router `useSearch()` + `validateSearch` |
+| Concept       | Next.js                                 | TanStack Start                                   |
+| ------------- | --------------------------------------- | ------------------------------------------------ |
+| Routing       | App Router (`app/`)                     | File-based (`routes/`) with type-safe params     |
+| Data Fetching | Server Components + `HydrationBoundary` | Route `loader` + `useSuspenseQuery`              |
+| Layouts       | `layout.tsx` nesting                    | Layout routes with `<Outlet />`                  |
+| Server Code   | `'use server'` actions                  | `createServerFn()`                               |
+| Build Tool    | Webpack/Turbopack                       | Vite                                             |
+| Deployment    | `next start`                            | Nitro (any platform)                             |
+| URL State     | nuqs                                    | TanStack Router `useSearch()` + `validateSearch` |
 
 ### Support
 
