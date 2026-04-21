@@ -1,4 +1,3 @@
-"use client";
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";

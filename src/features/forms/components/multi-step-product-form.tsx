@@ -1,4 +1,3 @@
-"use client";
 
 import * as React from "react";
 import { useAppForm, withFieldGroup } from "@/components/ui/tanstack-form";

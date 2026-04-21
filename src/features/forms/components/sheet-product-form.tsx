@@ -1,4 +1,3 @@
-"use client";
 
 import { useAppForm } from "@/components/ui/tanstack-form";
 import * as z from "zod";

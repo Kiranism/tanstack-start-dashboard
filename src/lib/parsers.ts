@@ -62,14 +62,3 @@ export function parseFiltersState<TData>(
 export function serializeFiltersState<TData>(value: ExtendedColumnFilter<TData>[]): string {
   return JSON.stringify(value);
 }
-
-// Legacy export for backward compatibility
-export const getSortingStateParser = <TData>(columnIds?: string[] | Set<string>) => ({
-  parse: (value: string) => parseSortingState<TData>(value, columnIds),
-  serialize: (value: ExtendedColumnSort<TData>[]) => serializeSortingState(value),
-});
-
-export const getFiltersStateParser = <TData>(columnIds?: string[] | Set<string>) => ({
-  parse: (value: string) => parseFiltersState<TData>(value, columnIds),
-  serialize: (value: ExtendedColumnFilter<TData>[]) => serializeFiltersState(value),
-});

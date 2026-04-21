@@ -1,4 +1,3 @@
-"use client";
 import { useKBar } from "kbar";
 import { Icons } from "@/components/icons";
 import { Button } from "./ui/button";

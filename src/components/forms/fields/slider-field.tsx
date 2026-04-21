@@ -1,4 +1,3 @@
-"use client";
 
 import { useStore } from "@tanstack/react-form";
 import { Slider } from "@/components/ui/slider";

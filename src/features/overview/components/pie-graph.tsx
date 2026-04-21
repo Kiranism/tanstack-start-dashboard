@@ -1,4 +1,3 @@
-"use client";
 
 import { LabelList, Pie, PieChart } from "recharts";
 

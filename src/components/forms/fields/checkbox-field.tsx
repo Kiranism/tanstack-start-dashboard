@@ -1,4 +1,3 @@
-"use client";
 
 import { useStore } from "@tanstack/react-form";
 import { Checkbox } from "@/components/ui/checkbox";

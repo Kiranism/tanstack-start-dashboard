@@ -1,4 +1,3 @@
-"use client";
 
 import { useStore } from "@tanstack/react-form";
 import { Input } from "@/components/ui/input";

@@ -1,4 +1,3 @@
-"use client";
 
 import { useThemeConfig } from "@/components/themes/active-theme";
 import { Label } from "@/components/ui/label";

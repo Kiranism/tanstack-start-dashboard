@@ -1,4 +1,3 @@
-"use client";
 
 import MultiStepProductForm from "./multi-step-product-form";
 

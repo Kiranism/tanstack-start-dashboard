@@ -1,4 +1,3 @@
-"use client";
 
 import { Icons } from "@/components/icons";
 import { useTheme } from "next-themes";

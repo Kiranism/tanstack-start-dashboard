@@ -1,4 +1,3 @@
-"use client";
 
 import { Icons } from "@/components/icons";
 import { motion, useReducedMotion } from "motion/react";

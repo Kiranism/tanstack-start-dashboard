@@ -1,4 +1,3 @@
-"use client";
 
 import { Icons } from "@/components/icons";
 

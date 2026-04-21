@@ -1,4 +1,3 @@
-"use client";
 
 import type { Option } from "@/types/data-table";
 import type { Column } from "@tanstack/react-table";

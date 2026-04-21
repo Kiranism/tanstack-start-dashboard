@@ -1,4 +1,3 @@
-"use client";
 
 import * as React from "react";
 import { useAppForm, useFormFields } from "@/components/ui/tanstack-form";

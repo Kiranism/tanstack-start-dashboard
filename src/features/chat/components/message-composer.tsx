@@ -1,4 +1,3 @@
-"use client";
 
 import { FormEvent, useRef } from "react";
 import { Icons } from "@/components/icons";
