@@ -58,6 +58,13 @@
   ::-webkit-scrollbar-thumb:hover {
     background-color: var(--muted-foreground);
   }
+
+  /* Inset focus rings for inputs inside sheets to prevent clipping */
+  [data-slot="sheet-content"] [data-slot="input"]:focus-visible,
+  [data-slot="sheet-content"] [data-slot="textarea"]:focus-visible,
+  [data-slot="sheet-content"] [data-slot="select-trigger"]:focus-visible {
+    --tw-ring-inset: inset;
+  }
 }
 
 /* View Transition Wave Effect */

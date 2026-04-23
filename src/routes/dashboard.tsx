@@ -24,14 +24,14 @@ function DashboardLayout() {
   return (
     <KBar>
       <SidebarProvider>
-        <InfobarProvider defaultOpen={false}>
-          <AppSidebar />
-          <SidebarInset>
-            <Header />
+        <AppSidebar />
+        <SidebarInset>
+          <Header />
+          <InfobarProvider defaultOpen={false}>
             <Outlet />
-          </SidebarInset>
-          <InfoSidebar side="right" />
-        </InfobarProvider>
+            <InfoSidebar side="right" />
+          </InfobarProvider>
+        </SidebarInset>
       </SidebarProvider>
     </KBar>
   );

@@ -41,18 +41,18 @@ export default function AppSidebar() {
   }, [isOpen]);
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader className="group-data-[collapsible=icon]:pt-4">
+    <Sidebar variant="inset" collapsible="icon">
+      <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link to="/dashboard/overview">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg">
-                  <Icons.galleryVerticalEnd className="size-4" />
+                <div className="bg-primary text-primary-foreground flex aspect-square size-8 shrink-0 items-center justify-center rounded-md">
+                  <Icons.logo className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Dashboard</span>
-                  <span className="text-muted-foreground truncate text-xs">Starter</span>
+                  <span className="truncate font-semibold">TanStack Start</span>
+                  <span className="text-muted-foreground truncate text-xs">Dashboard</span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -124,7 +124,7 @@ export default function AppSidebar() {
                   size="lg"
                   className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                 >
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg">
+                  <div className="bg-muted flex aspect-square size-8 shrink-0 items-center justify-center rounded-full">
                     <Icons.account className="size-4" />
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">

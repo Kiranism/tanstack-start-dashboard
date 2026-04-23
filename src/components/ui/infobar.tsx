@@ -195,7 +195,7 @@ function InfobarProvider({
             } as React.CSSProperties
           }
           className={cn(
-            "group/infobar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
+            "group/infobar-wrapper flex flex-1 w-full",
             className,
           )}
           {...props}
@@ -238,7 +238,7 @@ function Infobar({
 
   if (isMobile) {
     return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+      <Sheet open={openMobile} onOpenChange={(value) => { setOpenMobile(value); setOpen(value); }} {...props}>
         <SheetContent
           data-infobar="infobar"
           data-slot="infobar"
@@ -271,33 +271,15 @@ function Infobar({
       data-slot="infobar"
       style={
         {
-          "--infobar-transition-duration": isPathnameChanging ? "0ms" : "200ms",
+          "--infobar-transition-duration": isPathnameChanging ? "0ms" : "300ms",
         } as React.CSSProperties
       }
     >
-      {/* This is what handles the infobar gap on desktop */}
-      <div
-        data-slot="infobar-gap"
-        className={cn(
-          "relative w-(--infobar-width) bg-transparent transition-[width] duration-(--infobar-transition-duration,200ms) ease-linear",
-          "group-data-[collapsible=offcanvas]:w-0",
-          "group-data-[side=right]:rotate-180",
-          variant === "floating" || variant === "inset"
-            ? "group-data-[collapsible=icon]:w-[calc(var(--infobar-width-icon)+(--spacing(4)))]"
-            : "group-data-[collapsible=icon]:w-(--infobar-width-icon)",
-        )}
-      />
       <div
         data-slot="infobar-container"
         className={cn(
-          "fixed inset-y-0 z-30 hidden h-dvh w-(--infobar-width) transition-[left,right,width] duration-(--infobar-transition-duration,200ms) ease-linear md:flex",
-          side === "left"
-            ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--infobar-width)*-1)]"
-            : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--infobar-width)*-1)]",
-          // Adjust the padding for floating and inset variants.
-          variant === "floating" || variant === "inset"
-            ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--infobar-width-icon)+(--spacing(4))+2px)]"
-            : "group-data-[collapsible=icon]:w-(--infobar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
+          "sticky top-0 z-30 hidden h-[calc(100dvh-4.5rem)] w-(--infobar-width) shrink-0 p-2 pl-0 transition-[width,padding] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] md:flex",
+          "group-data-[collapsible=offcanvas]:w-0 group-data-[collapsible=offcanvas]:overflow-hidden group-data-[collapsible=offcanvas]:p-0",
           className,
         )}
         {...props}
@@ -305,7 +287,7 @@ function Infobar({
         <div
           data-infobar="infobar"
           data-slot="infobar-inner"
-          className="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+          className="bg-sidebar text-sidebar-foreground flex h-full w-full flex-col overflow-y-auto rounded-lg border border-sidebar-border transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-data-[collapsible=offcanvas]:scale-95 group-data-[collapsible=offcanvas]:opacity-0"
         >
           {children}
         </div>
