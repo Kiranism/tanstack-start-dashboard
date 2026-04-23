@@ -1,13 +1,12 @@
-
-import { useStore } from "@tanstack/react-form";
-import { Slider } from "@/components/ui/slider";
-import { FieldDescription, FieldLabel } from "@/components/ui/field";
+import { useStore } from '@tanstack/react-form';
+import { Slider } from '@/components/ui/slider';
+import { FieldDescription, FieldLabel } from '@/components/ui/field';
 import {
   useFieldContext,
   FormFieldSet,
   FormField,
-  createFormField,
-} from "@/components/ui/form-context";
+  createFormField
+} from '@/components/ui/form-context';
 
 interface SliderFieldProps {
   label: string;
@@ -22,7 +21,7 @@ export function SliderField({
   description,
   min = 0,
   max = 100,
-  step = 1,
+  step = 1
 }: SliderFieldProps) {
   const field = useFieldContext();
   const value = (useStore(field.store, (s) => s.value) as number) ?? min;
@@ -31,7 +30,7 @@ export function SliderField({
     <FormFieldSet>
       <FormField>
         <FieldLabel>{label}</FieldLabel>
-        <div className="px-1">
+        <div className='px-1'>
           <Slider
             min={min}
             max={max}
@@ -40,9 +39,9 @@ export function SliderField({
             onValueChange={(v) => field.handleChange(v[0])}
             onBlur={field.handleBlur}
           />
-          <div className="text-muted-foreground mt-1 flex justify-between text-xs tabular-nums">
+          <div className='text-muted-foreground mt-1 flex justify-between text-xs tabular-nums'>
             <span>{min}</span>
-            <span className="font-medium">
+            <span className='font-medium'>
               {value}/{max}
             </span>
             <span>{max}</span>

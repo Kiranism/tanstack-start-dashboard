@@ -1,18 +1,17 @@
-
-import { useStore } from "@tanstack/react-form";
-import { Textarea } from "@/components/ui/textarea";
-import { FieldDescription, FieldLabel } from "@/components/ui/field";
+import { useStore } from '@tanstack/react-form';
+import { Textarea } from '@/components/ui/textarea';
+import { FieldDescription, FieldLabel } from '@/components/ui/field';
 import {
   useFieldContext,
   FormFieldSet,
   FormField,
   FormFieldError,
-  createFormField,
-} from "@/components/ui/form-context";
+  createFormField
+} from '@/components/ui/form-context';
 
 interface TextareaFieldProps extends Omit<
-  React.ComponentProps<"textarea">,
-  "value" | "onChange" | "onBlur"
+  React.ComponentProps<'textarea'>,
+  'value' | 'onChange' | 'onBlur'
 > {
   label: string;
   description?: string;
@@ -33,14 +32,14 @@ export function TextareaField({
   const field = useFieldContext();
   const isTouched = useStore(field.store, (s) => s.meta.isTouched);
   const isValid = useStore(field.store, (s) => s.meta.isValid);
-  const value = (useStore(field.store, (s) => s.value) as string) ?? "";
+  const value = (useStore(field.store, (s) => s.value) as string) ?? '';
 
   return (
     <FormFieldSet>
       <FormField>
         <FieldLabel htmlFor={field.name}>
           {label}
-          {required && " *"}
+          {required && ' *'}
         </FieldLabel>
         <Textarea
           id={field.name}
@@ -53,9 +52,9 @@ export function TextareaField({
           {...textareaProps}
         />
         {showCount && (
-          <div className="text-muted-foreground text-right text-xs tabular-nums">
+          <div className='text-muted-foreground text-right text-xs tabular-nums'>
             {value.length}
-            {maxLength ? ` / ${maxLength}` : ""}
+            {maxLength ? ` / ${maxLength}` : ''}
           </div>
         )}
         {description && <FieldDescription>{description}</FieldDescription>}

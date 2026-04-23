@@ -15,34 +15,34 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { useNavigate, useSearch } from "@tanstack/react-router";
-import * as React from "react";
+  useReactTable
+} from '@tanstack/react-table';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import * as React from 'react';
 
-import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
-import { parseSortingState, serializeSortingState } from "@/lib/parsers";
-import type { ExtendedColumnSort } from "@/types/data-table";
+import { useDebouncedCallback } from '@/hooks/use-debounced-callback';
+import { parseSortingState, serializeSortingState } from '@/lib/parsers';
+import type { ExtendedColumnSort } from '@/types/data-table';
 
-const ARRAY_SEPARATOR = ",";
+const ARRAY_SEPARATOR = ',';
 const DEBOUNCE_MS = 300;
 
 interface UseDataTableProps<TData>
   extends
     Omit<
       TableOptions<TData>,
-      | "state"
-      | "pageCount"
-      | "getCoreRowModel"
-      | "manualFiltering"
-      | "manualPagination"
-      | "manualSorting"
+      | 'state'
+      | 'pageCount'
+      | 'getCoreRowModel'
+      | 'manualFiltering'
+      | 'manualPagination'
+      | 'manualSorting'
     >,
-    Required<Pick<TableOptions<TData>, "pageCount">> {
-  initialState?: Omit<Partial<TableState>, "sorting"> & {
+    Required<Pick<TableOptions<TData>, 'pageCount'>> {
+  initialState?: Omit<Partial<TableState>, 'sorting'> & {
     sorting?: ExtendedColumnSort<TData>[];
   };
-  history?: "push" | "replace";
+  history?: 'push' | 'replace';
   debounceMs?: number;
   throttleMs?: number;
   clearOnDefault?: boolean;
@@ -57,7 +57,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     columns,
     pageCount = -1,
     initialState,
-    history = "replace",
+    history = 'replace',
     debounceMs = DEBOUNCE_MS,
     enableAdvancedFilter = false,
     shallow = true,
@@ -68,13 +68,13 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
   const navigate = useNavigate();
 
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
-    initialState?.rowSelection ?? {},
+    initialState?.rowSelection ?? {}
   );
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(
-    initialState?.columnVisibility ?? {},
+    initialState?.columnVisibility ?? {}
   );
   const [columnPinning, setColumnPinning] = React.useState<ColumnPinningState>(
-    initialState?.columnPinning ?? {},
+    initialState?.columnPinning ?? {}
   );
 
   // Read pagination from search params
@@ -84,25 +84,25 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
   const pagination: PaginationState = React.useMemo(
     () => ({
       pageIndex: page - 1,
-      pageSize: perPage,
+      pageSize: perPage
     }),
-    [page, perPage],
+    [page, perPage]
   );
 
   const onPaginationChange = React.useCallback(
     (updaterOrValue: Updater<PaginationState>) => {
       const newPagination =
-        typeof updaterOrValue === "function" ? updaterOrValue(pagination) : updaterOrValue;
+        typeof updaterOrValue === 'function' ? updaterOrValue(pagination) : updaterOrValue;
       void navigate({
         search: (prev: Record<string, unknown>) => ({
           ...prev,
           page: newPagination.pageIndex + 1,
-          perPage: newPagination.pageSize,
+          perPage: newPagination.pageSize
         }),
-        replace: history === "replace",
+        replace: history === 'replace'
       });
     },
-    [pagination, navigate, history],
+    [pagination, navigate, history]
   );
 
   // Read sorting from search params
@@ -115,25 +115,25 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
       parseSortingState<TData>(search.sort as string | undefined, columnIds) ??
       initialState?.sorting ??
       [],
-    [search.sort, columnIds, initialState?.sorting],
+    [search.sort, columnIds, initialState?.sorting]
   );
 
   const onSortingChange = React.useCallback(
     (updaterOrValue: Updater<SortingState>) => {
       const newSorting =
-        typeof updaterOrValue === "function" ? updaterOrValue(sorting) : updaterOrValue;
+        typeof updaterOrValue === 'function' ? updaterOrValue(sorting) : updaterOrValue;
       void navigate({
         search: (prev: Record<string, unknown>) => ({
           ...prev,
           sort:
             newSorting.length > 0
               ? serializeSortingState(newSorting as ExtendedColumnSort<TData>[])
-              : undefined,
+              : undefined
         }),
-        replace: history === "replace",
+        replace: history === 'replace'
       });
     },
-    [sorting, navigate, history],
+    [sorting, navigate, history]
   );
 
   // Filter handling
@@ -147,14 +147,14 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     if (enableAdvancedFilter) return {};
     const values: Record<string, string | string[] | null> = {};
     for (const column of filterableColumns) {
-      const key = column.id ?? "";
+      const key = column.id ?? '';
       const val = search[key];
       if (val !== undefined && val !== null) {
         if (column.meta?.options) {
           // Array filter - stored as comma-separated string
-          values[key] = typeof val === "string" ? val.split(ARRAY_SEPARATOR) : null;
+          values[key] = typeof val === 'string' ? val.split(ARRAY_SEPARATOR) : null;
         } else {
-          values[key] = typeof val === "string" ? val : null;
+          values[key] = typeof val === 'string' ? val : null;
         }
       } else {
         values[key] = null;
@@ -179,10 +179,10 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
           }
           return next;
         },
-        replace: history === "replace",
+        replace: history === 'replace'
       });
     },
-    debounceMs,
+    debounceMs
   );
 
   const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
@@ -192,13 +192,13 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
       if (value !== null) {
         const processedValue = Array.isArray(value)
           ? value
-          : typeof value === "string" && /[^a-zA-Z0-9]/.test(value)
+          : typeof value === 'string' && /[^a-zA-Z0-9]/.test(value)
             ? value.split(/[^a-zA-Z0-9]+/).filter(Boolean)
             : [value];
 
         filters.push({
           id: key,
-          value: processedValue,
+          value: processedValue
         });
       }
       return filters;
@@ -213,7 +213,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
       if (enableAdvancedFilter) return;
 
       setColumnFilters((prev) => {
-        const next = typeof updaterOrValue === "function" ? updaterOrValue(prev) : updaterOrValue;
+        const next = typeof updaterOrValue === 'function' ? updaterOrValue(prev) : updaterOrValue;
 
         const filterUpdates: Record<string, string | string[] | null> = {};
         for (const filter of next) {
@@ -232,7 +232,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
         return next;
       });
     },
-    [debouncedSetFilterValues, filterableColumns, enableAdvancedFilter],
+    [debouncedSetFilterValues, filterableColumns, enableAdvancedFilter]
   );
 
   const table = useReactTable({
@@ -246,11 +246,11 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
       columnVisibility,
       columnPinning,
       rowSelection,
-      columnFilters,
+      columnFilters
     },
     defaultColumn: {
       ...tableProps.defaultColumn,
-      enableColumnFilter: false,
+      enableColumnFilter: false
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
@@ -268,7 +268,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     manualPagination: true,
     manualSorting: true,
-    manualFiltering: true,
+    manualFiltering: true
   });
 
   return { table, shallow, debounceMs, throttleMs: props.throttleMs };

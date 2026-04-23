@@ -1,5 +1,5 @@
-import { KBarResults, useMatches } from "kbar";
-import ResultItem from "./result-item";
+import { KBarResults, useMatches } from 'kbar';
+import ResultItem from './result-item';
 
 export default function RenderResults() {
   const { results, rootActionId } = useMatches();
@@ -8,10 +8,10 @@ export default function RenderResults() {
     <KBarResults
       items={results}
       onRender={({ item, active }) =>
-        typeof item === "string" ? (
-          <div className="text-muted-foreground px-4 py-2 text-sm uppercase">{item}</div>
+        typeof item === 'string' ? (
+          <div className='text-muted-foreground px-4 py-2 text-sm uppercase'>{item}</div>
         ) : (
-          <ResultItem action={item} active={active} currentRootActionId={rootActionId ?? ""} />
+          <ResultItem action={item} active={active} currentRootActionId={rootActionId ?? ''} />
         )
       }
     />

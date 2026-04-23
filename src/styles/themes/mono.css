@@ -1,4 +1,4 @@
-[data-theme="mono"] {
+[data-theme='mono'] {
   --background: oklch(1 0 0);
   --foreground: oklch(0.1448 0 0);
   --card: oklch(1 0 0);
@@ -53,7 +53,7 @@
   --spacing: 0.25rem;
 }
 
-[data-theme="mono"].dark {
+[data-theme='mono'].dark {
   --background: oklch(0.1448 0 0);
   --foreground: oklch(0.9851 0 0);
   --card: oklch(0.2134 0 0);
@@ -106,7 +106,7 @@
   --shadow-2xl: 0px 1px 0px 0px hsl(0 0% 0% / 0);
 }
 
-[data-theme="mono"] {
+[data-theme='mono'] {
   @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);

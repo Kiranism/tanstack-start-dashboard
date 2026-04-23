@@ -1,11 +1,11 @@
-import { DataTable } from "@/components/ui/table/data-table";
-import { DataTableToolbar } from "@/components/ui/table/data-table-toolbar";
-import { useDataTable } from "@/hooks/use-data-table";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useSearch } from "@tanstack/react-router";
-import { parseSortingState } from "@/lib/parsers";
-import { usersQueryOptions } from "../../api/queries";
-import { columns } from "./columns";
+import { DataTable } from '@/components/ui/table/data-table';
+import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar';
+import { useDataTable } from '@/hooks/use-data-table';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSearch } from '@tanstack/react-router';
+import { parseSortingState } from '@/lib/parsers';
+import { usersQueryOptions } from '../../api/queries';
+import { columns } from './columns';
 
 const columnIds = columns.map((c) => c.id).filter(Boolean) as string[];
 
@@ -24,7 +24,7 @@ export function UsersTable() {
     limit: perPage,
     ...(name && { search: name }),
     ...(role && { roles: role }),
-    ...(sort.length > 0 && { sort: JSON.stringify(sort) }),
+    ...(sort.length > 0 && { sort: JSON.stringify(sort) })
   };
 
   const { data } = useSuspenseQuery(usersQueryOptions(filters));
@@ -38,8 +38,8 @@ export function UsersTable() {
     shallow: true,
     debounceMs: 500,
     initialState: {
-      columnPinning: { right: ["actions"] },
-    },
+      columnPinning: { right: ['actions'] }
+    }
   });
 
   return (
@@ -51,10 +51,10 @@ export function UsersTable() {
 
 export function UsersTableSkeleton() {
   return (
-    <div className="flex flex-1 animate-pulse flex-col gap-4">
-      <div className="bg-muted h-10 w-full rounded" />
-      <div className="bg-muted h-96 w-full rounded-lg" />
-      <div className="bg-muted h-10 w-full rounded" />
+    <div className='flex flex-1 animate-pulse flex-col gap-4'>
+      <div className='bg-muted h-10 w-full rounded' />
+      <div className='bg-muted h-96 w-full rounded-lg' />
+      <div className='bg-muted h-10 w-full rounded' />
     </div>
   );
 }

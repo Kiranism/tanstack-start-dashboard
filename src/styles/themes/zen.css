@@ -1,4 +1,4 @@
-[data-theme="zen"] {
+[data-theme='zen'] {
   --background: oklch(0.9195 0.0169 88.003);
   --foreground: oklch(0.235 0 0);
   --card: oklch(0.953 0.0156 86.4257);
@@ -53,7 +53,7 @@
   --spacing: 0.25rem;
 }
 
-[data-theme="zen"].dark {
+[data-theme='zen'].dark {
   --background: oklch(0.1913 0 0);
   --foreground: oklch(0.9173 0.0133 82.4015);
   --card: oklch(0.2264 0 0);
@@ -106,7 +106,7 @@
   --shadow-2xl: 0px 6px 15px 0px hsl(0 0% 0% / 0.75);
 }
 
-[data-theme="zen"] {
+[data-theme='zen'] {
   @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);

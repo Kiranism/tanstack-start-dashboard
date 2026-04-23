@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { useCallbackRef } from "@/hooks/use-callback-ref";
+import { useCallbackRef } from '@/hooks/use-callback-ref';
 
 export function useDebouncedCallback<T extends (...args: never[]) => unknown>(
   callback: T,
-  delay: number,
+  delay: number
 ) {
   const handleCallback = useCallbackRef(callback);
   const debounceTimerRef = React.useRef(0);
@@ -15,7 +15,7 @@ export function useDebouncedCallback<T extends (...args: never[]) => unknown>(
       window.clearTimeout(debounceTimerRef.current);
       debounceTimerRef.current = window.setTimeout(() => handleCallback(...args), delay);
     },
-    [handleCallback, delay],
+    [handleCallback, delay]
   );
 
   return setValue;

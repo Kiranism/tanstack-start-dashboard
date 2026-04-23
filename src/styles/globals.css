@@ -1,29 +1,29 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 /* Fontsource font imports */
-@import "@fontsource/geist-sans";
-@import "@fontsource/geist-mono";
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/dm-sans";
-@import "@fontsource-variable/instrument-sans";
-@import "@fontsource-variable/mulish";
-@import "@fontsource-variable/outfit";
-@import "@fontsource-variable/playfair-display";
-@import "@fontsource/merriweather/300.css";
-@import "@fontsource/merriweather/400.css";
-@import "@fontsource/merriweather/700.css";
-@import "@fontsource/architects-daughter/400.css";
-@import "@fontsource-variable/fira-code";
-@import "@fontsource-variable/jetbrains-mono";
-@import "@fontsource-variable/noto-sans-mono";
-@import "@fontsource/space-mono/400.css";
-@import "@fontsource/space-mono/700.css";
+@import '@fontsource/geist-sans';
+@import '@fontsource/geist-mono';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource-variable/mulish';
+@import '@fontsource-variable/outfit';
+@import '@fontsource-variable/playfair-display';
+@import '@fontsource/merriweather/300.css';
+@import '@fontsource/merriweather/400.css';
+@import '@fontsource/merriweather/700.css';
+@import '@fontsource/architects-daughter/400.css';
+@import '@fontsource-variable/fira-code';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/noto-sans-mono';
+@import '@fontsource/space-mono/400.css';
+@import '@fontsource/space-mono/700.css';
 
 @custom-variant dark (&:is(.dark *));
 
-@import "./theme.css";
+@import './theme.css';
 
 @layer base {
   * {
@@ -60,9 +60,9 @@
   }
 
   /* Inset focus rings for inputs inside sheets to prevent clipping */
-  [data-slot="sheet-content"] [data-slot="input"]:focus-visible,
-  [data-slot="sheet-content"] [data-slot="textarea"]:focus-visible,
-  [data-slot="sheet-content"] [data-slot="select-trigger"]:focus-visible {
+  [data-slot='sheet-content'] [data-slot='input']:focus-visible,
+  [data-slot='sheet-content'] [data-slot='textarea']:focus-visible,
+  [data-slot='sheet-content'] [data-slot='select-trigger']:focus-visible {
     --tw-ring-inset: inset;
   }
 }

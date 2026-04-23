@@ -1,14 +1,13 @@
-
-import { useStore } from "@tanstack/react-form";
-import { FileUploader } from "@/components/file-uploader";
-import { FieldDescription, FieldLabel } from "@/components/ui/field";
+import { useStore } from '@tanstack/react-form';
+import { FileUploader } from '@/components/file-uploader';
+import { FieldDescription, FieldLabel } from '@/components/ui/field';
 import {
   useFieldContext,
   FormFieldSet,
   FormField,
   FormFieldError,
-  createFormField,
-} from "@/components/ui/form-context";
+  createFormField
+} from '@/components/ui/form-context';
 
 interface FileUploadFieldProps {
   label: string;
@@ -23,7 +22,7 @@ export function FileUploadField({
   description,
   required,
   maxSize,
-  maxFiles,
+  maxFiles
 }: FileUploadFieldProps) {
   const field = useFieldContext();
   const value = useStore(field.store, (s) => s.value) as File[] | undefined;
@@ -33,7 +32,7 @@ export function FileUploadField({
       <FormField>
         <FieldLabel htmlFor={field.name}>
           {label}
-          {required && " *"}
+          {required && ' *'}
         </FieldLabel>
         <div onBlur={field.handleBlur}>
           <FileUploader

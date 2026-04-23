@@ -1,4 +1,4 @@
-import { NavGroup } from "@/types";
+import { NavGroup } from '@/types';
 
 /**
  * Navigation configuration
@@ -8,115 +8,115 @@ import { NavGroup } from "@/types";
  */
 export const navGroups: NavGroup[] = [
   {
-    label: "Overview",
+    label: 'Overview',
     items: [
       {
-        title: "Dashboard",
-        url: "/dashboard/overview",
-        icon: "dashboard",
+        title: 'Dashboard',
+        url: '/dashboard/overview',
+        icon: 'dashboard',
         isActive: false,
-        shortcut: ["d", "d"],
-        items: [],
+        shortcut: ['d', 'd'],
+        items: []
       },
       {
-        title: "Product",
-        url: "/dashboard/product",
-        icon: "product",
-        shortcut: ["p", "p"],
+        title: 'Product',
+        url: '/dashboard/product',
+        icon: 'product',
+        shortcut: ['p', 'p'],
         isActive: false,
-        items: [],
+        items: []
       },
       {
-        title: "Users",
-        url: "/dashboard/users",
-        icon: "teams",
-        shortcut: ["u", "u"],
+        title: 'Users',
+        url: '/dashboard/users',
+        icon: 'teams',
+        shortcut: ['u', 'u'],
         isActive: false,
-        items: [],
+        items: []
       },
       {
-        title: "Kanban",
-        url: "/dashboard/kanban",
-        icon: "kanban",
-        shortcut: ["k", "k"],
+        title: 'Kanban',
+        url: '/dashboard/kanban',
+        icon: 'kanban',
+        shortcut: ['k', 'k'],
         isActive: false,
-        items: [],
+        items: []
       },
       {
-        title: "Chat",
-        url: "/dashboard/chat",
-        icon: "chat",
-        shortcut: ["c", "c"],
+        title: 'Chat',
+        url: '/dashboard/chat',
+        icon: 'chat',
+        shortcut: ['c', 'c'],
         isActive: false,
-        items: [],
-      },
-    ],
+        items: []
+      }
+    ]
   },
   {
-    label: "Elements",
+    label: 'Elements',
     items: [
       {
-        title: "Forms",
-        url: "#",
-        icon: "forms",
+        title: 'Forms',
+        url: '#',
+        icon: 'forms',
         isActive: true,
         items: [
           {
-            title: "Basic Form",
-            url: "/dashboard/forms/basic",
-            icon: "forms",
-            shortcut: ["f", "f"],
+            title: 'Basic Form',
+            url: '/dashboard/forms/basic',
+            icon: 'forms',
+            shortcut: ['f', 'f']
           },
           {
-            title: "Multi-Step Form",
-            url: "/dashboard/forms/multi-step",
-            icon: "forms",
+            title: 'Multi-Step Form',
+            url: '/dashboard/forms/multi-step',
+            icon: 'forms'
           },
           {
-            title: "Sheet & Dialog",
-            url: "/dashboard/forms/sheet-form",
-            icon: "forms",
+            title: 'Sheet & Dialog',
+            url: '/dashboard/forms/sheet-form',
+            icon: 'forms'
           },
           {
-            title: "Advanced Patterns",
-            url: "/dashboard/forms/advanced",
-            icon: "forms",
-          },
-        ],
+            title: 'Advanced Patterns',
+            url: '/dashboard/forms/advanced',
+            icon: 'forms'
+          }
+        ]
       },
       {
-        title: "React Query",
-        url: "/dashboard/react-query",
-        icon: "code",
+        title: 'React Query',
+        url: '/dashboard/react-query',
+        icon: 'code',
         isActive: false,
-        items: [],
+        items: []
       },
       {
-        title: "Icons",
-        url: "/dashboard/elements/icons",
-        icon: "palette",
+        title: 'Icons',
+        url: '/dashboard/elements/icons',
+        icon: 'palette',
         isActive: false,
-        items: [],
-      },
-    ],
+        items: []
+      }
+    ]
   },
   {
-    label: "",
+    label: '',
     items: [
       {
-        title: "Account",
-        url: "#",
-        icon: "account",
+        title: 'Account',
+        url: '#',
+        icon: 'account',
         isActive: true,
         items: [
           {
-            title: "Notifications",
-            url: "/dashboard/notifications",
-            icon: "notification",
-            shortcut: ["n", "n"],
-          },
-        ],
-      },
-    ],
-  },
+            title: 'Notifications',
+            url: '/dashboard/notifications',
+            icon: 'notification',
+            shortcut: ['n', 'n']
+          }
+        ]
+      }
+    ]
+  }
 ];

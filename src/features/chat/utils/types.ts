@@ -7,14 +7,14 @@ export type Attachment = {
 
 export type Message = {
   id: string;
-  sender: "user" | "contact";
+  sender: 'user' | 'contact';
   author: string;
   text: string;
   timestamp: string;
   attachments?: Attachment[];
 };
 
-export type ConversationStatus = "online" | "offline";
+export type ConversationStatus = 'online' | 'offline';
 
 export type Conversation = {
   id: string;

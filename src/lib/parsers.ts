@@ -1,17 +1,17 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { dataTableConfig } from "@/config/data-table";
+import { dataTableConfig } from '@/config/data-table';
 
-import type { ExtendedColumnFilter, ExtendedColumnSort } from "@/types/data-table";
+import type { ExtendedColumnFilter, ExtendedColumnSort } from '@/types/data-table';
 
 const sortingItemSchema = z.object({
   id: z.string(),
-  desc: z.boolean(),
+  desc: z.boolean()
 });
 
 export function parseSortingState<TData>(
   value: string | undefined,
-  columnIds?: string[] | Set<string>,
+  columnIds?: string[] | Set<string>
 ): ExtendedColumnSort<TData>[] {
   if (!value) return [];
   const validKeys = columnIds ? (columnIds instanceof Set ? columnIds : new Set(columnIds)) : null;
@@ -36,14 +36,14 @@ const filterItemSchema = z.object({
   value: z.union([z.string(), z.array(z.string())]),
   variant: z.enum(dataTableConfig.filterVariants),
   operator: z.enum(dataTableConfig.operators),
-  filterId: z.string(),
+  filterId: z.string()
 });
 
 export type FilterItemSchema = z.infer<typeof filterItemSchema>;
 
 export function parseFiltersState<TData>(
   value: string | undefined,
-  columnIds?: string[] | Set<string>,
+  columnIds?: string[] | Set<string>
 ): ExtendedColumnFilter<TData>[] {
   if (!value) return [];
   const validKeys = columnIds ? (columnIds instanceof Set ? columnIds : new Set(columnIds)) : null;

@@ -27,13 +27,13 @@
 // Current: Mock (in-memory fake data for demo/prototyping)
 // ============================================================
 
-import { fakeProducts } from "@/constants/mock-api";
+import { fakeProducts } from '@/constants/mock-api';
 import type {
   ProductFilters,
   ProductsResponse,
   ProductByIdResponse,
-  ProductMutationPayload,
-} from "./types";
+  ProductMutationPayload
+} from './types';
 
 export async function getProducts(filters: ProductFilters): Promise<ProductsResponse> {
   return fakeProducts.getProducts(filters);

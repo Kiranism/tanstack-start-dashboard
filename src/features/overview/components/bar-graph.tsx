@@ -1,34 +1,33 @@
+import { Bar, BarChart, XAxis } from 'recharts';
 
-import { Bar, BarChart, XAxis } from "recharts";
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { Badge } from "@/components/ui/badge";
-import { Icons } from "@/components/icons";
+  ChartTooltipContent
+} from '@/components/ui/chart';
+import { Badge } from '@/components/ui/badge';
+import { Icons } from '@/components/icons';
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: 'January', desktop: 186, mobile: 80 },
+  { month: 'February', desktop: 305, mobile: 200 },
+  { month: 'March', desktop: 237, mobile: 120 },
+  { month: 'April', desktop: 73, mobile: 190 },
+  { month: 'May', desktop: 209, mobile: 130 },
+  { month: 'June', desktop: 214, mobile: 140 }
 ];
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
+    label: 'Desktop',
+    color: 'var(--chart-1)'
   },
   mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
-  },
+    label: 'Mobile',
+    color: 'var(--chart-2)'
+  }
 } satisfies ChartConfig;
 
 export function BarGraph() {
@@ -37,7 +36,7 @@ export function BarGraph() {
       <CardHeader>
         <CardTitle>
           Bar Chart - Multiple
-          <Badge variant="outline">
+          <Badge variant='outline'>
             <Icons.trendingDown />
             -5.2%
           </Badge>
@@ -48,17 +47,17 @@ export function BarGraph() {
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
             <rect
-              x="0"
-              y="0"
-              width="100%"
-              height="85%"
-              fill="url(#default-multiple-pattern-dots)"
+              x='0'
+              y='0'
+              width='100%'
+              height='85%'
+              fill='url(#default-multiple-pattern-dots)'
             />
             <defs>
               <DottedBackgroundPattern />
             </defs>
             <XAxis
-              dataKey="month"
+              dataKey='month'
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -66,18 +65,18 @@ export function BarGraph() {
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="dashed" hideLabel />}
+              content={<ChartTooltipContent indicator='dashed' hideLabel />}
             />
             <Bar
-              dataKey="desktop"
-              color="var(--chart-1)"
-              fill="var(--color-desktop)"
+              dataKey='desktop'
+              color='var(--chart-1)'
+              fill='var(--color-desktop)'
               shape={<CustomHatchedBar isHatched={false} />}
               radius={4}
             />
             <Bar
-              dataKey="mobile"
-              fill="var(--color-mobile)"
+              dataKey='mobile'
+              fill='var(--color-mobile)'
               shape={<CustomHatchedBar />}
               radius={4}
             />
@@ -92,7 +91,7 @@ const CustomHatchedBar = (
   props: React.SVGProps<SVGRectElement> & {
     dataKey?: string;
     isHatched?: boolean;
-  },
+  }
 ) => {
   const { fill, x, y, width, height, dataKey } = props;
 
@@ -106,22 +105,22 @@ const CustomHatchedBar = (
         y={y}
         width={width}
         height={height}
-        stroke="none"
+        stroke='none'
         fill={isHatched ? `url(#hatched-bar-pattern-${dataKey})` : fill}
       />
       <defs>
         <pattern
           key={dataKey}
           id={`hatched-bar-pattern-${dataKey}`}
-          x="0"
-          y="0"
-          width="5"
-          height="5"
-          patternUnits="userSpaceOnUse"
-          patternTransform="rotate(-45)"
+          x='0'
+          y='0'
+          width='5'
+          height='5'
+          patternUnits='userSpaceOnUse'
+          patternTransform='rotate(-45)'
         >
-          <rect width="10" height="10" opacity={0.5} fill={fill}></rect>
-          <rect width="1" height="10" fill={fill}></rect>
+          <rect width='10' height='10' opacity={0.5} fill={fill}></rect>
+          <rect width='1' height='10' fill={fill}></rect>
         </pattern>
       </defs>
     </>
@@ -130,14 +129,14 @@ const CustomHatchedBar = (
 const DottedBackgroundPattern = () => {
   return (
     <pattern
-      id="default-multiple-pattern-dots"
-      x="0"
-      y="0"
-      width="10"
-      height="10"
-      patternUnits="userSpaceOnUse"
+      id='default-multiple-pattern-dots'
+      x='0'
+      y='0'
+      width='10'
+      height='10'
+      patternUnits='userSpaceOnUse'
     >
-      <circle className="dark:text-muted/40 text-muted" cx="2" cy="2" r="1" fill="currentColor" />
+      <circle className='dark:text-muted/40 text-muted' cx='2' cy='2' r='1' fill='currentColor' />
     </pattern>
   );
 };

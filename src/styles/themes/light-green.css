@@ -1,4 +1,4 @@
-[data-theme="light-green"] {
+[data-theme='light-green'] {
   --background: oklch(0.9892 0.0054 117.9205);
   --foreground: oklch(0.2077 0.0398 265.7549);
   --card: oklch(1 0 0);
@@ -53,7 +53,7 @@
   --spacing: 0.25rem;
 }
 
-[data-theme="light-green"].dark {
+[data-theme='light-green'].dark {
   --background: oklch(0.1288 0.0406 264.6952);
   --foreground: oklch(0.9842 0.0034 247.8575);
   --card: oklch(0.2077 0.0398 265.7549);
@@ -106,7 +106,7 @@
   --shadow-2xl: 0px 10px 25px 0px hsl(0 0% 0% / 1);
 }
 
-[data-theme="light-green"] {
+[data-theme='light-green'] {
   @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);

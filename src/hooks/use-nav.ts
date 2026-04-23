@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import type { NavItem, NavGroup } from "@/types";
+import { useMemo } from 'react';
+import type { NavItem, NavGroup } from '@/types';
 
 /**
  * Hook to filter navigation items
@@ -29,8 +29,8 @@ export function useFilteredNavGroups(groups: NavGroup[]) {
       .map((group) => ({
         ...group,
         items: filteredItems.filter((item) =>
-          group.items.some((gi) => gi.title === item.title && filteredSet.has(gi.title)),
-        ),
+          group.items.some((gi) => gi.title === item.title && filteredSet.has(gi.title))
+        )
       }))
       .filter((group) => group.items.length > 0);
   }, [groups, filteredItems]);

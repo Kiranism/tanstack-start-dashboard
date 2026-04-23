@@ -177,13 +177,13 @@ Change the Nitro preset in `vite.config.ts`:
 
 ```ts
 // Cloudflare Pages
-nitro({ preset: "cloudflare-pages" });
+nitro({ preset: 'cloudflare-pages' });
 
 // Node.js server
-nitro({ preset: "node-server" });
+nitro({ preset: 'node-server' });
 
 // Netlify
-nitro({ preset: "netlify" });
+nitro({ preset: 'netlify' });
 ```
 
 Then run locally with:

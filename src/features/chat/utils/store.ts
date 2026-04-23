@@ -1,7 +1,7 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 // import { persist } from 'zustand/middleware';
-import type { Attachment, Conversation, Message } from "./types";
-import { initialConversations } from "./data";
+import type { Attachment, Conversation, Message } from './types';
+import { initialConversations } from './data';
 
 type ReplyCursorState = Record<string, number>;
 
@@ -24,40 +24,40 @@ export const useChatStore = create<ChatState>()(
   // persist(
   (set, get) => ({
     conversations: initialConversations,
-    selectedConversationId: initialConversations[0]?.id ?? "",
-    draft: "",
+    selectedConversationId: initialConversations[0]?.id ?? '',
+    draft: '',
     replyCursor: Object.fromEntries(initialConversations.map((c) => [c.id, 0])),
 
     selectConversation: (id) =>
       set((state) => ({
         selectedConversationId: id,
-        conversations: state.conversations.map((c) => (c.id === id ? { ...c, unread: 0 } : c)),
+        conversations: state.conversations.map((c) => (c.id === id ? { ...c, unread: 0 } : c))
       })),
 
     setDraft: (text) => set({ draft: text }),
 
     sendMessage: (text, attachments) => {
       const state = get();
-      const timestamp = new Date().toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
+      const timestamp = new Date().toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit'
       });
       const outgoing: Message = {
-        id: "outgoing-" + Date.now().toString(),
-        sender: "user",
-        author: "You",
+        id: 'outgoing-' + Date.now().toString(),
+        sender: 'user',
+        author: 'You',
         text: text.trim(),
         timestamp,
-        attachments: attachments?.length ? attachments : undefined,
+        attachments: attachments?.length ? attachments : undefined
       };
 
       set({
-        draft: "",
+        draft: '',
         conversations: state.conversations.map((c) =>
           c.id === state.selectedConversationId
             ? { ...c, messages: [...c.messages, outgoing], unread: 0 }
-            : c,
-        ),
+            : c
+        )
       });
     },
 
@@ -69,24 +69,24 @@ export const useChatStore = create<ChatState>()(
           return {
             ...c,
             messages: [...c.messages, message],
-            unread: isActive ? 0 : c.unread + 1,
+            unread: isActive ? 0 : c.unread + 1
           };
-        }),
+        })
       })),
 
     advanceReplyCursor: (conversationId) =>
       set((state) => ({
         replyCursor: {
           ...state.replyCursor,
-          [conversationId]: (state.replyCursor[conversationId] ?? 0) + 1,
-        },
+          [conversationId]: (state.replyCursor[conversationId] ?? 0) + 1
+        }
       })),
 
     getActiveConversation: () => {
       const state = get();
       return state.conversations.find((c) => c.id === state.selectedConversationId);
-    },
-  }),
+    }
+  })
   //   ,
   //   { name: 'chat' }
   // )

@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from '@tanstack/react-query';
 
 export type Pokemon = {
   id: number;
@@ -15,10 +15,10 @@ export type Pokemon = {
 
 export const pokemonOptions = (id: number = 25) =>
   queryOptions({
-    queryKey: ["pokemon", id],
+    queryKey: ['pokemon', id],
     queryFn: async (): Promise<Pokemon> => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      if (!response.ok) throw new Error("Failed to fetch pokemon");
+      if (!response.ok) throw new Error('Failed to fetch pokemon');
       return response.json();
-    },
+    }
   });

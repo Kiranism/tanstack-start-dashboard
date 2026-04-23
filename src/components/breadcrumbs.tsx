@@ -4,11 +4,11 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { useBreadcrumbs } from "@/hooks/use-breadcrumbs";
-import { Icons } from "@/components/icons";
-import { Fragment } from "react";
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb';
+import { useBreadcrumbs } from '@/hooks/use-breadcrumbs';
+import { Icons } from '@/components/icons';
+import { Fragment } from 'react';
 
 export function Breadcrumbs() {
   const items = useBreadcrumbs();
@@ -20,12 +20,12 @@ export function Breadcrumbs() {
         {items.map((item, index) => (
           <Fragment key={item.title}>
             {index !== items.length - 1 && (
-              <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbItem className='hidden md:block'>
                 <BreadcrumbLink href={item.link}>{item.title}</BreadcrumbLink>
               </BreadcrumbItem>
             )}
             {index < items.length - 1 && (
-              <BreadcrumbSeparator className="hidden md:block">
+              <BreadcrumbSeparator className='hidden md:block'>
                 <Icons.slash />
               </BreadcrumbSeparator>
             )}

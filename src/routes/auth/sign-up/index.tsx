@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import SignUpViewPage from "@/features/auth/components/sign-up-view";
+import { createFileRoute } from '@tanstack/react-router';
+import SignUpViewPage from '@/features/auth/components/sign-up-view';
 
-export const Route = createFileRoute("/auth/sign-up/")({
+export const Route = createFileRoute('/auth/sign-up/')({
   head: () => ({
-    meta: [{ title: "Sign Up" }],
+    meta: [{ title: 'Sign Up' }]
   }),
-  component: SignUpViewPage,
+  component: SignUpViewPage
 });

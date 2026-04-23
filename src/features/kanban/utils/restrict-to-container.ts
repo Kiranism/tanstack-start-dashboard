@@ -1,4 +1,4 @@
-import type { Modifier } from "@dnd-kit/core";
+import type { Modifier } from '@dnd-kit/core';
 
 export function createRestrictToContainer(getElement: () => HTMLElement | null): Modifier {
   return ({ transform, draggingNodeRect, containerNodeRect: _containerNodeRect }) => {
@@ -18,7 +18,7 @@ export function createRestrictToContainer(getElement: () => HTMLElement | null):
     return {
       ...transform,
       x: Math.min(Math.max(transform.x, minX), maxX),
-      y: Math.min(Math.max(transform.y, minY), maxY),
+      y: Math.min(Math.max(transform.y, minY), maxY)
     };
   };
 }

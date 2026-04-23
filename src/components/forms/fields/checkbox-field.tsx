@@ -1,14 +1,13 @@
-
-import { useStore } from "@tanstack/react-form";
-import { Checkbox } from "@/components/ui/checkbox";
-import { FieldDescription, FieldLabel } from "@/components/ui/field";
+import { useStore } from '@tanstack/react-form';
+import { Checkbox } from '@/components/ui/checkbox';
+import { FieldDescription, FieldLabel } from '@/components/ui/field';
 import {
   useFieldContext,
   FormFieldSet,
   FormField,
   FormFieldError,
-  createFormField,
-} from "@/components/ui/form-context";
+  createFormField
+} from '@/components/ui/form-context';
 
 interface CheckboxFieldProps {
   label: string;
@@ -23,7 +22,7 @@ export function CheckboxField({ label, description }: CheckboxFieldProps) {
 
   return (
     <FormFieldSet>
-      <FormField orientation="horizontal">
+      <FormField orientation='horizontal'>
         <Checkbox
           checked={value}
           onCheckedChange={(checked) => {
@@ -32,8 +31,8 @@ export function CheckboxField({ label, description }: CheckboxFieldProps) {
           }}
           aria-invalid={isTouched && !isValid}
         />
-        <div className="flex flex-1 flex-col gap-1.5 leading-snug">
-          <FieldLabel className="leading-none">{label}</FieldLabel>
+        <div className='flex flex-1 flex-col gap-1.5 leading-snug'>
+          <FieldLabel className='leading-none'>{label}</FieldLabel>
           {description && <FieldDescription>{description}</FieldDescription>}
           <FormFieldError />
         </div>

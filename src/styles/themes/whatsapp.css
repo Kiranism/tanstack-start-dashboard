@@ -1,4 +1,4 @@
-[data-theme="whatsapp"] {
+[data-theme='whatsapp'] {
   --background: oklch(0.9605 0.0046 258.3248);
   --foreground: oklch(0.2153 0.0187 235.1251);
   --card: oklch(1 0 0);
@@ -32,10 +32,10 @@
   --sidebar-border: oklch(0.9436 0.0051 228.8204);
   --sidebar-ring: oklch(0.761 0.2015 149.7403);
   --font-sans:
-    "Segoe UI", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, Ubuntu, Cantarell, "Fira Sans",
+    'Segoe UI', 'Helvetica Neue', Helvetica, 'Lucida Grande', Arial, Ubuntu, Cantarell, 'Fira Sans',
     sans-serif;
   --font-serif: Georgia, serif;
-  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   --radius: 1rem;
   --shadow-x: 0px;
   --shadow-y: 2px;
@@ -55,7 +55,7 @@
   --spacing: 0.25rem;
 }
 
-[data-theme="whatsapp"].dark {
+[data-theme='whatsapp'].dark {
   --background: oklch(0.1854 0.0182 238.2143);
   --foreground: oklch(0.9436 0.0051 228.8204);
   --card: oklch(0.2848 0.023 235.6578);
@@ -89,10 +89,10 @@
   --sidebar-border: oklch(0.3351 0.0253 234.8586);
   --sidebar-ring: oklch(0.6509 0.1283 170.4258);
   --font-sans:
-    "Segoe UI", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, Ubuntu, Cantarell, "Fira Sans",
+    'Segoe UI', 'Helvetica Neue', Helvetica, 'Lucida Grande', Arial, Ubuntu, Cantarell, 'Fira Sans',
     sans-serif;
   --font-serif: Georgia, serif;
-  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   --radius: 1rem;
   --shadow-x: 0px;
   --shadow-y: 4px;
@@ -110,7 +110,7 @@
   --shadow-2xl: 0px 4px 12px 0px hsl(0 0% 0% / 1);
 }
 
-[data-theme="whatsapp"] {
+[data-theme='whatsapp'] {
   @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);

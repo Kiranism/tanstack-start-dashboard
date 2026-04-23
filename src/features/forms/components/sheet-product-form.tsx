@@ -1,7 +1,6 @@
-
-import { useAppForm } from "@/components/ui/tanstack-form";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
+import { useAppForm } from '@/components/ui/tanstack-form';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
@@ -9,25 +8,25 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+  SheetTrigger
+} from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Icons } from "@/components/icons";
-import { useState } from "react";
+  SelectValue
+} from '@/components/ui/select';
+import { Icons } from '@/components/icons';
+import { useState } from 'react';
 
 const productSchema = z.object({
-  name: z.string().min(2, "Product name must be at least 2 characters"),
-  category: z.string().min(1, "Please select a category"),
-  price: z.number().min(0.01, "Price must be greater than 0"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  name: z.string().min(2, 'Product name must be at least 2 characters'),
+  category: z.string().min(1, 'Please select a category'),
+  price: z.number().min(0.01, 'Price must be greater than 0'),
+  description: z.string().min(10, 'Description must be at least 10 characters')
 });
 
 export default function SheetProductForm() {
@@ -35,41 +34,41 @@ export default function SheetProductForm() {
 
   const form = useAppForm({
     defaultValues: {
-      name: "",
-      category: "",
+      name: '',
+      category: '',
       price: undefined as number | undefined,
-      description: "",
+      description: ''
     },
     validators: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TanStack Form validator type mismatch with Zod
-      onSubmit: productSchema as any,
+      onSubmit: productSchema as any
     },
     onSubmit: () => {
-      alert("Product created successfully!");
+      alert('Product created successfully!');
       setOpen(false);
       form.reset();
-    },
+    }
   });
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button>
-          <Icons.add className="mr-2 h-4 w-4" />
+          <Icons.add className='mr-2 h-4 w-4' />
           Add Product
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col">
+      <SheetContent className='flex flex-col'>
         <SheetHeader>
           <SheetTitle>New Product</SheetTitle>
           <SheetDescription>Fill in the details to create a new product.</SheetDescription>
         </SheetHeader>
 
-        <div className="flex-1 overflow-auto">
+        <div className='flex-1 overflow-auto'>
           <form.AppForm>
-            <form.Form id="sheet-product-form" className="space-y-4">
+            <form.Form id='sheet-product-form' className='space-y-4'>
               <form.AppField
-                name="name"
+                name='name'
                 children={(field) => {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
@@ -82,7 +81,7 @@ export default function SheetProductForm() {
                           value={field.state.value}
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
-                          placeholder="Enter product name"
+                          placeholder='Enter product name'
                           aria-invalid={isInvalid}
                         />
                       </field.Field>
@@ -93,7 +92,7 @@ export default function SheetProductForm() {
               />
 
               <form.AppField
-                name="category"
+                name='category'
                 children={(field) => {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
@@ -106,13 +105,13 @@ export default function SheetProductForm() {
                           onValueChange={field.handleChange}
                         >
                           <SelectTrigger id={field.name} aria-invalid={isInvalid}>
-                            <SelectValue placeholder="Select category" />
+                            <SelectValue placeholder='Select category' />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="beauty">Beauty Products</SelectItem>
-                            <SelectItem value="electronics">Electronics</SelectItem>
-                            <SelectItem value="home">Home & Garden</SelectItem>
-                            <SelectItem value="sports">Sports & Outdoors</SelectItem>
+                            <SelectItem value='beauty'>Beauty Products</SelectItem>
+                            <SelectItem value='electronics'>Electronics</SelectItem>
+                            <SelectItem value='home'>Home & Garden</SelectItem>
+                            <SelectItem value='sports'>Sports & Outdoors</SelectItem>
                           </SelectContent>
                         </Select>
                       </field.Field>
@@ -123,7 +122,7 @@ export default function SheetProductForm() {
               />
 
               <form.AppField
-                name="price"
+                name='price'
                 children={(field) => {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
@@ -133,16 +132,16 @@ export default function SheetProductForm() {
                         <Input
                           id={field.name}
                           name={field.name}
-                          type="number"
+                          type='number'
                           min={0}
-                          step="0.01"
-                          value={field.state.value ?? ""}
+                          step='0.01'
+                          value={field.state.value ?? ''}
                           onBlur={field.handleBlur}
                           onChange={(e) => {
                             const v = e.target.value;
-                            field.handleChange(v === "" ? undefined : parseFloat(v));
+                            field.handleChange(v === '' ? undefined : parseFloat(v));
                           }}
-                          placeholder="Enter price"
+                          placeholder='Enter price'
                           aria-invalid={isInvalid}
                         />
                       </field.Field>
@@ -153,7 +152,7 @@ export default function SheetProductForm() {
               />
 
               <form.AppField
-                name="description"
+                name='description'
                 children={(field) => {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
@@ -166,12 +165,12 @@ export default function SheetProductForm() {
                           value={field.state.value}
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
-                          placeholder="Enter product description"
+                          placeholder='Enter product description'
                           maxLength={500}
                           rows={4}
                           aria-invalid={isInvalid}
                         />
-                        <div className="text-muted-foreground text-right text-sm">
+                        <div className='text-muted-foreground text-right text-sm'>
                           {field.state.value?.length || 0} / 500
                         </div>
                       </field.Field>
@@ -185,10 +184,10 @@ export default function SheetProductForm() {
         </div>
 
         <SheetFooter>
-          <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+          <Button type='button' variant='outline' onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button type="submit" form="sheet-product-form">
+          <Button type='submit' form='sheet-product-form'>
             Create Product
           </Button>
         </SheetFooter>

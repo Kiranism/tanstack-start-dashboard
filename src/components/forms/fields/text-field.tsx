@@ -1,31 +1,30 @@
-
-import { useStore } from "@tanstack/react-form";
-import { Input } from "@/components/ui/input";
-import { FieldDescription, FieldLabel } from "@/components/ui/field";
+import { useStore } from '@tanstack/react-form';
+import { Input } from '@/components/ui/input';
+import { FieldDescription, FieldLabel } from '@/components/ui/field';
 import {
   useFieldContext,
   FormFieldSet,
   FormField,
   FormFieldError,
-  createFormField,
-} from "@/components/ui/form-context";
-import { Spinner } from "@/components/ui/spinner";
+  createFormField
+} from '@/components/ui/form-context';
+import { Spinner } from '@/components/ui/spinner';
 
 interface TextFieldProps extends Omit<
-  React.ComponentProps<"input">,
-  "value" | "onChange" | "onBlur"
+  React.ComponentProps<'input'>,
+  'value' | 'onChange' | 'onBlur'
 > {
   label: string;
   description?: string;
   required?: boolean;
-  type?: "text" | "email" | "password" | "tel" | "url" | "number";
+  type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'number';
 }
 
 export function TextField({
   label,
   description,
   required,
-  type = "text",
+  type = 'text',
   className,
   ...inputProps
 }: TextFieldProps) {
@@ -40,18 +39,18 @@ export function TextField({
       <FormField>
         <FieldLabel htmlFor={field.name}>
           {label}
-          {required && " *"}
+          {required && ' *'}
         </FieldLabel>
-        <div className="relative">
+        <div className='relative'>
           <Input
             id={field.name}
             type={type}
-            value={value ?? ""}
+            value={value ?? ''}
             onBlur={field.handleBlur}
             onChange={(e) => {
-              if (type === "number") {
+              if (type === 'number') {
                 const v = e.target.value;
-                field.handleChange(v === "" ? "" : parseFloat(v));
+                field.handleChange(v === '' ? '' : parseFloat(v));
               } else {
                 field.handleChange(e.target.value);
               }
@@ -61,8 +60,8 @@ export function TextField({
             {...inputProps}
           />
           {isValidating && (
-            <div className="absolute top-1/2 right-3 -translate-y-1/2">
-              <Spinner className="h-4 w-4" />
+            <div className='absolute top-1/2 right-3 -translate-y-1/2'>
+              <Spinner className='h-4 w-4' />
             </div>
           )}
         </div>

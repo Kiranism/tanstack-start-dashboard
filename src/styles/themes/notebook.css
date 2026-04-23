@@ -1,4 +1,4 @@
-[data-theme="notebook"] {
+[data-theme='notebook'] {
   --background: oklch(0.9821 0 0);
   --foreground: oklch(0.3485 0 0);
   --card: oklch(1 0 0);
@@ -31,9 +31,9 @@
   --sidebar-accent-foreground: oklch(0.4015 0.0436 37.9587);
   --sidebar-border: oklch(0.8078 0 0);
   --sidebar-ring: oklch(0.7058 0 0);
-  --font-sans: "Architects Daughter", sans-serif;
-  --font-serif: "Times New Roman", Times, serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-sans: 'Architects Daughter', sans-serif;
+  --font-serif: 'Times New Roman', Times, serif;
+  --font-mono: 'Courier New', Courier, monospace;
   --radius: 0.625rem;
   --shadow-x: 1px;
   --shadow-y: 4px;
@@ -53,7 +53,7 @@
   --spacing: 0.25rem;
 }
 
-[data-theme="notebook"].dark {
+[data-theme='notebook'].dark {
   --background: oklch(0.2891 0 0);
   --foreground: oklch(0.8945 0 0);
   --card: oklch(0.3211 0 0);
@@ -86,9 +86,9 @@
   --sidebar-accent-foreground: oklch(0.3211 0 0);
   --sidebar-border: oklch(0.4276 0 0);
   --sidebar-ring: oklch(0.8078 0 0);
-  --font-sans: "Architects Daughter", sans-serif;
+  --font-sans: 'Architects Daughter', sans-serif;
   --font-serif: Georgia, serif;
-  --font-mono: "Fira Code", "Courier New", monospace;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
   --radius: 0.625rem;
   --shadow-x: 1px;
   --shadow-y: 4px;
@@ -106,7 +106,7 @@
   --shadow-2xl: 1px 4px 5px 0px hsl(0 0% 0% / 0.07);
 }
 
-[data-theme="notebook"] {
+[data-theme='notebook'] {
   @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -168,6 +168,6 @@
   }
 }
 
-[data-theme="notebook"] body {
+[data-theme='notebook'] body {
   letter-spacing: var(--tracking-normal);
 }
