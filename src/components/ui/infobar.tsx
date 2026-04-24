@@ -111,6 +111,12 @@ function InfobarProvider({
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
   }, [isMobile, setOpen, setOpenMobile]);
 
+  // Close infobar when switching between mobile and desktop to prevent state desync
+  React.useEffect(() => {
+    setOpenMobile(false);
+    _setOpen(false);
+  }, [isMobile]);
+
   // Adds a keyboard shortcut to toggle the infobar.
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -216,7 +222,7 @@ function Infobar({
   variant?: 'sidebar' | 'floating' | 'inset';
   collapsible?: 'offcanvas' | 'icon' | 'none';
 }) {
-  const { isMobile, state, openMobile, setOpenMobile, isPathnameChanging } = useInfobar();
+  const { isMobile, state, setOpen, openMobile, setOpenMobile, isPathnameChanging } = useInfobar();
 
   if (collapsible === 'none') {
     return (
@@ -310,15 +316,14 @@ function InfobarTrigger({ className, onClick, ...props }: React.ComponentProps<t
       variant='ghost'
       size='icon'
       className={cn('size-7', className)}
-      aria-label='Toggle info infobar'
+      aria-label='Close info panel'
       onClick={(event) => {
         onClick?.(event);
         toggleInfobar();
       }}
       {...props}
     >
-      <Icons.circleX className='size-7' />
-      <span className='sr-only'>Toggle Infobar</span>
+      <Icons.chevronsRight className='size-4' />
     </Button>
   );
 }

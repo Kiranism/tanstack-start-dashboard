@@ -22,7 +22,6 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Icons } from '@/components/icons';
 
 // ---------------------------------------------------------------------------
@@ -103,7 +102,7 @@ function SheetFormSection() {
               </SheetDescription>
             </SheetHeader>
 
-            <ScrollArea className='flex-1'>
+            <div className='flex-1 overflow-auto'>
               <form.AppForm>
                 <form.Form id='sheet-form-id' className='space-y-4 p-0 md:p-0'>
                   <FormTextField
@@ -153,7 +152,7 @@ function SheetFormSection() {
                   />
                 </form.Form>
               </form.AppForm>
-            </ScrollArea>
+            </div>
 
             <SheetFooter className='pt-4'>
               <Button type='button' variant='outline' onClick={() => setOpen(false)}>
