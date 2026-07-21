@@ -36,7 +36,7 @@ export function SliderField({
             max={max}
             step={step}
             value={[value]}
-            onValueChange={(v) => field.handleChange(v[0])}
+            onValueChange={(v) => field.handleChange(Array.isArray(v) ? v[0] : v)}
             onBlur={field.handleBlur}
           />
           <div className='text-muted-foreground mt-1 flex justify-between text-xs tabular-nums'>

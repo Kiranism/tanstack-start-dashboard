@@ -65,7 +65,14 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
   } = props;
 
   const search = useSearch({ strict: false }) as Record<string, unknown>;
-  const navigate = useNavigate();
+  // `useNavigate()` is typed against the union of all routes, which makes the
+  // generic search updaters below infer to `never`. This hook manages URL search
+  // state generically (its search keys come from the table columns, not a single
+  // route schema), so narrow navigate to the (search, replace) shape it uses.
+  const navigate = useNavigate() as (opts: {
+    search: (prev: Record<string, unknown>) => Record<string, unknown>;
+    replace?: boolean;
+  }) => Promise<void>;
 
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
     initialState?.rowSelection ?? {}
@@ -167,7 +174,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     (values: Record<string, string | string[] | null>) => {
       void navigate({
         search: (prev: Record<string, unknown>) => {
-          const next = { ...prev, page: 1 };
+          const next: Record<string, unknown> = { ...prev, page: 1 };
           for (const [key, value] of Object.entries(values)) {
             if (value === null || value === undefined) {
               delete next[key];

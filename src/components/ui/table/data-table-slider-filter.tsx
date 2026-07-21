@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
+import { DataTableFilterClear } from '@/components/ui/table/data-table-filter-clear';
 
 interface Range {
   min: number;
@@ -98,7 +99,7 @@ export function DataTableSliderFilter<TData>({ column, title }: DataTableSliderF
   );
 
   const onSliderValueChange = React.useCallback(
-    (value: RangeValue) => {
+    (value: number | readonly number[]) => {
       if (Array.isArray(value) && value.length === 2) {
         column.setFilterValue(value);
       }
@@ -107,10 +108,8 @@ export function DataTableSliderFilter<TData>({ column, title }: DataTableSliderF
   );
 
   const onReset = React.useCallback(
-    (event: React.MouseEvent) => {
-      if (event.target instanceof HTMLDivElement) {
-        event.stopPropagation();
-      }
+    (event: React.MouseEvent | React.KeyboardEvent) => {
+      event.stopPropagation();
       column.setFilterValue(undefined);
     },
     [column]
@@ -118,32 +117,20 @@ export function DataTableSliderFilter<TData>({ column, title }: DataTableSliderF
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='border-dashed'>
-          {columnFilterValue ? (
-            <button
-              type='button'
-              aria-label={`Clear ${title} filter`}
-              className='focus-visible:ring-ring rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:ring-1 focus-visible:outline-none'
-              onClick={onReset}
-            >
-              <Icons.xCircle />
-            </button>
-          ) : (
-            <Icons.plusCircle />
-          )}
-          <span>{title}</span>
-          {columnFilterValue ? (
-            <>
-              <Separator
-                orientation='vertical'
-                className='mx-0.5 data-[orientation=vertical]:h-4'
-              />
-              {formatValue(columnFilterValue[0])} - {formatValue(columnFilterValue[1])}
-              {unit ? ` ${unit}` : ''}
-            </>
-          ) : null}
-        </Button>
+      <PopoverTrigger render={<Button variant='outline' size='sm' className='border-dashed' />}>
+        {columnFilterValue ? (
+          <DataTableFilterClear title={title} onReset={onReset} />
+        ) : (
+          <Icons.plusCircle />
+        )}
+        <span>{title}</span>
+        {columnFilterValue ? (
+          <>
+            <Separator orientation='vertical' className='mx-0.5 data-[orientation=vertical]:h-4' />
+            {formatValue(columnFilterValue[0])} - {formatValue(columnFilterValue[1])}
+            {unit ? ` ${unit}` : ''}
+          </>
+        ) : null}
       </PopoverTrigger>
       <PopoverContent align='start' className='flex w-auto flex-col gap-4'>
         <div className='flex flex-col gap-3'>

@@ -1,8 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { seo } from '@/lib/seo';
+
 export const Route = createFileRoute('/about')({
   head: () => ({
-    meta: [{ title: 'About' }]
+    meta: seo({
+      title: 'About',
+      description:
+        'An open-source admin dashboard starter built with TanStack Start, shadcn/ui on Base UI primitives, Tailwind CSS v4, and TypeScript.',
+      path: '/about'
+    })
   }),
   component: AboutPage
 });

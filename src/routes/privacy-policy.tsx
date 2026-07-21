@@ -1,8 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { seo } from '@/lib/seo';
+
 export const Route = createFileRoute('/privacy-policy')({
   head: () => ({
-    meta: [{ title: 'Privacy Policy' }]
+    meta: seo({
+      title: 'Privacy Policy',
+      description:
+        'Privacy policy for the TanStack Start Dashboard starter template — how the demo application handles data.',
+      path: '/privacy-policy'
+    })
   }),
   component: PrivacyPolicyPage
 });

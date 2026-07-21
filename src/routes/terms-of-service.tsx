@@ -1,8 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { seo } from '@/lib/seo';
+
 export const Route = createFileRoute('/terms-of-service')({
   head: () => ({
-    meta: [{ title: 'Terms of Service' }]
+    meta: seo({
+      title: 'Terms of Service',
+      description: 'Terms of service for the TanStack Start Dashboard starter template.',
+      path: '/terms-of-service'
+    })
   }),
   component: TermsOfServicePage
 });

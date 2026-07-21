@@ -22,7 +22,13 @@ export function ThemeSelector() {
       <Label htmlFor='theme-selector' className='sr-only'>
         Theme
       </Label>
-      <Select value={activeTheme} onValueChange={setActiveTheme}>
+      <Select
+        items={THEMES.map((theme) => ({ value: theme.value, label: theme.name }))}
+        value={activeTheme}
+        onValueChange={(value) => {
+          if (value !== null) setActiveTheme(value);
+        }}
+      >
         <SelectTrigger
           id='theme-selector'
           className='justify-start *:data-[slot=select-value]:w-24'

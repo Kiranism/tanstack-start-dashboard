@@ -27,7 +27,7 @@ export function InfoButton({
     setContent(contentRef.current);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick: React.ComponentProps<typeof Button>['onClick'] = (e) => {
     setContent(content);
     setOpen(true);
     props.onClick?.(e);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Button as ButtonPrimitive } from '@base-ui/react/button';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
@@ -37,39 +37,25 @@ function Button({
   className,
   variant,
   size,
-  asChild = false,
   isLoading,
   children,
   disabled,
   ...props
-}: React.ComponentProps<'button'> &
+}: ButtonPrimitive.Props &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
     isLoading?: boolean;
   }) {
-  if (asChild) {
-    return (
-      <Slot
-        data-slot='button'
-        className={cn(buttonVariants({ variant, size, className }))}
-        {...props}
-      >
-        {children}
-      </Slot>
-    );
-  }
-
   // Normal button — no loading support, default shadcn behavior
   if (isLoading === undefined) {
     return (
-      <button
+      <ButtonPrimitive
         data-slot='button'
         className={cn(buttonVariants({ variant, size, className }))}
         disabled={disabled}
         {...props}
       >
         {children}
-      </button>
+      </ButtonPrimitive>
     );
   }
 
@@ -77,7 +63,7 @@ function Button({
   // Children are always wrapped in a span so has-[>svg] padding
   // stays consistent between loading and non-loading states.
   return (
-    <button
+    <ButtonPrimitive
       data-slot='button'
       className={cn(
         buttonVariants({ variant, size }),
@@ -94,7 +80,7 @@ function Button({
       <span className={cn('flex items-center justify-center', !isLoading && 'invisible')}>
         <Spinner />
       </span>
-    </button>
+    </ButtonPrimitive>
   );
 }
 

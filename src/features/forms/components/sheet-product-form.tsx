@@ -52,11 +52,9 @@ export default function SheetProductForm() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button>
-          <Icons.add className='mr-2 h-4 w-4' />
-          Add Product
-        </Button>
+      <SheetTrigger render={<Button />}>
+        <Icons.add className='mr-2 h-4 w-4' />
+        Add Product
       </SheetTrigger>
       <SheetContent className='flex flex-col'>
         <SheetHeader>
@@ -102,7 +100,7 @@ export default function SheetProductForm() {
                         <Select
                           name={field.name}
                           value={field.state.value}
-                          onValueChange={field.handleChange}
+                          onValueChange={(value) => field.handleChange(value ?? '')}
                         >
                           <SelectTrigger id={field.name} aria-invalid={isInvalid}>
                             <SelectValue placeholder='Select category' />

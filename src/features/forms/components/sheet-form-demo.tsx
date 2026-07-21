@@ -88,11 +88,9 @@ function SheetFormSection() {
       </CardHeader>
       <CardContent>
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
-            <Button>
-              <Icons.add className='mr-2 h-4 w-4' />
-              Add Product
-            </Button>
+          <SheetTrigger render={<Button />}>
+            <Icons.add className='mr-2 h-4 w-4' />
+            Add Product
           </SheetTrigger>
           <SheetContent className='flex flex-col'>
             <SheetHeader>
@@ -204,11 +202,9 @@ function DialogFormSection() {
       </CardHeader>
       <CardContent>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button variant='outline'>
-              <Icons.send className='mr-2 h-4 w-4' />
-              Send Feedback
-            </Button>
+          <DialogTrigger render={<Button variant='outline' />}>
+            <Icons.send className='mr-2 h-4 w-4' />
+            Send Feedback
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>

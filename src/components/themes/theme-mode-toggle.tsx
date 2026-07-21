@@ -34,16 +34,18 @@ export function ThemeModeToggle() {
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          variant='secondary'
-          size='icon'
-          className='group/toggle size-8'
-          onClick={handleThemeToggle}
-        >
-          <Icons.brightness />
-          <span className='sr-only'>Toggle theme</span>
-        </Button>
+      <TooltipTrigger
+        render={
+          <Button
+            variant='secondary'
+            size='icon'
+            className='group/toggle size-8'
+            onClick={handleThemeToggle}
+          />
+        }
+      >
+        <Icons.brightness />
+        <span className='sr-only'>Toggle theme</span>
       </TooltipTrigger>
       <TooltipContent>
         Toggle theme <Kbd>D D</Kbd>

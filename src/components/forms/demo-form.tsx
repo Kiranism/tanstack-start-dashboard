@@ -111,21 +111,23 @@ function ComboboxField({
   const selected = frameworkOptions.find((o) => o.value === value);
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant='outline'
-          role='combobox'
-          aria-controls='framework-listbox'
-          aria-expanded={open}
-          className='w-full justify-between font-normal'
-          aria-invalid={isTouched && !isValid}
-          onBlur={onBlur}
-        >
-          {selected?.label ?? 'Search frameworks...'}
-          <Icons.chevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-        </Button>
+      <PopoverTrigger
+        render={
+          <Button
+            variant='outline'
+            role='combobox'
+            aria-controls='framework-listbox'
+            aria-expanded={open}
+            className='w-full justify-between font-normal'
+            aria-invalid={isTouched && !isValid}
+            onBlur={onBlur}
+          />
+        }
+      >
+        {selected?.label ?? 'Search frameworks...'}
+        <Icons.chevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
       </PopoverTrigger>
-      <PopoverContent className='w-[--radix-popover-trigger-width] p-0'>
+      <PopoverContent className='w-(--anchor-width) p-0'>
         <Command>
           <CommandInput placeholder='Search...' />
           <CommandList>
@@ -524,7 +526,7 @@ export default function DemoForm() {
                       <field.Field>
                         <field.FieldLabel>Text Formatting</field.FieldLabel>
                         <ToggleGroup
-                          type='multiple'
+                          multiple
                           variant='outline'
                           value={values}
                           onValueChange={(val) => field.form.setFieldValue('formatting', val)}
@@ -592,21 +594,23 @@ export default function DemoForm() {
                       <field.Field>
                         <field.FieldLabel>Birth Date</field.FieldLabel>
                         <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant='outline'
-                              className={cn(
-                                'w-full justify-start text-left font-normal',
-                                !field.state.value && 'text-muted-foreground'
-                              )}
-                            >
-                              <Icons.calendar className='mr-2 h-4 w-4' />
-                              {field.state.value ? (
-                                format(field.state.value, 'PPP')
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
+                          <PopoverTrigger
+                            render={
+                              <Button
+                                variant='outline'
+                                className={cn(
+                                  'w-full justify-start text-left font-normal',
+                                  !field.state.value && 'text-muted-foreground'
+                                )}
+                              />
+                            }
+                          >
+                            <Icons.calendar className='mr-2 h-4 w-4' />
+                            {field.state.value ? (
+                              format(field.state.value, 'PPP')
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
                           </PopoverTrigger>
                           <PopoverContent className='w-auto p-0' align='start'>
                             <Calendar
@@ -653,28 +657,30 @@ export default function DemoForm() {
                       <field.Field>
                         <field.FieldLabel>Date Range</field.FieldLabel>
                         <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant='outline'
-                              className={cn(
-                                'w-full justify-start text-left font-normal',
-                                !range?.from && 'text-muted-foreground'
-                              )}
-                            >
-                              <Icons.calendar className='mr-2 h-4 w-4' />
-                              {range?.from ? (
-                                range.to ? (
-                                  <>
-                                    {format(range.from, 'LLL dd, y')} -{' '}
-                                    {format(range.to, 'LLL dd, y')}
-                                  </>
-                                ) : (
-                                  format(range.from, 'LLL dd, y')
-                                )
+                          <PopoverTrigger
+                            render={
+                              <Button
+                                variant='outline'
+                                className={cn(
+                                  'w-full justify-start text-left font-normal',
+                                  !range?.from && 'text-muted-foreground'
+                                )}
+                              />
+                            }
+                          >
+                            <Icons.calendar className='mr-2 h-4 w-4' />
+                            {range?.from ? (
+                              range.to ? (
+                                <>
+                                  {format(range.from, 'LLL dd, y')} -{' '}
+                                  {format(range.to, 'LLL dd, y')}
+                                </>
                               ) : (
-                                <span>Pick a date range</span>
-                              )}
-                            </Button>
+                                format(range.from, 'LLL dd, y')
+                              )
+                            ) : (
+                              <span>Pick a date range</span>
+                            )}
                           </PopoverTrigger>
                           <PopoverContent className='w-auto p-0' align='start'>
                             <Calendar

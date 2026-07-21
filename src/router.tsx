@@ -14,7 +14,7 @@ export function createRouter() {
     defaultPreloadStaleTime: 0,
     context: { queryClient },
     defaultPendingComponent: () => (
-      <div className='flex h-full items-center justify-center pt-8'>
+      <div className='flex min-h-[50dvh] flex-1 items-center justify-center'>
         <div className='border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent' />
       </div>
     ),

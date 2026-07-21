@@ -59,6 +59,9 @@ function InputGroupAddon({
   ...props
 }: React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
+    // Focus delegation to the sibling input (upstream shadcn pattern); the addon
+    // itself is not interactive.
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <div
       role='group'
       data-slot='input-group-addon'

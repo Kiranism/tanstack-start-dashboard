@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { ActiveThemeProvider } from '@/components/themes/active-theme';
 import ThemeProvider from '@/components/themes/theme-provider';
 import { DEFAULT_THEME, THEMES } from '@/components/themes/theme.config';
+import { seo } from '@/lib/seo';
 
 import appCss from '@/styles/globals.css?url';
 
@@ -32,13 +33,14 @@ export const Route = createRootRouteWithContext<{
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'TanStack Dashboard' },
-      {
-        name: 'description',
-        content: 'Dashboard with TanStack Start and Shadcn'
-      }
+      { name: 'theme-color', content: META_THEME_COLORS.light },
+      ...seo()
     ],
-    links: [{ rel: 'stylesheet', href: appCss }]
+    links: [
+      { rel: 'stylesheet', href: appCss },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'apple-touch-icon', href: '/favicon.svg' }
+    ]
   }),
   loader: async () => {
     const activeTheme = await getActiveTheme();

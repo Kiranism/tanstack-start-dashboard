@@ -11,7 +11,11 @@ export default defineConfig({
     tsconfigPaths(),
     tailwindcss(),
     tanstackStart(),
-    nitro({ preset: 'vercel' }),
+    // Nitro auto-detects the deploy target: Vercel/Cloudflare/Netlify in their
+    // CI (zero-config), and the Node.js server preset locally (.output/server,
+    // matching the `start` script). Override with SERVER_PRESET to force one,
+    // e.g. SERVER_PRESET=node-server / cloudflare-module / bun.
+    nitro({ preset: process.env.SERVER_PRESET }),
     viteReact()
   ]
 });

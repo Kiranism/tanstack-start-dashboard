@@ -90,6 +90,28 @@
   }
 }
 
+/* Base UI sets --accordion-panel-height on Accordion.Panel, but tw-animate-css's
+   accordion keyframes only read the radix-era variable. Redefine them (later in
+   the cascade, so these win) with a Base UI fallback so expand/collapse animates
+   instead of snapping to `auto`. */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height, var(--accordion-panel-height, auto));
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height, var(--accordion-panel-height, auto));
+  }
+  to {
+    height: 0;
+  }
+}
+
 ::view-transition-new(root) {
   /* Apply the reveal animation */
   animation: reveal 0.4s ease-in-out forwards;

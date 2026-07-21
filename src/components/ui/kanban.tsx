@@ -39,7 +39,8 @@ import {
   verticalListSortingStrategy
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Slot as SlotPrimitive } from 'radix-ui';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -590,11 +591,11 @@ const KanbanBoardContext = React.createContext<boolean>(false);
 
 interface KanbanBoardProps extends React.ComponentProps<'div'> {
   children: React.ReactNode;
-  asChild?: boolean;
+  render?: useRender.RenderProp;
 }
 
 function KanbanBoard(props: KanbanBoardProps) {
-  const { asChild, className, ref, ...boardProps } = props;
+  const { render, className, ref, ...boardProps } = props;
 
   const context = useKanbanContext(BOARD_NAME);
 
@@ -602,7 +603,26 @@ function KanbanBoard(props: KanbanBoardProps) {
     return Object.keys(context.items);
   }, [context.items]);
 
-  const BoardPrimitive = asChild ? SlotPrimitive.Slot : 'div';
+  const board = useRender({
+    defaultTagName: 'div',
+    render,
+    ref,
+    props: mergeProps<'div'>(
+      {
+        'aria-orientation': context.orientation,
+        'data-orientation': context.orientation,
+        'data-slot': 'kanban-board'
+      } as React.ComponentProps<'div'>,
+      boardProps,
+      {
+        className: cn(
+          'flex size-full gap-4',
+          context.orientation === 'horizontal' ? 'flex-row' : 'flex-col',
+          className
+        )
+      }
+    )
+  });
 
   return (
     <KanbanBoardContext.Provider value={true}>
@@ -614,18 +634,7 @@ function KanbanBoard(props: KanbanBoardProps) {
             : verticalListSortingStrategy
         }
       >
-        <BoardPrimitive
-          aria-orientation={context.orientation}
-          data-orientation={context.orientation}
-          data-slot='kanban-board'
-          {...boardProps}
-          ref={ref}
-          className={cn(
-            'flex size-full gap-4',
-            context.orientation === 'horizontal' ? 'flex-row' : 'flex-col',
-            className
-          )}
-        />
+        {board}
       </SortableContext>
     </KanbanBoardContext.Provider>
   );
@@ -656,13 +665,13 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) =>
 interface KanbanColumnProps extends React.ComponentProps<'div'> {
   value: UniqueIdentifier;
   children: React.ReactNode;
-  asChild?: boolean;
+  render?: useRender.RenderProp;
   asHandle?: boolean;
   disabled?: boolean;
 }
 
 function KanbanColumn(props: KanbanColumnProps) {
-  const { value, asChild, asHandle, disabled, className, style, ref, ...columnProps } = props;
+  const { value, render, asHandle, disabled, className, style, ref, ...columnProps } = props;
 
   const id = React.useId();
   const context = useKanbanContext(COLUMN_NAME);
@@ -724,7 +733,36 @@ function KanbanColumn(props: KanbanColumnProps) {
     [id, attributes, listeners, setActivatorNodeRef, isDragging, disabled]
   );
 
-  const ColumnPrimitive = asChild ? SlotPrimitive.Slot : 'div';
+  const column = useRender({
+    defaultTagName: 'div',
+    render,
+    ref: composedRef,
+    props: mergeProps<'div'>(
+      {
+        id,
+        'data-disabled': disabled,
+        'data-dragging': isDragging ? '' : undefined,
+        'data-slot': 'kanban-column'
+      } as React.ComponentProps<'div'>,
+      columnProps,
+      asHandle && !disabled ? { ...attributes, ...listeners } : {},
+      {
+        style: composedStyle,
+        className: cn(
+          'flex size-full flex-col gap-2 rounded-lg border bg-zinc-100 p-2.5 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:bg-zinc-900',
+          {
+            'touch-none select-none': asHandle,
+            'cursor-default': context.flatCursor,
+            'data-dragging:cursor-grabbing': !context.flatCursor,
+            'cursor-grab': !isDragging && asHandle && !context.flatCursor,
+            'opacity-50': isDragging,
+            'pointer-events-none opacity-50': disabled
+          },
+          className
+        )
+      }
+    )
+  });
 
   return (
     <KanbanColumnContext.Provider value={columnContext}>
@@ -736,40 +774,18 @@ function KanbanColumn(props: KanbanColumnProps) {
             : verticalListSortingStrategy
         }
       >
-        <ColumnPrimitive
-          id={id}
-          data-disabled={disabled}
-          data-dragging={isDragging ? '' : undefined}
-          data-slot='kanban-column'
-          {...columnProps}
-          {...(asHandle && !disabled ? attributes : {})}
-          {...(asHandle && !disabled ? listeners : {})}
-          ref={composedRef}
-          style={composedStyle}
-          className={cn(
-            'flex size-full flex-col gap-2 rounded-lg border bg-zinc-100 p-2.5 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:bg-zinc-900',
-            {
-              'touch-none select-none': asHandle,
-              'cursor-default': context.flatCursor,
-              'data-dragging:cursor-grabbing': !context.flatCursor,
-              'cursor-grab': !isDragging && asHandle && !context.flatCursor,
-              'opacity-50': isDragging,
-              'pointer-events-none opacity-50': disabled
-            },
-            className
-          )}
-        />
+        {column}
       </SortableContext>
     </KanbanColumnContext.Provider>
   );
 }
 
 interface KanbanColumnHandleProps extends React.ComponentProps<'button'> {
-  asChild?: boolean;
+  render?: useRender.RenderProp;
 }
 
 function KanbanColumnHandle(props: KanbanColumnHandleProps) {
-  const { asChild, disabled, className, ref, ...columnHandleProps } = props;
+  const { render, disabled, className, ref, ...columnHandleProps } = props;
 
   const context = useKanbanContext(COLUMN_NAME);
   const columnContext = useKanbanColumnContext(COLUMN_HANDLE_NAME);
@@ -781,27 +797,30 @@ function KanbanColumnHandle(props: KanbanColumnHandleProps) {
     columnContext.setActivatorNodeRef(node);
   });
 
-  const HandlePrimitive = asChild ? SlotPrimitive.Slot : 'button';
-
-  return (
-    <HandlePrimitive
-      type='button'
-      aria-controls={columnContext.id}
-      data-disabled={isDisabled}
-      data-dragging={columnContext.isDragging ? '' : undefined}
-      data-slot='kanban-column-handle'
-      {...columnHandleProps}
-      {...(isDisabled ? {} : columnContext.attributes)}
-      {...(isDisabled ? {} : columnContext.listeners)}
-      ref={composedRef}
-      className={cn(
-        'select-none disabled:pointer-events-none disabled:opacity-50',
-        context.flatCursor ? 'cursor-default' : 'cursor-grab data-dragging:cursor-grabbing',
-        className
-      )}
-      disabled={isDisabled}
-    />
-  );
+  return useRender({
+    defaultTagName: 'button',
+    render,
+    ref: composedRef,
+    props: mergeProps<'button'>(
+      {
+        type: 'button',
+        'aria-controls': columnContext.id,
+        'data-disabled': isDisabled,
+        'data-dragging': columnContext.isDragging ? '' : undefined,
+        'data-slot': 'kanban-column-handle'
+      } as React.ComponentProps<'button'>,
+      columnHandleProps,
+      isDisabled ? {} : { ...columnContext.attributes, ...columnContext.listeners },
+      {
+        className: cn(
+          'select-none disabled:pointer-events-none disabled:opacity-50',
+          context.flatCursor ? 'cursor-default' : 'cursor-grab data-dragging:cursor-grabbing',
+          className
+        ),
+        disabled: isDisabled
+      }
+    )
+  });
 }
 
 interface KanbanItemContextValue {
@@ -826,12 +845,12 @@ function useKanbanItemContext(consumerName: string) {
 interface KanbanItemProps extends React.ComponentProps<'div'> {
   value: UniqueIdentifier;
   asHandle?: boolean;
-  asChild?: boolean;
+  render?: useRender.RenderProp;
   disabled?: boolean;
 }
 
 function KanbanItem(props: KanbanItemProps) {
-  const { value, style, asHandle, asChild, disabled, className, ref, ...itemProps } = props;
+  const { value, style, asHandle, render, disabled, className, ref, ...itemProps } = props;
 
   const id = React.useId();
   const context = useKanbanContext(ITEM_NAME);
@@ -881,21 +900,22 @@ function KanbanItem(props: KanbanItemProps) {
     [id, attributes, listeners, setActivatorNodeRef, isDragging, disabled]
   );
 
-  const ItemPrimitive = asChild ? SlotPrimitive.Slot : 'div';
-
-  return (
-    <KanbanItemContext.Provider value={itemContext}>
-      <ItemPrimitive
-        id={id}
-        data-disabled={disabled}
-        data-dragging={isDragging ? '' : undefined}
-        data-slot='kanban-item'
-        {...itemProps}
-        {...(asHandle && !disabled ? attributes : {})}
-        {...(asHandle && !disabled ? listeners : {})}
-        ref={composedRef}
-        style={composedStyle}
-        className={cn(
+  const item = useRender({
+    defaultTagName: 'div',
+    render,
+    ref: composedRef,
+    props: mergeProps<'div'>(
+      {
+        id,
+        'data-disabled': disabled,
+        'data-dragging': isDragging ? '' : undefined,
+        'data-slot': 'kanban-item'
+      } as React.ComponentProps<'div'>,
+      itemProps,
+      asHandle && !disabled ? { ...attributes, ...listeners } : {},
+      {
+        style: composedStyle,
+        className: cn(
           'focus-visible:ring-ring focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-hidden',
           {
             'touch-none select-none': asHandle,
@@ -906,18 +926,20 @@ function KanbanItem(props: KanbanItemProps) {
             'pointer-events-none opacity-50': disabled
           },
           className
-        )}
-      />
-    </KanbanItemContext.Provider>
-  );
+        )
+      }
+    )
+  });
+
+  return <KanbanItemContext.Provider value={itemContext}>{item}</KanbanItemContext.Provider>;
 }
 
 interface KanbanItemHandleProps extends React.ComponentProps<'button'> {
-  asChild?: boolean;
+  render?: useRender.RenderProp;
 }
 
 function KanbanItemHandle(props: KanbanItemHandleProps) {
-  const { asChild, disabled, className, ref, ...itemHandleProps } = props;
+  const { render, disabled, className, ref, ...itemHandleProps } = props;
 
   const context = useKanbanContext(ITEM_HANDLE_NAME);
   const itemContext = useKanbanItemContext(ITEM_HANDLE_NAME);
@@ -929,27 +951,30 @@ function KanbanItemHandle(props: KanbanItemHandleProps) {
     itemContext.setActivatorNodeRef(node);
   });
 
-  const HandlePrimitive = asChild ? SlotPrimitive.Slot : 'button';
-
-  return (
-    <HandlePrimitive
-      type='button'
-      aria-controls={itemContext.id}
-      data-disabled={isDisabled}
-      data-dragging={itemContext.isDragging ? '' : undefined}
-      data-slot='kanban-item-handle'
-      {...itemHandleProps}
-      {...(isDisabled ? {} : itemContext.attributes)}
-      {...(isDisabled ? {} : itemContext.listeners)}
-      ref={composedRef}
-      className={cn(
-        'select-none disabled:pointer-events-none disabled:opacity-50',
-        context.flatCursor ? 'cursor-default' : 'cursor-grab data-dragging:cursor-grabbing',
-        className
-      )}
-      disabled={isDisabled}
-    />
-  );
+  return useRender({
+    defaultTagName: 'button',
+    render,
+    ref: composedRef,
+    props: mergeProps<'button'>(
+      {
+        type: 'button',
+        'aria-controls': itemContext.id,
+        'data-disabled': isDisabled,
+        'data-dragging': itemContext.isDragging ? '' : undefined,
+        'data-slot': 'kanban-item-handle'
+      } as React.ComponentProps<'button'>,
+      itemHandleProps,
+      isDisabled ? {} : { ...itemContext.attributes, ...itemContext.listeners },
+      {
+        className: cn(
+          'select-none disabled:pointer-events-none disabled:opacity-50',
+          context.flatCursor ? 'cursor-default' : 'cursor-grab data-dragging:cursor-grabbing',
+          className
+        ),
+        disabled: isDisabled
+      }
+    )
+  });
 }
 
 const KanbanOverlayContext = React.createContext(false);

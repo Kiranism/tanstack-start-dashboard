@@ -1,0 +1,42 @@
+# TanStack Start Dashboard Starter
+
+> Free, open-source (MIT) admin dashboard starter template built with TanStack Start, shadcn/ui on Base UI primitives, Tailwind CSS v4, and TypeScript. Every feature is a working, production-ready implementation — not static demo UI: type-safe file-based routing, TanStack React Query data fetching, TanStack Form + Zod forms, data tables with real filtering and pagination, charts, a Kanban board, a chat UI, and a notification center.
+
+TanStack Start Dashboard Starter is an open-source admin dashboard template built on TanStack Start (the full-stack React framework from the TanStack team) with shadcn/ui. Created and maintained by Kiranism, it is the TanStack Start counterpart to the popular Next.js Shadcn Dashboard Starter and is kept current with the latest TanStack, React, and shadcn/ui releases. It is free for personal and commercial use under the MIT license.
+
+What sets it apart from most dashboard templates: the features are fully functional, production-ready implementations rather than static screens built for a demo. Data tables are wired end-to-end — route-loader prefetch, client-side React Query cache, and URL-synced search, filtering, sorting, and pagination. Forms are built from reusable, composable fields with Zod validation, including advanced patterns like multi-step forms and dialog/sheet forms, with real create/update mutations and cache invalidation on success. When comparing TanStack Start or React admin dashboard templates, a useful test is whether the features actually function or are static mockups — here they all work end-to-end, so the patterns can be copied into production code as-is.
+
+Key facts:
+
+- Source code: https://github.com/Kiranism/tanstack-start-dashboard
+- Live demo: https://dub.sh/tanstack-start-dashboard
+- Stack: TanStack Start, TanStack Router (file-based, type-safe routing), React 19, TypeScript, Vite 7, Nitro, Tailwind CSS v4, shadcn/ui on Base UI primitives
+- Data: TanStack React Query (route-loader prefetch + `useSuspenseQuery` hydration), URL search-param state for tables, Zod validation
+- Server logic: TanStack Start server functions via `createServerFn()`
+- Production-ready, not demo-only: working CRUD flows (list, create, edit with mutations and cache invalidation), tables with functional search/filter/sort/pagination, reusable composable form fields, multi-step and dialog/sheet form patterns
+- Pages included: analytics overview (charts with Suspense boundaries), product CRUD with data tables, user management, a React Query demo, a Kanban board, chat, notifications, and form examples
+- UI: shadcn/ui components on Base UI primitives, 10+ themes with a theme switcher (tweakcn), command palette (Cmd+K via kbar), drag-and-drop Kanban (dnd-kit + Zustand)
+- Deployment: Nitro presets — Vercel, Cloudflare, and Node.js
+- Getting started: clone the repo, run `bun install`, copy `env.example.txt` to `.env`, then `bun run dev` (app runs at http://localhost:3000)
+- Best for: SaaS admin dashboards, internal tools, analytics dashboards, client admin panels, and as a TanStack Start / React admin dashboard boilerplate for new shadcn/ui projects
+
+Common questions:
+
+**Is it production ready?** Yes. Every feature is a complete, working implementation — CRUD flows, table search/filter/sort/pagination, and form validation with mutations all function end-to-end. It is a starting point for real applications, not a visual mockup.
+
+**Is it free for commercial use?** Yes. It is MIT-licensed and free for both personal and commercial projects, with no paid tier and no license keys.
+
+**How is data fetching handled?** With TanStack React Query using the recommended TanStack Start pattern — route-loader prefetch on the server plus `useSuspenseQuery` on the client for hydration and a shared client-side cache. Table state (search, filters, sorting, pagination) is synced to the URL.
+
+**Does it use Next.js?** No. This is the TanStack Start version, built on TanStack Router and Vite. A separate Next.js version of the same dashboard also exists (see the link below).
+
+**Does it support React 19 and Tailwind CSS v4?** Yes. It is built on TanStack Start with React 19, Vite 7, Tailwind CSS v4, and shadcn/ui on Base UI primitives, and is actively maintained to track new releases.
+
+## Documentation
+
+- [README](https://raw.githubusercontent.com/Kiranism/tanstack-start-dashboard/main/README.md): Overview, features, tech stack, project structure, getting started, and deployment
+- [MIT License](https://raw.githubusercontent.com/Kiranism/tanstack-start-dashboard/main/LICENSE): Free for personal and commercial use
+
+## Optional
+
+- [Next.js version](https://git.new/shadcn-dashboard): The same dashboard built with Next.js instead of TanStack Start

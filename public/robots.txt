@@ -1,6 +1,6 @@
 User-agent: *
+Allow: /
 Disallow: /auth
 Disallow: /dashboard
-Disallow: /sign-in
-Disallow: /sign-up
-Disallow: /v1/
+
+Sitemap: https://tanstack-start-dashboard.kiranism.dev/sitemap.xml
