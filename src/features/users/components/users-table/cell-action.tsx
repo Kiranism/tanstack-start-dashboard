@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger
@@ -49,7 +50,9 @@ export function CellAction({ data }: CellActionProps) {
           <Icons.ellipsis className='h-4 w-4' />
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          </DropdownMenuGroup>
           <DropdownMenuItem onClick={() => setEditOpen(true)}>
             <Icons.edit className='mr-2 h-4 w-4' /> Update
           </DropdownMenuItem>

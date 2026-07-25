@@ -21,12 +21,14 @@ export function UserNav() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56' align='end' sideOffset={10}>
-        <DropdownMenuLabel className='font-normal'>
-          <div className='flex flex-col space-y-1'>
-            <p className='text-sm leading-none font-medium'>User</p>
-            <p className='text-muted-foreground text-xs leading-none'>user@example.com</p>
-          </div>
-        </DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className='font-normal'>
+            <div className='flex flex-col space-y-1'>
+              <p className='text-sm leading-none font-medium'>User</p>
+              <p className='text-muted-foreground text-xs leading-none'>user@example.com</p>
+            </div>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>Settings</DropdownMenuItem>

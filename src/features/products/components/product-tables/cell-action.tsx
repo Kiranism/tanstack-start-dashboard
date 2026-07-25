@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger
@@ -48,7 +49,9 @@ export function CellAction({ data }: CellActionProps) {
           <Icons.ellipsis className='h-4 w-4' />
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          </DropdownMenuGroup>
           <DropdownMenuItem
             onClick={() => router.navigate({ to: `/dashboard/product/${data.id}` })}
           >
