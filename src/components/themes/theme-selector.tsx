@@ -27,10 +27,10 @@ export function ThemeSelector() {
           id='theme-selector'
           className='justify-start *:data-[slot=select-value]:w-24'
         >
-          <span className='text-muted-foreground hidden sm:block'>
+          <span className='hidden text-muted-foreground sm:block'>
             <Icons.palette />
           </span>
-          <span className='text-muted-foreground block sm:hidden'>Theme</span>
+          <span className='block text-muted-foreground sm:hidden'>Theme</span>
           <SelectValue placeholder='Select a theme' />
           <Kbd>T T</Kbd>
         </SelectTrigger>

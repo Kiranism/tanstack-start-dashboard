@@ -69,7 +69,7 @@ function GitHubIcon({
 }
 
 const githubStarsButtonVariants = cva(
-  'inline-flex items-center shrink-0 whitespace-nowrap font-medium transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
+  'inline-flex shrink-0 items-center font-medium whitespace-nowrap transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
   {
     variants: {
       variant: {
@@ -79,7 +79,7 @@ const githubStarsButtonVariants = cva(
         secondary:
           'rounded-md border border-transparent bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
         outline:
-          'rounded-md border border-border bg-background text-foreground shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
+          'rounded-md border border-border bg-background text-foreground shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
         ghost:
           'rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         subtle:
@@ -138,7 +138,7 @@ async function GitHubStarsButton({
       {showRepo && <span>{fullName}</span>}
       {stars !== null && (
         <>
-          {showRepo && <span className='bg-border h-3.5 w-px shrink-0' aria-hidden='true' />}
+          {showRepo && <span className='h-3.5 w-px shrink-0 bg-border' aria-hidden='true' />}
           <span className='tabular-nums'>{formatCount(stars)}</span>
         </>
       )}

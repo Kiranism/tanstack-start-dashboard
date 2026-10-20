@@ -26,8 +26,8 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         className={cn(
           'relative max-w-[85%] rounded-xl border px-3 py-2 text-xs leading-relaxed sm:max-w-[82%] sm:rounded-2xl sm:px-4 sm:py-3 sm:text-sm',
           isUser
-            ? 'border-primary/40 bg-primary text-primary-foreground ml-auto'
-            : 'bg-muted border-transparent'
+            ? 'ml-auto border-primary/40 bg-primary text-primary-foreground'
+            : 'border-transparent bg-muted'
         )}
       >
         <p
@@ -65,7 +65,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
           </span>
           {isUser && (
             <Icons.checks
-              className='text-primary-foreground/80 h-3 w-3 sm:h-3.5 sm:w-3.5'
+              className='h-3 w-3 text-primary-foreground/80 sm:h-3.5 sm:w-3.5'
               aria-hidden='true'
             />
           )}

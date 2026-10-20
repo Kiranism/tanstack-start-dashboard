@@ -7,12 +7,12 @@ function PageSkeleton() {
     <div className='flex flex-1 animate-pulse flex-col gap-4 p-4 md:px-6'>
       <div className='flex items-center justify-between'>
         <div>
-          <div className='bg-muted mb-2 h-8 w-48 rounded' />
-          <div className='bg-muted h-4 w-96 rounded' />
+          <div className='mb-2 h-8 w-48 rounded bg-muted' />
+          <div className='h-4 w-96 rounded bg-muted' />
         </div>
       </div>
-      <div className='bg-muted mt-6 h-40 w-full rounded-lg' />
-      <div className='bg-muted h-40 w-full rounded-lg' />
+      <div className='mt-6 h-40 w-full rounded-lg bg-muted' />
+      <div className='h-40 w-full rounded-lg bg-muted' />
     </div>
   );
 }
@@ -40,7 +40,7 @@ export default function PageContainer({
     return (
       <div className='flex flex-1 items-center justify-center p-4 md:px-6'>
         {accessFallback ?? (
-          <div className='text-muted-foreground text-center text-lg'>
+          <div className='text-center text-lg text-muted-foreground'>
             You do not have access to this page.
           </div>
         )}

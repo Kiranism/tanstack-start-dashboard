@@ -39,15 +39,15 @@ export default function IconsViewPage() {
           {iconEntries.map(([name, IconComponent]) => (
             <div
               key={name}
-              className='hover:bg-accent flex flex-col items-center gap-2 rounded-lg border p-4 text-center transition-colors'
+              className='flex flex-col items-center gap-2 rounded-lg border p-4 text-center transition-colors hover:bg-accent'
             >
               <IconComponent className='h-6 w-6' />
-              <span className='text-muted-foreground text-xs break-all'>{name}</span>
+              <span className='text-xs break-all text-muted-foreground'>{name}</span>
             </div>
           ))}
         </div>
         {iconEntries.length === 0 && (
-          <p className='text-muted-foreground py-8 text-center'>
+          <p className='py-8 text-center text-muted-foreground'>
             No icons found matching &quot;{search}&quot;
           </p>
         )}

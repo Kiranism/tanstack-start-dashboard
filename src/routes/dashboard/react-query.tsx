@@ -9,7 +9,7 @@ import { reactQueryInfoContent } from '@/features/react-query-demo/info-content'
 export const Route = createFileRoute('/dashboard/react-query')({
   head: () => ({ meta: [{ title: 'Dashboard: React Query' }] }),
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.ensureQueryData(pokemonOptions(25));
+    await queryClient.query({ ...pokemonOptions(25), staleTime: 'static' });
   },
   component: ReactQueryPage
 });

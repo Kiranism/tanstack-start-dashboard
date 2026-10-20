@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useStore } from '@tanstack/react-form';
+import { useSelector } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -110,7 +110,7 @@ export default function AdvancedFormPatterns() {
   });
 
   // Read current country reactively for dependent state field
-  const selectedCountry = useStore(form.store, (s) => s.values.country);
+  const selectedCountry = useSelector(form.store, (s) => s.values.country);
   const stateOptions = countryStateMap[selectedCountry] ?? [];
 
   return (
@@ -133,7 +133,7 @@ export default function AdvancedFormPatterns() {
           {/* ─── Section 1: Account ─── */}
           <div className='space-y-1'>
             <h3 className='text-lg font-semibold'>Account</h3>
-            <p className='text-muted-foreground text-sm'>Async validation, linked fields</p>
+            <p className='text-sm text-muted-foreground'>Async validation, linked fields</p>
           </div>
 
           <FieldGroup className='grid grid-cols-1 gap-4 md:grid-cols-2'>
@@ -209,7 +209,7 @@ export default function AdvancedFormPatterns() {
           {/* ─── Section 2: Team Info (nested objects) ─── */}
           <div className='space-y-1'>
             <h3 className='text-lg font-semibold'>Team Info</h3>
-            <p className='text-muted-foreground text-sm'>Nested objects with dot-notation paths</p>
+            <p className='text-sm text-muted-foreground'>Nested objects with dot-notation paths</p>
           </div>
 
           <FieldGroup className='grid grid-cols-1 gap-4 md:grid-cols-2'>
@@ -239,7 +239,7 @@ export default function AdvancedFormPatterns() {
           {/* ─── Section 3: Members (dynamic array rows — raw form.Field) ─── */}
           <div className='space-y-1'>
             <h3 className='text-lg font-semibold'>Members</h3>
-            <p className='text-muted-foreground text-sm'>Dynamic array rows with add / remove</p>
+            <p className='text-sm text-muted-foreground'>Dynamic array rows with add / remove</p>
           </div>
 
           <form.Field
@@ -345,7 +345,7 @@ export default function AdvancedFormPatterns() {
           {/* ─── Section 4: Preferences (listeners / side effects) ─── */}
           <div className='space-y-1'>
             <h3 className='text-lg font-semibold'>Preferences</h3>
-            <p className='text-muted-foreground text-sm'>
+            <p className='text-sm text-muted-foreground'>
               Listener side effects — country resets state
             </p>
           </div>

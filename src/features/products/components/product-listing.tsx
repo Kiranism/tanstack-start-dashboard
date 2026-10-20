@@ -6,9 +6,9 @@ export default function ProductListingPage() {
     <Suspense
       fallback={
         <div className='flex flex-1 animate-pulse flex-col gap-4'>
-          <div className='bg-muted h-10 w-full rounded' />
-          <div className='bg-muted h-96 w-full rounded-lg' />
-          <div className='bg-muted h-10 w-full rounded' />
+          <div className='h-10 w-full rounded bg-muted' />
+          <div className='h-96 w-full rounded-lg bg-muted' />
+          <div className='h-10 w-full rounded bg-muted' />
         </div>
       }
     >

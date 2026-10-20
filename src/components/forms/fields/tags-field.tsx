@@ -63,7 +63,7 @@ export function TagsField({
                 type='button'
                 onClick={() => field.removeValue(idx)}
                 aria-label={`Remove ${tag}`}
-                className='hover:text-destructive ml-0.5'
+                className='ml-0.5 hover:text-destructive'
               >
                 <Icons.close className='h-3 w-3' />
               </button>

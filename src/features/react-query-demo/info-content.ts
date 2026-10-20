@@ -6,7 +6,7 @@ export const reactQueryInfoContent: InfobarContent = {
     {
       title: 'Route Loader Prefetch',
       description:
-        "Data is prefetched in the route's loader function using queryClient.ensureQueryData(). TanStack Router with Query handles dehydration automatically — the client starts with cached data, no loading spinners on first load.",
+        "Data is prefetched in the route's loader function using queryClient.query(). The TanStack Router SSR Query integration handles dehydration automatically — the client starts with cached data, no loading spinners on first load.",
       links: [
         {
           title: 'TanStack Query SSR Docs',

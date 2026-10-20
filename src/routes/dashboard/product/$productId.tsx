@@ -7,7 +7,10 @@ export const Route = createFileRoute('/dashboard/product/$productId')({
   head: () => ({ meta: [{ title: 'Dashboard : Product View' }] }),
   loader: async ({ context: { queryClient }, params }) => {
     if (params.productId !== 'new') {
-      await queryClient.ensureQueryData(productByIdOptions(Number(params.productId)));
+      await queryClient.query({
+        ...productByIdOptions(Number(params.productId)),
+        staleTime: 'static'
+      });
     }
   },
   component: ProductDetailPage

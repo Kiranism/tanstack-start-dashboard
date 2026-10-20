@@ -24,23 +24,24 @@ export function CellAction({ data }: CellActionProps) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
 
-  const deleteMutation = useMutation({
-    ...deleteUserMutation,
-    onSuccess: () => {
-      toast.success('User deleted successfully');
-      setDeleteOpen(false);
-    },
-    onError: () => {
-      toast.error('Failed to delete user');
-    }
-  });
+  const deleteMutation = useMutation(deleteUserMutation);
 
   return (
     <>
       <AlertModal
         isOpen={deleteOpen}
         onClose={() => setDeleteOpen(false)}
-        onConfirm={() => deleteMutation.mutate(data.id)}
+        onConfirm={() =>
+          deleteMutation.mutate(data.id, {
+            onSuccess: () => {
+              toast.success('User deleted successfully');
+              setDeleteOpen(false);
+            },
+            onError: () => {
+              toast.error('Failed to delete user');
+            }
+          })
+        }
         loading={deleteMutation.isPending}
       />
       <UserFormSheet user={data} open={editOpen} onOpenChange={setEditOpen} />

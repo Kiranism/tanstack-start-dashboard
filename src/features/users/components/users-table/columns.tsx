@@ -1,33 +1,36 @@
 import { Badge } from '@/components/ui/badge';
-import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
+import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import type { User } from '../../api/types';
-import { Column, ColumnDef } from '@tanstack/react-table';
+import type { Column, ColumnDef } from '@tanstack/react-table';
+import type { DataTableFeatures } from '@/lib/data-table-features';
+import { getColumnOptions } from '@/lib/data-table-parsers';
 import { Icons } from '@/components/icons';
 import { CellAction } from './cell-action';
+import { usersColumnConfigs } from './search-params';
 import { ROLE_OPTIONS } from './options';
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<DataTableFeatures, User>[] = [
   {
     id: 'name',
     accessorFn: (row) => `${row.first_name} ${row.last_name}`,
-    header: ({ column }: { column: Column<User, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Name' />
+    ...getColumnOptions(usersColumnConfigs.name),
+    header: ({ column }: { column: Column<DataTableFeatures, User, unknown> }) => (
+      <DataTableColumnHeader column={column} label='Name' />
     ),
     cell: ({ row }) => (
       <div className='flex flex-col'>
         <span className='font-medium'>
           {row.original.first_name} {row.original.last_name}
         </span>
-        <span className='text-muted-foreground text-xs'>{row.original.email}</span>
+        <span className='text-xs text-muted-foreground'>{row.original.email}</span>
       </div>
     ),
     meta: {
       label: 'Name',
       placeholder: 'Search users...',
-      variant: 'text' as const,
+      variant: usersColumnConfigs.name.variant,
       icon: Icons.text
-    },
-    enableColumnFilter: true
+    }
   },
   {
     accessorKey: 'phone',
@@ -36,9 +39,9 @@ export const columns: ColumnDef<User>[] = [
   {
     id: 'role',
     accessorKey: 'role',
-    enableSorting: false,
-    header: ({ column }: { column: Column<User, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Role' />
+    ...getColumnOptions(usersColumnConfigs.role),
+    header: ({ column }: { column: Column<DataTableFeatures, User, unknown> }) => (
+      <DataTableColumnHeader column={column} label='Role' />
     ),
     cell: ({ cell }) => {
       return (
@@ -47,10 +50,9 @@ export const columns: ColumnDef<User>[] = [
         </Badge>
       );
     },
-    enableColumnFilter: true,
     meta: {
       label: 'roles',
-      variant: 'multiSelect' as const,
+      variant: usersColumnConfigs.role.variant,
       options: ROLE_OPTIONS
     }
   },

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { revalidateLogic, useStore } from '@tanstack/react-form';
+import { revalidateLogic, useSelector } from '@tanstack/react-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 import { Icons } from '@/components/icons';
@@ -53,19 +53,19 @@ function ReviewSummary({
       <Separator />
       <div className='grid gap-3'>
         <div>
-          <p className='text-muted-foreground text-xs font-medium uppercase'>Name</p>
+          <p className='text-xs font-medium text-muted-foreground uppercase'>Name</p>
           <p className='text-sm'>{values.name || '—'}</p>
         </div>
         <div>
-          <p className='text-muted-foreground text-xs font-medium uppercase'>Category</p>
+          <p className='text-xs font-medium text-muted-foreground uppercase'>Category</p>
           <p className='text-sm capitalize'>{values.category || '—'}</p>
         </div>
         <div>
-          <p className='text-muted-foreground text-xs font-medium uppercase'>Price</p>
+          <p className='text-xs font-medium text-muted-foreground uppercase'>Price</p>
           <p className='text-sm'>{values.price != null ? `$${values.price}` : '—'}</p>
         </div>
         <div>
-          <p className='text-muted-foreground text-xs font-medium uppercase'>Description</p>
+          <p className='text-xs font-medium text-muted-foreground uppercase'>Description</p>
           <p className='text-sm'>{values.description || '—'}</p>
         </div>
       </div>
@@ -109,8 +109,8 @@ export default function MultiStepProductForm() {
     }
   });
 
-  const isDefault = useStore(form.store, (state) => state.isDefaultValue);
-  const formValues = useStore(form.store, (state) => state.values);
+  const isDefault = useSelector(form.store, (state) => state.isDefaultValue);
+  const formValues = useSelector(form.store, (state) => state.values);
 
   const handleNext = async () => {
     await handleNextStepOrSubmit(form);
@@ -133,7 +133,7 @@ export default function MultiStepProductForm() {
     >
       <div className='flex flex-col gap-2 pt-3'>
         <div className='flex flex-col items-center justify-start gap-1'>
-          <span className='text-muted-foreground text-sm'>
+          <span className='text-sm text-muted-foreground'>
             Step {currentStep} of {totalSteps}
           </span>
           <Progress value={(currentStep / totalSteps) * 100} />

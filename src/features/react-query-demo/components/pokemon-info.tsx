@@ -71,7 +71,7 @@ export function PokemonInfo() {
               alt={data.name}
               width={160}
               height={160}
-              className='bg-muted/50 rounded-lg'
+              className='rounded-lg bg-muted/50'
             />
             <div className='flex-1 space-y-3'>
               {data.stats.map((s) => (
@@ -87,7 +87,7 @@ export function PokemonInfo() {
           </div>
         </CardContent>
         <CardFooter>
-          <p className='text-muted-foreground text-xs'>
+          <p className='text-xs text-muted-foreground'>
             Data from PokeAPI &middot; Prefetched on server, hydrated on client
           </p>
         </CardFooter>

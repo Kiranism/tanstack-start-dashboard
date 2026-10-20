@@ -33,7 +33,7 @@ export function TextareaField({
         {...textareaProps}
       />
       {showCount && textareaProps.maxLength && (
-        <div className='text-muted-foreground text-right text-sm'>
+        <div className='text-right text-sm text-muted-foreground'>
           {field.state.value?.length || 0} / {textareaProps.maxLength}
         </div>
       )}

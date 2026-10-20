@@ -1,5 +1,7 @@
-import { createStart } from '@tanstack/react-start';
+import { createCsrfMiddleware, createStart } from '@tanstack/react-start';
 
-export const startInstance = createStart(() => {
-  return {};
-});
+// Defining a custom start instance disables Start's built-in CSRF protection,
+// so register it explicitly for server function requests.
+export const startInstance = createStart(() => ({
+  requestMiddleware: [createCsrfMiddleware({ filter: (ctx) => ctx.handlerType === 'serverFn' })]
+}));

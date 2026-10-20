@@ -30,7 +30,7 @@ export function NotificationCenter() {
         <Button variant='ghost' size='icon' className='relative h-8 w-8'>
           <Icons.notification className='h-4 w-4' />
           {count > 0 && (
-            <span className='bg-destructive text-destructive-foreground absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-medium'>
+            <span className='absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-medium text-destructive-foreground'>
               {count > 9 ? '9+' : count}
             </span>
           )}
@@ -41,11 +41,11 @@ export function NotificationCenter() {
         <div className='flex items-center justify-between px-4 py-3'>
           <Link to='/dashboard/notifications' className='group flex items-center gap-1'>
             <h4 className='text-sm font-semibold group-hover:underline'>Notifications</h4>
-            <Icons.chevronRight className='text-muted-foreground h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5' />
+            <Icons.chevronRight className='h-3.5 w-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5' />
           </Link>
           <div className='flex items-center gap-2'>
             {count > 0 && (
-              <span className='bg-muted text-muted-foreground rounded-full px-2 py-0.5 text-xs'>
+              <span className='rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground'>
                 {count} new
               </span>
             )}
@@ -53,7 +53,7 @@ export function NotificationCenter() {
               <Button
                 variant='ghost'
                 size='sm'
-                className='text-muted-foreground h-auto px-2 py-1 text-xs'
+                className='h-auto px-2 py-1 text-xs text-muted-foreground'
                 onClick={markAllAsRead}
               >
                 Mark all as read
@@ -65,8 +65,8 @@ export function NotificationCenter() {
         <ScrollArea className='h-[400px]'>
           {notifications.length === 0 ? (
             <div className='flex flex-col items-center justify-center py-12'>
-              <Icons.notification className='text-muted-foreground/40 mb-2 h-8 w-8' />
-              <p className='text-muted-foreground text-sm'>No notifications yet</p>
+              <Icons.notification className='mb-2 h-8 w-8 text-muted-foreground/40' />
+              <p className='text-sm text-muted-foreground'>No notifications yet</p>
             </div>
           ) : (
             <div className='flex flex-col gap-1 p-2'>

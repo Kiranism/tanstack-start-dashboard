@@ -17,7 +17,7 @@ export const usersInfoContent: InfobarContent = {
     {
       title: 'Route Loader + Client Hydration',
       description:
-        "The route's loader function calls queryClient.ensureQueryData() to prefetch data on the server. TanStack Router with Query automatically handles dehydration and hydration — the client starts with cached data, no loading spinner on first render.",
+        "The route's loader function calls queryClient.query() to prefetch data on the server. The TanStack Router SSR Query integration automatically handles dehydration and hydration — the client starts with cached data, no loading spinner on first render.",
       links: []
     },
     {

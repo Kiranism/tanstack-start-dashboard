@@ -12,7 +12,7 @@ export function TaskCard({ task, ...props }: TaskCardProps) {
       key={task.id}
       value={task.id}
       {...props}
-      render={<div className='bg-card rounded-md border p-3 shadow-xs' />}
+      render={<div className='rounded-md border bg-card p-3 shadow-xs' />}
     >
       <div className='flex flex-col gap-2'>
         <div className='flex items-center justify-between gap-2'>
@@ -30,10 +30,10 @@ export function TaskCard({ task, ...props }: TaskCardProps) {
             {task.priority}
           </Badge>
         </div>
-        <div className='text-muted-foreground flex items-center justify-between text-xs'>
+        <div className='flex items-center justify-between text-xs text-muted-foreground'>
           {task.assignee && (
             <div className='flex items-center gap-1'>
-              <div className='bg-primary/20 size-2 rounded-full' />
+              <div className='size-2 rounded-full bg-primary/20' />
               <span className='line-clamp-1'>{task.assignee}</span>
             </div>
           )}

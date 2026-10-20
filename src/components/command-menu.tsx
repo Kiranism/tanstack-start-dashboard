@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from '@tanstack/react-router';
-import { useHotkey, useHotkeySequence, type HotkeySequence } from '@tanstack/react-hotkeys';
+import { useHotkey, useHotkeys, type HotkeySequence } from '@tanstack/react-hotkeys';
 import { useTheme } from 'next-themes';
 import {
   CommandDialog,
@@ -31,22 +31,6 @@ export function useCommandMenu() {
     throw new Error('useCommandMenu must be used within <CommandMenu>');
   }
   return context;
-}
-
-/**
- * Registers one key sequence. Rendered once per shortcut so a dynamic list of
- * nav items can each own a `useHotkeySequence` call without breaking the rules
- * of hooks (mount/unmount handles registration as the list changes).
- */
-function SequenceHotkey({
-  sequence,
-  onTrigger
-}: {
-  sequence: HotkeySequence;
-  onTrigger: () => void;
-}) {
-  useHotkeySequence(sequence, onTrigger);
-  return null;
 }
 
 // Sequences owned by the global theme shortcuts. A nav item carrying the same
@@ -81,12 +65,12 @@ export default function CommandMenu({ children }: { children: React.ReactNode })
     setTheme(theme === 'light' ? 'dark' : 'light');
   }, [theme, setTheme]);
 
-  // Global shortcuts. react-hotkeys calls preventDefault and ignores hotkeys
-  // while an input/textarea is focused by default, so these stay out of the way
-  // of the form fields throughout the app.
+  // Global shortcuts. react-hotkeys calls preventDefault, and by default
+  // ignores single-key hotkeys (like the T T / D D sequences) while typing in a
+  // form field, so they stay out of the way. Mod+K still fires inside inputs.
   useHotkey('Mod+K', toggle);
-  useHotkeySequence(['T', 'T'], cycleTheme);
-  useHotkeySequence(['D', 'D'], toggleDarkLight);
+  useHotkey(['T', 'T'], cycleTheme);
+  useHotkey(['D', 'D'], toggleDarkLight);
 
   const filteredGroups = useFilteredNavGroups(navGroups);
 
@@ -149,6 +133,15 @@ export default function CommandMenu({ children }: { children: React.ReactNode })
     [sections]
   );
 
+  // One registration for the whole dynamic list; useHotkeys accepts a
+  // variable-length array without breaking the rules of hooks.
+  useHotkeys(
+    navSequences.map((item) => ({
+      hotkey: item.shortcut.map((key) => key.toUpperCase()) as HotkeySequence,
+      callback: () => navigateTo(item.url)
+    }))
+  );
+
   const value = React.useMemo<CommandMenuContextValue>(
     () => ({ open, setOpen, toggle }),
     [open, toggle]
@@ -157,14 +150,6 @@ export default function CommandMenu({ children }: { children: React.ReactNode })
   return (
     <CommandMenuContext.Provider value={value}>
       {children}
-
-      {navSequences.map((item) => (
-        <SequenceHotkey
-          key={item.id}
-          sequence={item.shortcut.map((key) => key.toUpperCase()) as HotkeySequence}
-          onTrigger={() => navigateTo(item.url)}
-        />
-      ))}
 
       <CommandDialog
         open={open}

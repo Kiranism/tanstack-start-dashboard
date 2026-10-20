@@ -24,23 +24,24 @@ export function CellAction({ data }: CellActionProps) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const deleteMutation = useMutation({
-    ...deleteProductMutation,
-    onSuccess: () => {
-      toast.success('Product deleted successfully');
-      setOpen(false);
-    },
-    onError: () => {
-      toast.error('Failed to delete product');
-    }
-  });
+  const deleteMutation = useMutation(deleteProductMutation);
 
   return (
     <>
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={() => deleteMutation.mutate(data.id)}
+        onConfirm={() =>
+          deleteMutation.mutate(data.id, {
+            onSuccess: () => {
+              toast.success('Product deleted successfully');
+              setOpen(false);
+            },
+            onError: () => {
+              toast.error('Failed to delete product');
+            }
+          })
+        }
         loading={deleteMutation.isPending}
       />
       <DropdownMenu modal={false}>

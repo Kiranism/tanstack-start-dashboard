@@ -25,6 +25,10 @@ export const fakeProducts = {
 
   // Initialize with sample data
   initialize() {
+    // Seed faker so the server (SSR) and the browser generate the same records;
+    // otherwise client-side refetches return a different random dataset.
+    faker.seed(1);
+    faker.setDefaultRefDate('2024-01-01T00:00:00.000Z');
     const sampleProducts: Product[] = [];
     function generateRandomProductData(id: number): Product {
       const categories = [

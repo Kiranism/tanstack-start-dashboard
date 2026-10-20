@@ -81,7 +81,7 @@ function SheetFormSection() {
         <CardDescription>
           A product creation form inside a Sheet. The submit button lives in the SheetFooter,
           outside the form element, connected via the HTML{' '}
-          <code className='bg-muted rounded px-1 text-sm'>form</code> attribute.
+          <code className='rounded bg-muted px-1 text-sm'>form</code> attribute.
         </CardDescription>
       </CardHeader>
       <CardContent>

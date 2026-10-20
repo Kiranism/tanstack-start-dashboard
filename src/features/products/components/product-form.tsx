@@ -20,27 +20,10 @@ export default function ProductForm({
   const router = useRouter();
   const isEdit = !!initialData;
 
-  const createMutation = useMutation({
-    ...createProductMutation,
-    onSuccess: () => {
-      toast.success('Product created successfully');
-      router.navigate({ to: '/dashboard/product' });
-    },
-    onError: () => {
-      toast.error('Failed to create product');
-    }
-  });
-
-  const updateMutation = useMutation({
-    ...updateProductMutation,
-    onSuccess: () => {
-      toast.success('Product updated successfully');
-      router.navigate({ to: '/dashboard/product' });
-    },
-    onError: () => {
-      toast.error('Failed to update product');
-    }
-  });
+  // Per-call callbacks (passed to `mutate`) run in addition to the shared
+  // `onSuccess` in mutationOptions, which invalidates the product list.
+  const createMutation = useMutation(createProductMutation);
+  const updateMutation = useMutation(updateProductMutation);
 
   const form = useAppForm({
     defaultValues: {
@@ -62,9 +45,28 @@ export default function ProductForm({
       };
 
       if (isEdit) {
-        updateMutation.mutate({ id: initialData.id, values: payload });
+        updateMutation.mutate(
+          { id: initialData.id, values: payload },
+          {
+            onSuccess: () => {
+              toast.success('Product updated successfully');
+              router.navigate({ to: '/dashboard/product' });
+            },
+            onError: () => {
+              toast.error('Failed to update product');
+            }
+          }
+        );
       } else {
-        createMutation.mutate(payload);
+        createMutation.mutate(payload, {
+          onSuccess: () => {
+            toast.success('Product created successfully');
+            router.navigate({ to: '/dashboard/product' });
+          },
+          onError: () => {
+            toast.error('Failed to create product');
+          }
+        });
       }
     }
   });

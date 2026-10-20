@@ -205,7 +205,7 @@ function InfobarProvider({
               ...style
             } as React.CSSProperties
           }
-          className={cn('group/infobar-wrapper flex flex-1 w-full', className)}
+          className={cn('group/infobar-wrapper flex w-full flex-1', className)}
           {...props}
         >
           {children}
@@ -234,7 +234,7 @@ function Infobar({
       <div
         data-slot='infobar'
         className={cn(
-          'bg-sidebar text-sidebar-foreground flex h-full w-(--infobar-width) flex-col',
+          'flex h-full w-(--infobar-width) flex-col bg-sidebar text-sidebar-foreground',
           className
         )}
         {...props}
@@ -258,7 +258,7 @@ function Infobar({
           data-infobar='infobar'
           data-slot='infobar'
           data-mobile='true'
-          className='bg-sidebar text-sidebar-foreground w-(--infobar-width) p-0 [&>button]:hidden'
+          className='w-(--infobar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden'
           style={
             {
               '--infobar-width': INFOBAR_WIDTH_MOBILE
@@ -278,7 +278,7 @@ function Infobar({
 
   return (
     <div
-      className='group peer text-sidebar-foreground relative hidden md:block'
+      className='group peer relative hidden text-sidebar-foreground md:block'
       data-state={state}
       data-collapsible={state === 'collapsed' ? collapsible : ''}
       data-variant={variant}
@@ -293,7 +293,7 @@ function Infobar({
       <div
         data-slot='infobar-container'
         className={cn(
-          'sticky top-0 z-30 hidden h-[calc(100dvh-3.5rem)] w-(--infobar-width) shrink-0 overflow-hidden rounded-tl-xl border-l border-t transition-[width,opacity] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] md:flex',
+          'sticky top-0 z-30 hidden h-[calc(100dvh-3.5rem)] w-(--infobar-width) shrink-0 overflow-hidden rounded-tl-xl border-t border-l transition-[width,opacity] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] md:flex',
           'group-data-[collapsible=offcanvas]:w-0 group-data-[collapsible=offcanvas]:overflow-hidden group-data-[collapsible=offcanvas]:border-0 group-data-[collapsible=offcanvas]:opacity-0',
           className
         )}
@@ -302,7 +302,7 @@ function Infobar({
         <div
           data-infobar='infobar'
           data-slot='infobar-inner'
-          className='bg-sidebar text-sidebar-foreground flex h-full w-full flex-col overflow-y-auto'
+          className='flex h-full w-full flex-col overflow-y-auto bg-sidebar text-sidebar-foreground'
         >
           {children}
         </div>
@@ -345,10 +345,10 @@ function InfobarRail({ className, ...props }: React.ComponentProps<'button'>) {
       onClick={toggleInfobar}
       title='Toggle Infobar'
       className={cn(
-        'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex',
+        'absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex',
         'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
         '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
-        'hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full',
+        'group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar',
         '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
         '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
         className
@@ -363,7 +363,7 @@ function InfobarInset({ className, ...props }: React.ComponentProps<'main'>) {
     <main
       data-slot='infobar-inset'
       className={cn(
-        'bg-background relative flex w-full flex-1 flex-col',
+        'relative flex w-full flex-1 flex-col bg-background',
         'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
         className
       )}
@@ -377,7 +377,7 @@ function InfobarInput({ className, ...props }: React.ComponentProps<typeof Input
     <Input
       data-slot='infobar-input'
       data-infobar='input'
-      className={cn('bg-background h-8 w-full shadow-none', className)}
+      className={cn('h-8 w-full bg-background shadow-none', className)}
       {...props}
     />
   );
@@ -410,7 +410,7 @@ function InfobarSeparator({ className, ...props }: React.ComponentProps<typeof S
     <Separator
       data-slot='infobar-separator'
       data-infobar='separator'
-      className={cn('bg-sidebar-border mx-2 w-auto', className)}
+      className={cn('mx-2 w-auto bg-sidebar-border', className)}
       {...props}
     />
   );
@@ -450,7 +450,7 @@ function InfobarGroupLabel({ className, render, ...props }: useRender.ComponentP
         'data-slot': 'infobar-group-label',
         'data-infobar': 'group-label',
         className: cn(
-          'text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium outline-hidden transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+          'flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 ring-sidebar-ring outline-hidden transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
           'group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0',
           className
         )
@@ -469,7 +469,7 @@ function InfobarGroupAction({ className, render, ...props }: useRender.Component
         'data-slot': 'infobar-group-action',
         'data-infobar': 'group-action',
         className: cn(
-          'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+          'absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
           // Increases the hit area of the button on mobile.
           'after:absolute after:-inset-2 md:after:hidden',
           'group-data-[collapsible=icon]:hidden',
@@ -515,7 +515,7 @@ function InfobarMenuItem({ className, ...props }: React.ComponentProps<'li'>) {
 }
 
 const infobarMenuButtonVariants = cva(
-  'peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[infobar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-popup-open:hover:bg-sidebar-accent data-popup-open:hover:text-sidebar-accent-foreground data-panel-open:hover:bg-sidebar-accent data-panel-open:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+  'peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[infobar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-panel-open:hover:bg-sidebar-accent data-panel-open:hover:text-sidebar-accent-foreground data-popup-open:hover:bg-sidebar-accent data-popup-open:hover:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -604,7 +604,7 @@ function InfobarMenuAction({
         'data-slot': 'infobar-menu-action',
         'data-infobar': 'menu-action',
         className: cn(
-          'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+          'absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform peer-hover/menu-button:text-sidebar-accent-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
           // Increases the hit area of the button on mobile.
           'after:absolute after:-inset-2 md:after:hidden',
           'peer-data-[size=sm]/menu-button:top-1',
@@ -612,7 +612,7 @@ function InfobarMenuAction({
           'peer-data-[size=lg]/menu-button:top-2.5',
           'group-data-[collapsible=icon]:hidden',
           showOnHover &&
-            'peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-popup-open:opacity-100 aria-expanded:opacity-100 md:opacity-0',
+            'group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground aria-expanded:opacity-100 data-popup-open:opacity-100 md:opacity-0',
           className
         )
       } as React.ComponentProps<'button'>,
@@ -627,7 +627,7 @@ function InfobarMenuBadge({ className, ...props }: React.ComponentProps<'div'>) 
       data-slot='infobar-menu-badge'
       data-infobar='menu-badge'
       className={cn(
-        'text-sidebar-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none',
+        'pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium text-sidebar-foreground tabular-nums select-none',
         'peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground',
         'peer-data-[size=sm]/menu-button:top-1',
         'peer-data-[size=default]/menu-button:top-1.5',
@@ -679,7 +679,7 @@ function InfobarMenuSub({ className, ...props }: React.ComponentProps<'ul'>) {
       data-slot='infobar-menu-sub'
       data-infobar='menu-sub'
       className={cn(
-        'border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5',
+        'mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5',
         'group-data-[collapsible=icon]:hidden',
         className
       )}
@@ -719,7 +719,7 @@ function InfobarMenuSubButton({
         'data-size': size,
         'data-active': isActive,
         className: cn(
-          'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+          'flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground ring-sidebar-ring outline-hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground',
           'data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground',
           size === 'sm' && 'text-xs',
           size === 'md' && 'text-sm',

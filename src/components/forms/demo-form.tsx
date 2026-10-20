@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useStore } from '@tanstack/react-form';
+import { useSelector } from '@tanstack/react-form';
 import * as z from 'zod';
 import { useAppForm } from '@/lib/form';
 import { Button } from '@/components/ui/button';
@@ -75,7 +75,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className='space-y-1'>
       <Separator />
-      <h3 className='text-muted-foreground pt-2 text-sm font-medium tracking-wide uppercase'>
+      <h3 className='pt-2 text-sm font-medium tracking-wide text-muted-foreground uppercase'>
         {children}
       </h3>
     </div>
@@ -143,8 +143,8 @@ export default function DemoForm() {
     }
   });
 
-  const formValues = useStore(form.store, (s) => s.values);
-  const isSubmitting = useStore(form.store, (s) => s.isSubmitting);
+  const formValues = useSelector(form.store, (s) => s.values);
+  const isSubmitting = useSelector(form.store, (s) => s.isSubmitting);
 
   return (
     <div className='grid grid-cols-1 gap-6 xl:grid-cols-[1fr_320px]'>
@@ -485,7 +485,7 @@ export default function DemoForm() {
             <CardTitle>Form Data Preview</CardTitle>
           </CardHeader>
           <CardContent>
-            <pre className='bg-muted max-h-[calc(100vh-8rem)] overflow-auto rounded-lg p-4 text-xs'>
+            <pre className='max-h-[calc(100vh-8rem)] overflow-auto rounded-lg bg-muted p-4 text-xs'>
               {JSON.stringify(formValues, null, 2)}
             </pre>
           </CardContent>

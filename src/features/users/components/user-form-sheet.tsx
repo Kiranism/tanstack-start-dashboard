@@ -34,24 +34,10 @@ interface UserFormSheetProps {
 export function UserFormSheet({ user, open, onOpenChange }: UserFormSheetProps) {
   const isEdit = !!user;
 
-  const createMutation = useMutation({
-    ...createUserMutation,
-    onSuccess: () => {
-      toast.success('User created successfully');
-      onOpenChange(false);
-      form.reset();
-    },
-    onError: () => toast.error('Failed to create user')
-  });
-
-  const updateMutation = useMutation({
-    ...updateUserMutation,
-    onSuccess: () => {
-      toast.success('User updated successfully');
-      onOpenChange(false);
-    },
-    onError: () => toast.error('Failed to update user')
-  });
+  // Per-call callbacks (passed to `mutateAsync`) run in addition to the shared
+  // `onSuccess` in mutationOptions, which invalidates the user list.
+  const createMutation = useMutation(createUserMutation);
+  const updateMutation = useMutation(updateUserMutation);
 
   const form = useAppForm({
     defaultValues: {
@@ -67,9 +53,25 @@ export function UserFormSheet({ user, open, onOpenChange }: UserFormSheetProps) 
     },
     onSubmit: async ({ value }) => {
       if (isEdit) {
-        await updateMutation.mutateAsync({ id: user.id, values: value });
+        await updateMutation.mutateAsync(
+          { id: user.id, values: value },
+          {
+            onSuccess: () => {
+              toast.success('User updated successfully');
+              onOpenChange(false);
+            },
+            onError: () => toast.error('Failed to update user')
+          }
+        );
       } else {
-        await createMutation.mutateAsync(value);
+        await createMutation.mutateAsync(value, {
+          onSuccess: () => {
+            toast.success('User created successfully');
+            onOpenChange(false);
+            form.reset();
+          },
+          onError: () => toast.error('Failed to create user')
+        });
       }
     }
   });

@@ -18,8 +18,8 @@ function TermsOfServicePage() {
     <div className='min-h-screen px-4 py-12 sm:px-6 lg:px-8'>
       <div className='mx-auto max-w-3xl space-y-8'>
         <div className='text-center'>
-          <h1 className='text-foreground text-3xl font-bold'>Terms of Service</h1>
-          <p className='text-muted-foreground mt-2 text-sm'>
+          <h1 className='text-3xl font-bold text-foreground'>Terms of Service</h1>
+          <p className='mt-2 text-sm text-muted-foreground'>
             Last updated:{' '}
             {new Date().toLocaleDateString('en-US', {
               month: 'long',
@@ -29,16 +29,16 @@ function TermsOfServicePage() {
           </p>
         </div>
         <section>
-          <h2 className='text-foreground mb-3 text-xl font-semibold'>Introduction</h2>
-          <p className='text-muted-foreground text-base leading-relaxed'>
+          <h2 className='mb-3 text-xl font-semibold text-foreground'>Introduction</h2>
+          <p className='text-base leading-relaxed text-muted-foreground'>
             Welcome to our application. These Terms of Service govern your access to and use of our
             platform. By accessing or using this application, you agree to be bound by these terms.
             Please read them carefully before proceeding to use our services.
           </p>
         </section>
         <section>
-          <h2 className='text-foreground mb-3 text-xl font-semibold'>Demo Purpose</h2>
-          <p className='text-muted-foreground text-base leading-relaxed'>
+          <h2 className='mb-3 text-xl font-semibold text-foreground'>Demo Purpose</h2>
+          <p className='text-base leading-relaxed text-muted-foreground'>
             This application is provided solely for demonstration and educational purposes. It is
             not intended for production use, and we make no guarantees regarding its suitability for
             any specific purpose. All data and functionality are provided as-is for showcasing
@@ -46,8 +46,8 @@ function TermsOfServicePage() {
           </p>
         </section>
         <section>
-          <h2 className='text-foreground mb-3 text-xl font-semibold'>Open Source</h2>
-          <p className='text-muted-foreground text-base leading-relaxed'>
+          <h2 className='mb-3 text-xl font-semibold text-foreground'>Open Source</h2>
+          <p className='text-base leading-relaxed text-muted-foreground'>
             This is an open-source project. The source code is available for review, modification,
             and distribution under the applicable open-source license. We encourage community
             contributions and feedback to help improve the project. Please refer to the project
@@ -55,8 +55,8 @@ function TermsOfServicePage() {
           </p>
         </section>
         <section>
-          <h2 className='text-foreground mb-3 text-xl font-semibold'>No Warranty</h2>
-          <p className='text-muted-foreground text-base leading-relaxed'>
+          <h2 className='mb-3 text-xl font-semibold text-foreground'>No Warranty</h2>
+          <p className='text-base leading-relaxed text-muted-foreground'>
             This application is provided &ldquo;as is&rdquo; without any warranties of any kind,
             either express or implied. We expressly disclaim all warranties, including but not
             limited to implied warranties of merchantability, fitness for a particular purpose, and
@@ -65,8 +65,8 @@ function TermsOfServicePage() {
           </p>
         </section>
         <section>
-          <h2 className='text-foreground mb-3 text-xl font-semibold'>Data Usage</h2>
-          <p className='text-muted-foreground text-base leading-relaxed'>
+          <h2 className='mb-3 text-xl font-semibold text-foreground'>Data Usage</h2>
+          <p className='text-base leading-relaxed text-muted-foreground'>
             Any data you provide while using this demo application may be stored temporarily for the
             purpose of demonstrating functionality. We do not guarantee the security or privacy of
             any data entered into this demo application. Please do not enter sensitive, personal, or
@@ -74,16 +74,16 @@ function TermsOfServicePage() {
           </p>
         </section>
         <section>
-          <h2 className='text-foreground mb-3 text-xl font-semibold'>Changes to These Terms</h2>
-          <p className='text-muted-foreground text-base leading-relaxed'>
+          <h2 className='mb-3 text-xl font-semibold text-foreground'>Changes to These Terms</h2>
+          <p className='text-base leading-relaxed text-muted-foreground'>
             We reserve the right to modify or replace these Terms of Service at any time at our sole
             discretion. It is your responsibility to review these terms periodically for changes.
             Your continued use of the application following the posting of any changes constitutes
             acceptance of those changes.
           </p>
         </section>
-        <section className='border-border border-t pt-4'>
-          <p className='text-muted-foreground text-center text-sm'>
+        <section className='border-t border-border pt-4'>
+          <p className='text-center text-sm text-muted-foreground'>
             If you have any questions about these Terms of Service, please refer to the project
             documentation or repository for more information.
           </p>

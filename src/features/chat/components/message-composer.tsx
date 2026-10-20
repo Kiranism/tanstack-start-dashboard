@@ -33,7 +33,7 @@ export function MessageComposer({
       <label htmlFor='messenger-editor' className='sr-only'>
         Write a message
       </label>
-      <div className='border-border/40 bg-background/80 flex items-end gap-2 rounded-2xl border p-3 backdrop-blur sm:gap-3 sm:rounded-3xl sm:p-4'>
+      <div className='flex items-end gap-2 rounded-2xl border border-border/40 bg-background/80 p-3 backdrop-blur sm:gap-3 sm:rounded-3xl sm:p-4'>
         <div className='min-w-0 flex-1'>
           {attachments.length > 0 && (
             <FilePreview
@@ -61,7 +61,7 @@ export function MessageComposer({
             }}
             placeholder={'Message ' + contactName + ' (Enter to send, Shift+Enter for newline)'}
             rows={2}
-            className='text-foreground placeholder:text-muted-foreground/70 min-h-[3rem] w-full resize-none border-none bg-transparent text-xs focus-visible:ring-0 focus-visible:outline-none sm:min-h-[4rem] sm:text-sm'
+            className='min-h-[3rem] w-full resize-none border-none bg-transparent text-xs text-foreground placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:outline-none sm:min-h-[4rem] sm:text-sm'
             aria-label={'Message ' + contactName}
           />
           <div className='mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2'>
@@ -70,7 +70,7 @@ export function MessageComposer({
                 key={reply}
                 type='button'
                 onClick={() => onDraftChange(reply)}
-                className='border-border/50 bg-background/70 text-muted-foreground hover:border-primary/40 hover:text-foreground focus-visible:ring-primary/40 focus-visible:ring-offset-background rounded-full border px-2.5 py-0.5 text-[0.65rem] transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-3 sm:py-1 sm:text-xs'
+                className='rounded-full border border-border/50 bg-background/70 px-2.5 py-0.5 text-[0.65rem] text-muted-foreground transition hover:border-primary/40 hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none sm:px-3 sm:py-1 sm:text-xs'
               >
                 {reply}
               </button>
@@ -95,7 +95,7 @@ export function MessageComposer({
             type='button'
             variant='ghost'
             size='icon'
-            className='border-border/40 bg-background/70 text-muted-foreground hover:bg-muted/50 focus-visible:ring-primary/40 focus-visible:ring-offset-background size-8 rounded-full border transition focus-visible:ring-2 focus-visible:ring-offset-2 sm:size-10'
+            className='size-8 rounded-full border border-border/40 bg-background/70 text-muted-foreground transition hover:bg-muted/50 focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:size-10'
             aria-label='Attach a file'
             onClick={() => fileInputRef.current?.click()}
           >
@@ -104,7 +104,7 @@ export function MessageComposer({
           <Button
             type='submit'
             size='icon'
-            className='bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/40 focus-visible:ring-offset-background size-8 rounded-full shadow-lg transition focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:size-10'
+            className='size-8 rounded-full bg-primary text-primary-foreground shadow-lg transition hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60 sm:size-10'
             disabled={!draft.trim() && attachments.length === 0}
             aria-label='Send message'
           >

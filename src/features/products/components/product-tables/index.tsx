@@ -1,35 +1,18 @@
-import { DataTable } from '@/components/ui/table/data-table';
-import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar';
+import { DataTable } from '@/components/data-table/data-table';
+import { DataTableToolbar } from '@/components/data-table/data-table-toolbar';
 import { useDataTable } from '@/hooks/use-data-table';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useSearch } from '@tanstack/react-router';
-import { parseSortingState } from '@/lib/parsers';
+import { useQueryStates } from 'nuqs';
 import { productsQueryOptions } from '../../api/queries';
 import { columns } from './columns';
-
-const columnIds = columns.map((c) => c.id).filter(Boolean) as string[];
+import { getProductFilters, productsSearchParams } from './search-params';
 
 export function ProductTable() {
-  const search = useSearch({ strict: false }) as Record<string, unknown>;
+  const [search] = useQueryStates(productsSearchParams);
 
-  const page = (search.page as number) ?? 1;
-  const perPage = (search.perPage as number) ?? 10;
-  const name = search.name as string | undefined;
-  const category = search.category as string | undefined;
-  const sortStr = search.sort as string | undefined;
-  const sort = parseSortingState(sortStr, columnIds);
+  const { data } = useSuspenseQuery(productsQueryOptions(getProductFilters(search)));
 
-  const filters = {
-    page,
-    limit: perPage,
-    ...(name && { search: name }),
-    ...(category && { categories: category }),
-    ...(sort.length > 0 && { sort: JSON.stringify(sort) })
-  };
-
-  const { data } = useSuspenseQuery(productsQueryOptions(filters));
-
-  const pageCount = Math.ceil(data.total_products / perPage);
+  const pageCount = Math.ceil(data.total_products / search.perPage);
 
   const { table } = useDataTable({
     data: data.products,
@@ -38,7 +21,7 @@ export function ProductTable() {
     shallow: true,
     debounceMs: 500,
     initialState: {
-      columnPinning: { right: ['actions'] }
+      columnPinning: { start: [], end: ['actions'] }
     }
   });
 

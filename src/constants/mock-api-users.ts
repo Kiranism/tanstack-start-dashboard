@@ -24,6 +24,10 @@ export const fakeUsers = {
   records: [] as User[],
 
   initialize() {
+    // Seed faker so the server (SSR) and the browser generate the same records;
+    // otherwise client-side refetches return a different random dataset.
+    faker.seed(2);
+    faker.setDefaultRefDate('2024-01-01T00:00:00.000Z');
     const sampleUsers: User[] = [];
     function generateRandomUserData(id: number): User {
       const roles = ['Developer', 'Designer', 'Manager', 'QA', 'DevOps', 'Product Owner'];

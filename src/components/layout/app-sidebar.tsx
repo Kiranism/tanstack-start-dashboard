@@ -47,12 +47,12 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
               <Link to='/dashboard/overview' aria-label='Dashboard'>
-                <div className='bg-primary text-primary-foreground flex aspect-square size-8 shrink-0 items-center justify-center rounded-md'>
+                <div className='flex aspect-square size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground'>
                   <Icons.logo className='size-4' />
                 </div>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
                   <span className='truncate font-semibold'>TanStack Start</span>
-                  <span className='text-muted-foreground truncate text-xs'>Dashboard</span>
+                  <span className='truncate text-xs text-muted-foreground'>Dashboard</span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -123,12 +123,12 @@ export default function AppSidebar() {
                   size='lg'
                   className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
                 >
-                  <div className='bg-muted flex aspect-square size-8 shrink-0 items-center justify-center rounded-full'>
+                  <div className='flex aspect-square size-8 shrink-0 items-center justify-center rounded-full bg-muted'>
                     <Icons.account className='size-4' />
                   </div>
                   <div className='grid flex-1 text-left text-sm leading-tight'>
                     <span className='truncate font-medium'>User</span>
-                    <span className='text-muted-foreground truncate text-xs'>user@example.com</span>
+                    <span className='truncate text-xs text-muted-foreground'>user@example.com</span>
                   </div>
                   <Icons.chevronsDown className='ml-auto size-4' />
                 </SidebarMenuButton>

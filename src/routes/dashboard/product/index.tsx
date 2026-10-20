@@ -1,24 +1,21 @@
+import { noop } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { z } from 'zod';
-import { zodValidator } from '@tanstack/zod-adapter';
 import PageContainer from '@/components/layout/page-container';
 import { buttonVariants } from '@/components/ui/button';
 import ProductListingPage from '@/features/products/components/product-listing';
 import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 import { productInfoContent } from '@/config/infoconfig';
-
-const productSearchSchema = z.object({
-  page: z.number().optional().default(1),
-  perPage: z.number().optional().default(10),
-  name: z.string().optional(),
-  category: z.string().optional(),
-  sort: z.string().optional()
-});
+import { getProductFiltersFromSearch } from '@/features/products/components/product-tables/search-params';
+import { productsQueryOptions } from '@/features/products/api/queries';
 
 export const Route = createFileRoute('/dashboard/product/')({
   head: () => ({ meta: [{ title: 'Dashboard: Products' }] }),
-  validateSearch: zodValidator(productSearchSchema),
+  loaderDeps: ({ search }) => search,
+  loader: ({ context: { queryClient }, deps }) => {
+    // Kick off the fetch without blocking; useSuspenseQuery picks it up.
+    void queryClient.query(productsQueryOptions(getProductFiltersFromSearch(deps))).catch(noop);
+  },
   component: ProductPage
 });
 

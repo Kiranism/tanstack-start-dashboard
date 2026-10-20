@@ -9,9 +9,14 @@
   "singleQuote": true,
   "tabWidth": 2,
   "endOfLine": "lf",
-  "experimentalSortTailwindcss": true,
+  "sortTailwindcss": {
+    "stylesheet": "./src/styles/globals.css",
+    "functions": ["cn", "cva"]
+  },
   "ignorePatterns": [
     ".tanstack/**",
+    ".agents/**",
+    ".claude/**",
     "dist/**",
     "build/**",
     "node_modules/**",
