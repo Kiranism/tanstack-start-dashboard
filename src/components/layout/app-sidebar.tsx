@@ -8,11 +8,9 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { navGroups } from '@/config/nav-config';
-import { useMediaQuery } from '@/hooks/use-media-query';
 import { useFilteredNavGroups } from '@/hooks/use-nav';
 import { Link } from '@tanstack/react-router';
 import { useLocation, useRouter } from '@tanstack/react-router';
-import * as React from 'react';
 import { Icons } from '../icons';
 import {
   Sidebar,
@@ -32,29 +30,25 @@ import {
 
 export default function AppSidebar() {
   const { pathname } = useLocation();
-  const { isOpen } = useMediaQuery();
   const router = useRouter();
   const filteredGroups = useFilteredNavGroups(navGroups);
-
-  React.useEffect(() => {
-    // Side effects based on sidebar state changes
-  }, [isOpen]);
 
   return (
     <Sidebar variant='inset' collapsible='icon'>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size='lg' asChild>
-              <Link to='/dashboard/overview' aria-label='Dashboard'>
-                <div className='flex aspect-square size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground'>
-                  <Icons.logo className='size-4' />
-                </div>
-                <div className='grid flex-1 text-left text-sm leading-tight'>
-                  <span className='truncate font-semibold'>TanStack Start</span>
-                  <span className='truncate text-xs text-muted-foreground'>Dashboard</span>
-                </div>
-              </Link>
+            <SidebarMenuButton
+              size='lg'
+              render={<Link to='/dashboard/overview' aria-label='Dashboard' />}
+            >
+              <div className='flex aspect-square size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground'>
+                <Icons.logo className='size-4' />
+              </div>
+              <div className='grid flex-1 text-left text-sm leading-tight'>
+                <span className='truncate font-semibold'>TanStack Start</span>
+                <span className='truncate text-xs text-muted-foreground'>Dashboard</span>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -67,45 +61,48 @@ export default function AppSidebar() {
               {group.items.map((item) => {
                 const Icon = item.icon ? Icons[item.icon] : Icons.logo;
                 return item?.items && item?.items?.length > 0 ? (
-                  <Collapsible key={item.title} defaultOpen={item.isActive} asChild>
-                    <SidebarMenuItem>
-                      <CollapsibleTrigger asChild>
+                  <Collapsible
+                    key={item.title}
+                    defaultOpen={item.isActive}
+                    render={<SidebarMenuItem />}
+                  >
+                    <CollapsibleTrigger
+                      render={
                         <SidebarMenuButton
                           tooltip={item.title}
                           isActive={pathname === item.url}
                           className='group/collapsible'
-                        >
-                          {item.icon && <Icon />}
-                          <span>{item.title}</span>
-                          <Icons.chevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.items?.map((subItem) => (
-                            <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild isActive={pathname === subItem.url}>
-                                <Link to={subItem.url} aria-label={subItem.title}>
-                                  <span>{subItem.title}</span>
-                                </Link>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </SidebarMenuItem>
+                        />
+                      }
+                    >
+                      {item.icon && <Icon />}
+                      <span>{item.title}</span>
+                      <Icons.chevronRight className='ml-auto transition-transform duration-200 group-data-panel-open/collapsible:rotate-90' />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <SidebarMenuSub>
+                        {item.items?.map((subItem) => (
+                          <SidebarMenuSubItem key={subItem.title}>
+                            <SidebarMenuSubButton
+                              render={<Link to={subItem.url} aria-label={subItem.title} />}
+                              isActive={pathname === subItem.url}
+                            >
+                              <span>{subItem.title}</span>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        ))}
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
                   </Collapsible>
                 ) : (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
-                      asChild
+                      render={<Link to={item.url} aria-label={item.title} />}
                       tooltip={item.title}
                       isActive={pathname === item.url}
                     >
-                      <Link to={item.url} aria-label={item.title}>
-                        <Icon />
-                        <span>{item.title}</span>
-                      </Link>
+                      <Icon />
+                      <span>{item.title}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -118,23 +115,25 @@ export default function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size='lg'
-                  className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
-                >
-                  <div className='flex aspect-square size-8 shrink-0 items-center justify-center rounded-full bg-muted'>
-                    <Icons.account className='size-4' />
-                  </div>
-                  <div className='grid flex-1 text-left text-sm leading-tight'>
-                    <span className='truncate font-medium'>User</span>
-                    <span className='truncate text-xs text-muted-foreground'>user@example.com</span>
-                  </div>
-                  <Icons.chevronsDown className='ml-auto size-4' />
-                </SidebarMenuButton>
+              <DropdownMenuTrigger
+                render={
+                  <SidebarMenuButton
+                    size='lg'
+                    className='data-popup-open:bg-sidebar-accent data-popup-open:text-sidebar-accent-foreground'
+                  />
+                }
+              >
+                <div className='flex aspect-square size-8 shrink-0 items-center justify-center rounded-full bg-muted'>
+                  <Icons.account className='size-4' />
+                </div>
+                <div className='grid flex-1 text-left text-sm leading-tight'>
+                  <span className='truncate font-medium'>User</span>
+                  <span className='truncate text-xs text-muted-foreground'>user@example.com</span>
+                </div>
+                <Icons.chevronsDown className='ml-auto size-4' />
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className='w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg'
+                className='w-(--anchor-width) min-w-56 rounded-lg'
                 side='bottom'
                 align='end'
                 sideOffset={4}

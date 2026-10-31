@@ -1,5 +1,3 @@
-'use client';
-
 import { type Column, type RowData, Subscribe } from '@tanstack/react-table';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
@@ -13,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
-import { XCircle, PlusCircle } from 'lucide-react';
+import { IconCircleX, IconCirclePlus } from '@tabler/icons-react';
 
 interface Range {
   min: number;
@@ -140,7 +138,7 @@ function DataTableSliderFilterContent<TData extends RowData>({
   );
 
   const onSliderValueChange = React.useCallback(
-    (value: RangeValue) => {
+    (value: number | readonly number[]) => {
       if (Array.isArray(value) && value.length === 2) {
         column.setFilterValue(value);
       }
@@ -158,31 +156,29 @@ function DataTableSliderFilterContent<TData extends RowData>({
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button variant='outline'>
-          {columnFilterValue ? (
-            <span
-              aria-hidden='true'
-              className='rounded-sm opacity-70 transition-opacity hover:opacity-100'
-              onClick={onReset}
-            >
-              <XCircle />
-            </span>
-          ) : (
-            <PlusCircle />
-          )}
-          <span>{title}</span>
-          {columnFilterValue ? (
-            <>
-              <Separator
-                orientation='vertical'
-                className='mx-0.5 data-vertical:h-4 data-vertical:self-center'
-              />
-              {formatValue(columnFilterValue[0])} - {formatValue(columnFilterValue[1])}
-              {unit ? ` ${unit}` : ''}
-            </>
-          ) : null}
-        </Button>
+      <PopoverTrigger render={<Button variant='outline' className='border-dashed' />}>
+        {columnFilterValue ? (
+          <span
+            aria-hidden='true'
+            className='rounded-sm opacity-70 transition-opacity hover:opacity-100'
+            onClick={onReset}
+          >
+            <IconCircleX />
+          </span>
+        ) : (
+          <IconCirclePlus />
+        )}
+        <span>{title}</span>
+        {columnFilterValue ? (
+          <>
+            <Separator
+              orientation='vertical'
+              className='mx-0.5 data-vertical:h-4 data-vertical:self-center'
+            />
+            {formatValue(columnFilterValue[0])} - {formatValue(columnFilterValue[1])}
+            {unit ? ` ${unit}` : ''}
+          </>
+        ) : null}
       </PopoverTrigger>
       <PopoverContent
         aria-label={`${title} filter`}

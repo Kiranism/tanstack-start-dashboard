@@ -1,5 +1,3 @@
-'use client';
-
 import { type Column, type ReactTable, type RowData, Subscribe } from '@tanstack/react-table';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
@@ -12,7 +10,7 @@ import { DataTableSliderFilter } from '@/components/data-table/data-table-slider
 import { DataTableViewOptions } from '@/components/data-table/data-table-view-options';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { X } from 'lucide-react';
+import { IconX } from '@tabler/icons-react';
 
 interface DataTableToolbarProps<TData extends RowData> extends React.ComponentProps<'div'> {
   table: ReactTable<DataTableFeatures, TData, unknown>;
@@ -47,8 +45,13 @@ export function DataTableToolbar<TData extends RowData>({
         <Subscribe source={table.atoms.columnFilters} selector={(filters) => filters.length > 0}>
           {(isFiltered) =>
             isFiltered && (
-              <Button aria-label='Reset filters' variant='outline' onClick={onReset}>
-                <X />
+              <Button
+                aria-label='Reset filters'
+                variant='outline'
+                className='border-dashed'
+                onClick={onReset}
+              >
+                <IconX />
                 Reset
               </Button>
             )

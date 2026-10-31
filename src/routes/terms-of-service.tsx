@@ -19,14 +19,7 @@ function TermsOfServicePage() {
       <div className='mx-auto max-w-3xl space-y-8'>
         <div className='text-center'>
           <h1 className='text-3xl font-bold text-foreground'>Terms of Service</h1>
-          <p className='mt-2 text-sm text-muted-foreground'>
-            Last updated:{' '}
-            {new Date().toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric'
-            })}
-          </p>
+          <p className='mt-2 text-sm text-muted-foreground'>Last updated: October 21, 2026</p>
         </div>
         <section>
           <h2 className='mb-3 text-xl font-semibold text-foreground'>Introduction</h2>

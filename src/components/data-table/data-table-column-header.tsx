@@ -1,5 +1,3 @@
-'use client';
-
 import {
   type Column,
   type RowData,
@@ -12,13 +10,14 @@ import * as React from 'react';
 
 import type { DataTableFeatures } from '@/lib/data-table-features';
 
+import { useDirection } from '@/components/ui/direction';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, ChevronUp, ChevronsUpDown, EyeOff } from 'lucide-react';
+import { IconChevronDown, IconChevronUp, IconSelector, IconEyeClosed } from '@tabler/icons-react';
 
 interface DataTableColumnHeaderProps<TData extends RowData, TValue> extends React.ComponentProps<
   typeof DropdownMenuTrigger
@@ -75,6 +74,8 @@ function DataTableColumnHeaderMenu<TData extends RowData, TValue>({
   sortDirection,
   ...props
 }: DataTableColumnHeaderMenuProps<TData, TValue>) {
+  const dir = useDirection();
+
   function onSortDirectionChange(direction: SortDirection) {
     if (sortDirection === direction) {
       column.clearSorting();
@@ -96,14 +97,14 @@ function DataTableColumnHeaderMenu<TData extends RowData, TValue>({
         {label}
         {column.getCanSort() &&
           (sortDirection === 'desc' ? (
-            <ChevronDown />
+            <IconChevronDown />
           ) : sortDirection === 'asc' ? (
-            <ChevronUp />
+            <IconChevronUp />
           ) : (
-            <ChevronsUpDown />
+            <IconSelector />
           ))}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='start' className='w-28 data-closed:fill-mode-forwards'>
+      <DropdownMenuContent dir={dir} align='start' className='w-28 data-closed:fill-mode-forwards'>
         {column.getCanSort() && (
           <>
             <DropdownMenuCheckboxItem
@@ -111,7 +112,7 @@ function DataTableColumnHeaderMenu<TData extends RowData, TValue>({
               checked={sortDirection === 'asc'}
               onClick={() => onSortDirectionChange('asc')}
             >
-              <ChevronUp />
+              <IconChevronUp />
               Asc
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
@@ -119,7 +120,7 @@ function DataTableColumnHeaderMenu<TData extends RowData, TValue>({
               checked={sortDirection === 'desc'}
               onClick={() => onSortDirectionChange('desc')}
             >
-              <ChevronDown />
+              <IconChevronDown />
               Desc
             </DropdownMenuCheckboxItem>
           </>
@@ -130,7 +131,7 @@ function DataTableColumnHeaderMenu<TData extends RowData, TValue>({
             checked={!isVisible}
             onClick={() => column.toggleVisibility(false)}
           >
-            <EyeOff />
+            <IconEyeClosed />
             Hide
           </DropdownMenuCheckboxItem>
         )}

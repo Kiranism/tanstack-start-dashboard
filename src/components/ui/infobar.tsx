@@ -195,7 +195,7 @@ function InfobarProvider({
 
   return (
     <InfobarContext.Provider value={contextValue}>
-      <TooltipProvider delayDuration={0}>
+      <TooltipProvider delay={0}>
         <div
           data-slot='infobar-wrapper'
           style={
@@ -552,7 +552,7 @@ function InfobarMenuButton({
 
   const button = useRender({
     defaultTagName: 'button',
-    render,
+    render: !tooltip ? render : <TooltipTrigger render={render} />,
     props: mergeProps<'button'>(
       {
         'data-slot': 'infobar-menu-button',
@@ -577,7 +577,7 @@ function InfobarMenuButton({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
+      {button}
       <TooltipContent
         side='right'
         align='center'
@@ -648,9 +648,9 @@ function InfobarMenuSkeleton({
   showIcon?: boolean;
 }) {
   // Random width between 50 to 90%.
-  const width = React.useMemo(() => {
+  const [width] = React.useState(() => {
     return `${Math.floor(Math.random() * 40) + 50}%`;
-  }, []);
+  });
 
   return (
     <div

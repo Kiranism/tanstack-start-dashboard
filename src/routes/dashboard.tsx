@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
-import CommandMenu from '@/components/command-menu';
+import CommandPalette from '@/components/command-palette';
 import AppSidebar from '@/components/layout/app-sidebar';
 import Header from '@/components/layout/header';
 import { InfoSidebar } from '@/components/layout/info-sidebar';
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/dashboard')({
 
 function DashboardLayout() {
   return (
-    <CommandMenu>
+    <CommandPalette>
       <SidebarProvider>
         <a
           href='#main-content'
@@ -39,6 +39,6 @@ function DashboardLayout() {
           </InfobarProvider>
         </SidebarInset>
       </SidebarProvider>
-    </CommandMenu>
+    </CommandPalette>
   );
 }
