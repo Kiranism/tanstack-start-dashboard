@@ -13,5 +13,5 @@ export const userKeys = {
 export const usersQueryOptions = (filters: UserFilters) =>
   queryOptions({
     queryKey: userKeys.list(filters),
-    queryFn: () => getUsers(filters)
+    queryFn: () => getUsers({ data: filters })
   });

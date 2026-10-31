@@ -1,31 +1,21 @@
 ////////////////////////////////////////////////////////////////////////////////
-// 🛑 Nothing in here has anything to do with Nextjs, it's just a fake database
+// In-memory fake user database. The `.server.ts` suffix makes TanStack Start's
+// import protection keep it (and faker) out of the client bundle; only the
+// server functions in features/*/api/service.ts call it.
 ////////////////////////////////////////////////////////////////////////////////
 
 import { faker } from '@faker-js/faker';
 import { matchSorter } from 'match-sorter';
+import type { User } from '@/features/users/api/types';
 
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export type User = {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  status: string;
-  role: string;
-  created_at: string;
-  updated_at: string;
-};
 
 // Mock user data store
 export const fakeUsers = {
   records: [] as User[],
 
   initialize() {
-    // Seed faker so the server (SSR) and the browser generate the same records;
-    // otherwise client-side refetches return a different random dataset.
+    // Seed faker so every server instance generates the same demo records.
     faker.seed(2);
     faker.setDefaultRefDate('2024-01-01T00:00:00.000Z');
     const sampleUsers: User[] = [];

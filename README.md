@@ -58,7 +58,11 @@ _If you are looking for a Next.js dashboard template, here is the [repo](https:/
 
 - **Type-safe file-based routing** with TanStack Router (auto-generated route tree)
 
-- **Server functions** via `createServerFn()` for server-side logic
+- **Authentication** with encrypted cookie sessions, a guarded `/dashboard` layout and auth middleware on every data server function (demo account included)
+
+- **Server functions** via `createServerFn()` with Zod validators for all data access, so mock data and secrets stay on the server
+
+- **Server routes** (`src/routes/api/*`) for plain HTTP endpoints such as webhooks and health checks
 
 - **Infobar component** to show helpful tips, status messages, or contextual info on any page
 
@@ -76,7 +80,7 @@ _If you are looking for a Next.js dashboard template, here is the [repo](https:/
 
 - **Command palette** (Cmd+K) for quick navigation
 
-- **Deploy anywhere** — Vercel, Cloudflare, Node.js via Nitro presets
+- **Deploy anywhere**: Vercel, Railway, Render and Node.js via Nitro; Cloudflare and Netlify via their official Vite plugins
 
 ## Pages
 
@@ -99,9 +103,11 @@ _If you are looking for a Next.js dashboard template, here is the [repo](https:/
 src/
 ├── routes/                        # TanStack Router file-based routes
 │   ├── __root.tsx                 # Root layout (providers, theme, HTML shell)
-│   ├── index.tsx                  # Home (auth redirect)
+│   ├── index.tsx                  # Home (redirects to the dashboard)
+│   ├── api/                       # Server routes (HTTP handlers, e.g. /api/health)
+│   ├── auth.tsx                   # Auth layout (sends signed-in users onward)
 │   ├── auth/                      # Auth pages (sign-in, sign-up)
-│   ├── dashboard.tsx              # Dashboard layout (sidebar, header, command palette)
+│   ├── dashboard.tsx              # Dashboard layout + auth guard (sidebar, header, command palette)
 │   └── dashboard/                 # Dashboard pages
 │       ├── overview.tsx           # Analytics with Suspense boundaries
 │       ├── product/               # Product CRUD (route loaders + React Query)
@@ -127,22 +133,44 @@ src/
 │   ├── kanban/                    # Drag-drop task board
 │   ├── chat/                      # Messaging (conversations, bubbles, composer)
 │   ├── notifications/             # Notification center & store
-│   ├── auth/                      # Auth components
+│   ├── auth/                      # Session, sign in/up/out server functions, auth middleware, forms
 │   └── forms/                     # Form showcases
 │
 ├── lib/                           # Core utilities (query-client, parsers, etc.)
 ├── hooks/                         # Custom hooks (use-data-table, use-media-query, etc.)
 ├── config/                        # Navigation, infobar, data table config
-├── constants/                     # Mock data
+├── constants/                     # Mock data (`*.server.ts`, never sent to the browser)
 ├── styles/                        # Global CSS & theme files
 │   └── themes/                    # Individual theme CSS files (OKLCH)
 └── types/                         # TypeScript types
 ```
 
+## TanStack Start Patterns
+
+The starter follows the conventions of the official [TanStack Start examples](https://github.com/TanStack/router/tree/main/examples/react) (`start-basic`, `start-basic-auth`, `start-supabase-basic`, `start-basic-authjs`, `start-basic-static`, `start-basic-cloudflare`):
+
+| Pattern                                                                                       | Where                                                            |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Router factory per request (`getRouter`) with default error, not-found and pending components | `src/router.tsx`                                                 |
+| HTML document as the root `shellComponent`, so errors and 404s keep the theme                 | `src/routes/__root.tsx`                                          |
+| Current user loaded in the root `beforeLoad` and exposed as `context.user`                    | `src/routes/__root.tsx`                                          |
+| Layout route guard: `beforeLoad` + `redirect()` with a `redirect` search param                | `src/routes/dashboard.tsx`, `src/routes/auth.tsx`                |
+| Data access through `createServerFn()` with Zod validators and auth middleware                | `src/features/*/api/service.ts`                                  |
+| Server-only modules via the `*.server.ts` suffix (enforced by Start's import protection)      | `src/constants/*.server.ts`, `src/features/auth/api/*.server.ts` |
+| `throw notFound()` from server functions and loaders, with per-route `notFoundComponent`      | `src/routes/dashboard/product/$productId.tsx`                    |
+| Server routes with HTTP handlers                                                              | `src/routes/api/health.ts`                                       |
+| CSRF protection for server functions                                                          | `src/start.ts`                                                   |
+
+### Authentication
+
+Sessions are encrypted, httpOnly cookies ([iron-session](https://github.com/vvo/iron-session) over Start's cookie helpers), the same approach as `start-basic-auth`. Accounts live in memory (`src/features/auth/api/accounts.server.ts`); sign in with **demo@example.com / demo1234** or create an account.
+
+To use a real backend, replace `verifyCredentials` and `createAccount` with database calls, or swap the auth feature for a provider by following the matching official example: [Supabase](https://github.com/TanStack/router/tree/main/examples/react/start-supabase-basic), [Auth.js](https://github.com/TanStack/router/tree/main/examples/react/start-basic-authjs). The route guards and `authMiddleware` stay the same: only `getCurrentUser` and the session helper change.
+
 ## Getting Started
 
 > [!NOTE]
-> This admin dashboard starter uses **TanStack Start** with **React 19**, **Vite 7**, and **Shadcn UI**. Follow these steps to run it locally:
+> This admin dashboard starter uses **TanStack Start** with **React 19**, **Vite 8**, and **Shadcn UI**. Follow these steps to run it locally:
 
 Clone the repo:
 
@@ -159,51 +187,38 @@ cp env.example.txt .env
 bun run dev
 ```
 
-You should now be able to access the application at http://localhost:3000.
+You should now be able to access the application at http://localhost:3000. Sign in with the demo account (**demo@example.com / demo1234**, prefilled on the sign-in page).
+
+`vite dev` works without any environment variables. Production builds require `SESSION_SECRET` (at least 32 characters, e.g. `openssl rand -base64 32`).
 
 ## Deploy
 
-### Vercel (Recommended)
+The starter builds with [Nitro](https://nitro.build), the default host in TanStack's own CLI templates (`npm create @tanstack/start`). Set `SESSION_SECRET` (at least 32 characters) wherever you deploy.
 
-The project uses **Nitro** with the `vercel` preset. Just connect your GitHub repo to Vercel:
+| Host               | Setup                                                                                                                                                                                                                                  |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vercel             | Import the repo. `vercel.json` selects the TanStack Start framework preset; build command `bun run build`.                                                                                                                             |
+| Railway, Render    | Connect the repo; they detect the Nitro build.                                                                                                                                                                                         |
+| Node.js / Docker   | `bun run build`, then `bun run start` (`node .output/server/index.mjs`).                                                                                                                                                               |
+| Cloudflare Workers | Official setup: replace `nitro()` in `vite.config.ts` with `@cloudflare/vite-plugin` and add a `wrangler.jsonc`, as in [`start-basic-cloudflare`](https://github.com/TanStack/router/tree/main/examples/react/start-basic-cloudflare). |
+| Netlify            | Official setup: replace `nitro()` with [`@netlify/vite-plugin-tanstack-start`](https://www.npmjs.com/package/@netlify/vite-plugin-tanstack-start).                                                                                     |
 
-- **Build Command:** `bun run build`
-- **Output Directory:** leave blank (auto-detected)
-- **Framework Preset:** Other
+Nitro detects the target in each host's CI. To force one, set `SERVER_PRESET` at build time (for example `SERVER_PRESET=node-server bun run build`). See TanStack's [hosting guide](https://tanstack.com/start/latest/docs/framework/react/guide/hosting) for details.
 
-### Other Platforms
-
-Change the Nitro preset in `vite.config.ts`:
-
-```ts
-// Cloudflare Pages
-nitro({ preset: 'cloudflare-pages' });
-
-// Node.js server
-nitro({ preset: 'node-server' });
-
-// Netlify
-nitro({ preset: 'netlify' });
-```
-
-Then run locally with:
-
-```bash
-bun run build
-bun run start
-```
+For fully static marketing pages, see the `prerender` option in [`start-basic-static`](https://github.com/TanStack/router/tree/main/examples/react/start-basic-static).
 
 ## Key Differences from Next.js Version
 
-| Concept       | Next.js                                 | TanStack Start                                   |
-| ------------- | --------------------------------------- | ------------------------------------------------ |
-| Routing       | App Router (`app/`)                     | File-based (`routes/`) with type-safe params     |
-| Data Fetching | Server Components + `HydrationBoundary` | Route `loader` + `useSuspenseQuery`              |
-| Layouts       | `layout.tsx` nesting                    | Layout routes with `<Outlet />`                  |
-| Server Code   | `'use server'` actions                  | `createServerFn()`                               |
-| Build Tool    | Webpack/Turbopack                       | Vite                                             |
-| Deployment    | `next start`                            | Nitro (any platform)                             |
-| URL State     | nuqs                                    | TanStack Router `useSearch()` + `validateSearch` |
+| Concept       | Next.js                                 | TanStack Start                               |
+| ------------- | --------------------------------------- | -------------------------------------------- |
+| Routing       | App Router (`app/`)                     | File-based (`routes/`) with type-safe params |
+| Data Fetching | Server Components + `HydrationBoundary` | Route `loader` + `useSuspenseQuery`          |
+| Layouts       | `layout.tsx` nesting                    | Layout routes with `<Outlet />`              |
+| Server Code   | `'use server'` actions                  | `createServerFn()` + middleware              |
+| Build Tool    | Webpack/Turbopack                       | Vite                                         |
+| Deployment    | `next start`                            | Nitro (any platform)                         |
+| URL State     | nuqs                                    | nuqs (TanStack Router adapter)               |
+| Auth          | Clerk                                   | Cookie session + `beforeLoad` guards         |
 
 ### Support
 

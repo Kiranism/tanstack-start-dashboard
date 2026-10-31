@@ -10,7 +10,8 @@ import {
 import { navGroups } from '@/config/nav-config';
 import { useFilteredNavGroups } from '@/hooks/use-nav';
 import { Link } from '@tanstack/react-router';
-import { useLocation, useRouter } from '@tanstack/react-router';
+import { useLocation, useRouteContext, useRouter } from '@tanstack/react-router';
+import { useSignOut } from '@/features/auth/hooks/use-sign-out';
 import { Icons } from '../icons';
 import {
   Sidebar,
@@ -31,6 +32,8 @@ import {
 export default function AppSidebar() {
   const { pathname } = useLocation();
   const router = useRouter();
+  const { user } = useRouteContext({ from: '/dashboard' });
+  const signOut = useSignOut();
   const filteredGroups = useFilteredNavGroups(navGroups);
 
   return (
@@ -127,8 +130,8 @@ export default function AppSidebar() {
                   <Icons.account className='size-4' />
                 </div>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
-                  <span className='truncate font-medium'>User</span>
-                  <span className='truncate text-xs text-muted-foreground'>user@example.com</span>
+                  <span className='truncate font-medium'>{user.name}</span>
+                  <span className='truncate text-xs text-muted-foreground'>{user.email}</span>
                 </div>
                 <Icons.chevronsDown className='ml-auto size-4' />
               </DropdownMenuTrigger>
@@ -147,7 +150,7 @@ export default function AppSidebar() {
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={signOut}>
                   <Icons.logout className='mr-2 h-4 w-4' />
                   Sign out
                 </DropdownMenuItem>

@@ -1,4 +1,4 @@
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import { type ErrorComponentProps, useRouter } from '@tanstack/react-router';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -13,6 +13,10 @@ export function RouteError({ error, reset }: ErrorComponentProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const message = error instanceof Error ? error.message : 'An unexpected error occurred.';
+
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
 
   const retry = () => {
     startTransition(async () => {

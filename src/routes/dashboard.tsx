@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import CommandPalette from '@/components/command-palette';
 import AppSidebar from '@/components/layout/app-sidebar';
 import Header from '@/components/layout/header';
@@ -7,6 +7,14 @@ import { InfobarProvider } from '@/components/ui/infobar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 export const Route = createFileRoute('/dashboard')({
+  // Guard every /dashboard route. Returning the user narrows it to non-null
+  // for child routes (`Route.useRouteContext()`).
+  beforeLoad: ({ context, location }) => {
+    if (!context.user) {
+      throw redirect({ to: '/auth/sign-in', search: { redirect: location.href } });
+    }
+    return { user: context.user };
+  },
   head: () => ({
     meta: [
       { title: 'TanStack Dashboard Starter' },
