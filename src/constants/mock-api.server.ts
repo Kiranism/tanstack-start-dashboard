@@ -1,23 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
-// 🛑 Nothing in here has anything to do with Nextjs, it's just a fake database
+// In-memory fake product database. The `.server.ts` suffix makes TanStack Start's
+// import protection keep it (and faker) out of the client bundle; only the
+// server functions in features/*/api/service.ts call it.
 ////////////////////////////////////////////////////////////////////////////////
 
 import { faker } from '@faker-js/faker';
 import { matchSorter } from 'match-sorter'; // For filtering
+import type { Product } from '@/features/products/api/types';
 
 export const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// Define the shape of Product data
-export type Product = {
-  photo_url: string;
-  name: string;
-  description: string;
-  created_at: string;
-  price: number;
-  id: number;
-  category: string;
-  updated_at: string;
-};
 
 // Mock product data store
 export const fakeProducts = {
@@ -25,8 +16,7 @@ export const fakeProducts = {
 
   // Initialize with sample data
   initialize() {
-    // Seed faker so the server (SSR) and the browser generate the same records;
-    // otherwise client-side refetches return a different random dataset.
+    // Seed faker so every server instance generates the same demo records.
     faker.seed(1);
     faker.setDefaultRefDate('2024-01-01T00:00:00.000Z');
     const sampleProducts: Product[] = [];

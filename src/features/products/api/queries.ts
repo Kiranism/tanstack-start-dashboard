@@ -13,11 +13,11 @@ export const productKeys = {
 export const productsQueryOptions = (filters: ProductFilters) =>
   queryOptions({
     queryKey: productKeys.list(filters),
-    queryFn: () => getProducts(filters)
+    queryFn: () => getProducts({ data: filters })
   });
 
 export const productByIdOptions = (id: number) =>
   queryOptions({
     queryKey: productKeys.detail(id),
-    queryFn: () => getProductById(id)
+    queryFn: () => getProductById({ data: id })
   });
