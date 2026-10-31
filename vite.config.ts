@@ -14,10 +14,11 @@ export default defineConfig({
     devtools(),
     tailwindcss(),
     tanstackStart(),
-    // Nitro auto-detects the deploy target: Vercel/Cloudflare/Netlify in their
-    // CI (zero-config), and the Node.js server preset locally (.output/server,
-    // matching the `start` script). Override with SERVER_PRESET to force one,
-    // e.g. SERVER_PRESET=node-server / cloudflare-module / bun.
+    // Nitro is the default host in TanStack's own CLI templates: it covers
+    // Vercel, Railway, Render and Node.js (.output/server, matching the `start`
+    // script), auto-detecting the target in CI. Override with SERVER_PRESET.
+    // For Cloudflare or Netlify, the official setup swaps this for their Vite
+    // plugin instead (see README > Deploy).
     nitro({ preset: process.env.SERVER_PRESET }),
     // Must come after tanstackStart().
     viteReact()

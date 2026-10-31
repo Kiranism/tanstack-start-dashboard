@@ -1,6 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import type { Product } from '../api/types';
-import { notFound } from '@tanstack/react-router';
 import ProductForm from './product-form';
 import { productByIdOptions } from '../api/queries';
 
@@ -18,10 +17,5 @@ export default function ProductViewPage({ productId }: TProductViewPageProps) {
 
 function EditProductView({ productId }: { productId: number }) {
   const { data } = useSuspenseQuery(productByIdOptions(productId));
-
-  if (!data?.success || !data?.product) {
-    throw notFound();
-  }
-
   return <ProductForm initialData={data.product as Product} pageTitle='Edit Product' />;
 }

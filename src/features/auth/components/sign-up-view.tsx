@@ -1,7 +1,7 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
-import UserAuthForm from './user-auth-form';
+import { SignUpForm } from './user-auth-form';
 import { InteractiveGridPattern } from './interactive-grid';
 
 export default function SignUpViewPage() {
@@ -9,6 +9,7 @@ export default function SignUpViewPage() {
     <div className='relative flex min-h-screen flex-col items-center justify-center overflow-hidden md:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
       <Link
         to='/auth/sign-in'
+        search={(prev) => prev}
         className={cn(
           buttonVariants({ variant: 'ghost' }),
           'absolute top-4 right-4 md:top-8 md:right-8'
@@ -54,12 +55,12 @@ export default function SignUpViewPage() {
           <div className='flex flex-col space-y-2 text-center'>
             <h1 className='text-2xl font-semibold tracking-tight'>Create an account</h1>
             <p className='text-sm text-muted-foreground'>
-              Enter your email below to create your account
+              Enter your details to create your account
             </p>
           </div>
-          <UserAuthForm />
+          <SignUpForm />
           <p className='px-8 text-center text-sm text-muted-foreground'>
-            By clicking continue, you agree to our{' '}
+            By continuing, you agree to our{' '}
             <Link
               to='/terms-of-service'
               className='underline underline-offset-4 hover:text-primary'

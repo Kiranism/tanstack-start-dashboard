@@ -3,24 +3,17 @@ import { hotkeysDevtoolsPlugin } from '@tanstack/react-hotkeys-devtools';
 import { formDevtoolsPlugin } from '@tanstack/react-form-devtools';
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
-import {
-  type ErrorComponentProps,
-  HeadContent,
-  Outlet,
-  Scripts,
-  createRootRouteWithContext,
-  useRouter
-} from '@tanstack/react-router';
+import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { createServerFn } from '@tanstack/react-start';
 import { getCookie } from '@tanstack/react-start/server';
 import { NuqsAdapter } from 'nuqs/adapters/tanstack-router';
 
 import { Toaster } from '@/components/ui/sonner';
-import { Button } from '@/components/ui/button';
 import { ActiveThemeProvider } from '@/components/themes/active-theme';
 import ThemeProvider from '@/components/themes/theme-provider';
 import { DEFAULT_THEME, THEMES } from '@/components/themes/theme.config';
+import { currentUserQueryOptions } from '@/features/auth/api/queries';
 import { seo } from '@/lib/seo';
 
 import appCss from '@/styles/globals.css?url';
@@ -42,6 +35,11 @@ const getActiveTheme = createServerFn({ method: 'GET' }).handler(() => {
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
+  // Every route gets `context.user` (null when signed out). Cached in the query
+  // client, so only the first load and sign in/out hit the server.
+  beforeLoad: async ({ context }) => ({
+    user: await context.queryClient.ensureQueryData(currentUserQueryOptions())
+  }),
   head: () => ({
     meta: [
       { charSet: 'utf-8' },
@@ -62,54 +60,16 @@ export const Route = createRootRouteWithContext<{
   // The theme cookie is read once for SSR; after that ActiveThemeProvider owns
   // it on the client, so don't re-run the server function on every navigation.
   staleTime: Infinity,
-  component: RootComponent,
-  errorComponent: RootErrorComponent
+  // The shell renders the <html> document around every match, including
+  // errors and not-found pages, so they keep the theme and styles.
+  shellComponent: RootDocument
 });
 
-function RootComponent() {
-  const { activeTheme } = Route.useLoaderData();
+function RootDocument({ children }: { children: React.ReactNode }) {
+  // Undefined when the root beforeLoad or loader failed and the shell is
+  // rendering the error, so fall back to the default theme.
+  const activeTheme = Route.useLoaderData({ select: (data) => data?.activeTheme }) ?? DEFAULT_THEME;
 
-  return (
-    <RootDocument activeTheme={activeTheme}>
-      {/* URL state for nuqs hooks (DiceUI's useDataTable). */}
-      <NuqsAdapter>
-        <Outlet />
-      </NuqsAdapter>
-    </RootDocument>
-  );
-}
-
-// Errors thrown at the root (e.g. by its loader) would otherwise render without
-// the <html> shell, so wrap them in the same document.
-function RootErrorComponent({ error, reset }: ErrorComponentProps) {
-  const router = useRouter();
-  const message = error instanceof Error ? error.message : 'An unexpected error occurred.';
-
-  return (
-    <RootDocument activeTheme={DEFAULT_THEME}>
-      <div className='flex min-h-dvh flex-col items-center justify-center gap-4 p-6 text-center'>
-        <h1 className='text-2xl font-bold'>Something went wrong</h1>
-        <p className='max-w-md text-sm text-muted-foreground'>{message}</p>
-        <Button
-          onClick={() => {
-            reset();
-            void router.invalidate();
-          }}
-        >
-          Try again
-        </Button>
-      </div>
-    </RootDocument>
-  );
-}
-
-function RootDocument({
-  activeTheme,
-  children
-}: {
-  activeTheme: string;
-  children: React.ReactNode;
-}) {
   return (
     <html lang='en' suppressHydrationWarning data-theme={activeTheme}>
       <head>
@@ -136,7 +96,8 @@ function RootDocument({
         >
           <ActiveThemeProvider initialTheme={activeTheme}>
             <Toaster />
-            {children}
+            {/* URL state for nuqs hooks (DiceUI's useDataTable). */}
+            <NuqsAdapter>{children}</NuqsAdapter>
           </ActiveThemeProvider>
         </ThemeProvider>
         {/* Keep the plugins inline: devtools() in vite.config.ts strips this

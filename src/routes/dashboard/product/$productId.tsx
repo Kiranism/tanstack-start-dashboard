@@ -1,4 +1,5 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
+import { NotFound } from '@/components/not-found';
 import PageContainer from '@/components/layout/page-container';
 import ProductViewPage from '@/features/products/components/product-view-page';
 import { productByIdOptions } from '@/features/products/api/queries';
@@ -7,13 +8,21 @@ export const Route = createFileRoute('/dashboard/product/$productId')({
   head: () => ({ meta: [{ title: 'Dashboard : Product View' }] }),
   loader: async ({ context: { queryClient }, params }) => {
     if (params.productId === 'new') return;
-    const data = await queryClient.query({
-      ...productByIdOptions(Number(params.productId)),
+    const id = Number(params.productId);
+    if (!Number.isInteger(id)) throw notFound();
+    // getProductById throws notFound() for unknown ids, which renders the
+    // notFoundComponent below with a 404 status (on the server too).
+    await queryClient.query({
+      ...productByIdOptions(id),
       staleTime: 'static'
     });
-    // Throw here, not in the component, so SSR renders the 404 page.
-    if (!data.success || !data.product) throw notFound();
   },
+  notFoundComponent: () => (
+    <NotFound
+      title='Product not found'
+      description="This product doesn't exist or has been deleted."
+    />
+  ),
   component: ProductDetailPage
 });
 

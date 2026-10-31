@@ -58,3 +58,7 @@ temp
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# TanStack Start / Nitro build caches
+.tanstack
+.nitro

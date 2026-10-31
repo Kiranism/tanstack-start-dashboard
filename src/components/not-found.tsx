@@ -2,7 +2,15 @@ import { useRouter } from '@tanstack/react-router';
 
 import { Button } from '@/components/ui/button';
 
-export function NotFound() {
+type NotFoundProps = {
+  title?: string;
+  description?: string;
+};
+
+export function NotFound({
+  title = "Something's missing",
+  description = "Sorry, the page you are looking for doesn't exist or has been moved."
+}: NotFoundProps) {
   const router = useRouter();
 
   return (
@@ -10,8 +18,8 @@ export function NotFound() {
       <span className='bg-linear-to-b from-foreground to-transparent bg-clip-text text-[10rem] leading-none font-extrabold text-transparent'>
         404
       </span>
-      <h2 className='font-heading my-2 text-2xl font-bold'>Something&apos;s missing</h2>
-      <p>Sorry, the page you are looking for doesn&apos;t exist or has been moved.</p>
+      <h2 className='font-heading my-2 text-2xl font-bold'>{title}</h2>
+      <p>{description}</p>
       <div className='mt-8 flex justify-center gap-2'>
         <Button onClick={() => router.history.back()} variant='default' size='lg'>
           Go back
