@@ -1,5 +1,3 @@
-'use client';
-
 import type { DateRange } from 'react-day-picker';
 
 import { type Column, type RowData, Subscribe } from '@tanstack/react-table';
@@ -13,7 +11,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { useDirection } from '@/components/ui/direction';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { XCircle, CalendarIcon } from 'lucide-react';
+import { IconCircleX, IconCalendar } from '@tabler/icons-react';
 
 type DateSelection = Date[] | DateRange;
 
@@ -184,21 +182,19 @@ function DataTableDateFilterContent<TData extends RowData>({
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button variant='outline'>
-          {hasValue ? (
-            <span
-              aria-hidden='true'
-              className='rounded-sm opacity-70 transition-opacity hover:opacity-100'
-              onClick={onReset}
-            >
-              <XCircle />
-            </span>
-          ) : (
-            <CalendarIcon />
-          )}
-          {label}
-        </Button>
+      <PopoverTrigger render={<Button variant='outline' className='border-dashed' />}>
+        {hasValue ? (
+          <span
+            aria-hidden='true'
+            className='rounded-sm opacity-70 transition-opacity hover:opacity-100'
+            onClick={onReset}
+          >
+            <IconCircleX />
+          </span>
+        ) : (
+          <IconCalendar />
+        )}
+        {label}
       </PopoverTrigger>
       <PopoverContent aria-label={`${title} filter`} dir={dir} className='w-auto p-0' align='start'>
         {multiple ? (

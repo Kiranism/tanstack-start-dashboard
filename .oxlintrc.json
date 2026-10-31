@@ -31,9 +31,6 @@
     "react/no-children-prop": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/purity": "warn",
-    "react/refs": "warn",
-    "react/set-state-in-effect": "warn",
 
     "no-shadow": "off",
     "import/no-anonymous-default-export": "warn",

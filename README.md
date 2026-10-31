@@ -28,23 +28,23 @@ It gives you a production-ready **dashboard UI** with charts, tables, forms, and
 
 ### Tech Stack
 
-| Category           | Technology                                                                                            |
-| ------------------ | ----------------------------------------------------------------------------------------------------- |
-| Framework          | [TanStack Start](https://tanstack.com/start)                                                          |
-| Language           | [TypeScript](https://www.typescriptlang.org)                                                          |
-| Build Tool         | [Vite 7](https://vite.dev)                                                                            |
-| Deployment         | [Nitro](https://nitro.build) (Vercel, Cloudflare, Node.js)                                            |
-| Styling            | [Tailwind CSS v4](https://tailwindcss.com)                                                            |
-| Components         | [Shadcn-ui](https://ui.shadcn.com)                                                                    |
-| Routing            | [TanStack Router](https://tanstack.com/router) (file-based, type-safe)                                |
-| Data Fetching      | [TanStack React Query](https://tanstack.com/query)                                                    |
-| Tables             | [TanStack Table](https://tanstack.com/table)                                                          |
-| Forms              | [TanStack Form](https://tanstack.com/form) + [Zod](https://zod.dev)                                   |
-| Charts             | [Recharts](https://recharts.org)                                                                      |
-| State Management   | [Zustand](https://zustand-demo.pmnd.rs)                                                               |
-| Command+K          | [kbar](https://kbar.vercel.app/)                                                                      |
-| Themes             | [tweakcn](https://tweakcn.com/)                                                                       |
-| Linter / Formatter | [OxLint](https://oxc.rs/docs/guide/usage/linter) / [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) |
+| Category           | Technology                                                                                                                   |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| Framework          | [TanStack Start](https://tanstack.com/start)                                                                                 |
+| Language           | [TypeScript](https://www.typescriptlang.org)                                                                                 |
+| Build Tool         | [Vite 7](https://vite.dev)                                                                                                   |
+| Deployment         | [Nitro](https://nitro.build) (Vercel, Cloudflare, Node.js)                                                                   |
+| Styling            | [Tailwind CSS v4](https://tailwindcss.com)                                                                                   |
+| Components         | [Shadcn-ui](https://ui.shadcn.com)                                                                                           |
+| Routing            | [TanStack Router](https://tanstack.com/router) (file-based, type-safe)                                                       |
+| Data Fetching      | [TanStack React Query](https://tanstack.com/query)                                                                           |
+| Tables             | [TanStack Table](https://tanstack.com/table)                                                                                 |
+| Forms              | [TanStack Form](https://tanstack.com/form) + [Zod](https://zod.dev)                                                          |
+| Charts             | [Recharts](https://recharts.org)                                                                                             |
+| State Management   | [Zustand](https://zustand-demo.pmnd.rs)                                                                                      |
+| Command+K          | [Base UI Autocomplete](https://base-ui.com/react/components/autocomplete) + [TanStack Hotkeys](https://tanstack.com/hotkeys) |
+| Themes             | [tweakcn](https://tweakcn.com/)                                                                                              |
+| Linter / Formatter | [OxLint](https://oxc.rs/docs/guide/usage/linter) / [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)                        |
 
 _If you are looking for a Next.js dashboard template, here is the [repo](https://git.new/shadcn-dashboard)._
 
@@ -101,7 +101,7 @@ src/
 │   ├── __root.tsx                 # Root layout (providers, theme, HTML shell)
 │   ├── index.tsx                  # Home (auth redirect)
 │   ├── auth/                      # Auth pages (sign-in, sign-up)
-│   ├── dashboard.tsx              # Dashboard layout (sidebar, header, KBar)
+│   ├── dashboard.tsx              # Dashboard layout (sidebar, header, command palette)
 │   └── dashboard/                 # Dashboard pages
 │       ├── overview.tsx           # Analytics with Suspense boundaries
 │       ├── product/               # Product CRUD (route loaders + React Query)
@@ -117,7 +117,7 @@ src/
 │   ├── ui/                        # UI primitives (buttons, inputs, kanban, etc.)
 │   ├── layout/                    # Layout components (header, sidebar, etc.)
 │   ├── themes/                    # Theme system (selector, mode toggle, config)
-│   └── kbar/                      # Command+K interface
+│   └── command-palette/           # Command+K interface
 │
 ├── features/                      # Feature-based modules
 │   ├── overview/                  # Dashboard analytics (charts, cards)

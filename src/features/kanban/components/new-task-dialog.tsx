@@ -29,10 +29,8 @@ export default function NewTaskDialog() {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant='secondary' size='sm'>
-          + Add New Task
-        </Button>
+      <DialogTrigger render={<Button variant='secondary' size='sm' />}>
+        + Add New Task
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
@@ -53,10 +51,8 @@ export default function NewTaskDialog() {
           </div>
         </form>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button type='submit' size='sm' form='task-form'>
-              Add Task
-            </Button>
+          <DialogClose render={<Button type='submit' size='sm' form='task-form' />}>
+            Add Task
           </DialogClose>
         </DialogFooter>
       </DialogContent>

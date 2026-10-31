@@ -15,7 +15,7 @@ Key facts:
 - Server logic: TanStack Start server functions via `createServerFn()`
 - Production-ready, not demo-only: working CRUD flows (list, create, edit with mutations and cache invalidation), tables with functional search/filter/sort/pagination, reusable composable form fields, multi-step and dialog/sheet form patterns
 - Pages included: analytics overview (charts with Suspense boundaries), product CRUD with data tables, user management, a React Query demo, a Kanban board, chat, notifications, and form examples
-- UI: shadcn/ui components on Base UI primitives, 10+ themes with a theme switcher (tweakcn), command palette (Cmd+K via kbar), drag-and-drop Kanban (dnd-kit + Zustand)
+- UI: shadcn/ui components on Base UI primitives, 10+ themes with a theme switcher (tweakcn), command palette (Cmd+K, Base UI Autocomplete), drag-and-drop Kanban (dnd-kit + Zustand)
 - Deployment: Nitro presets — Vercel, Cloudflare, and Node.js
 - Getting started: clone the repo, run `bun install`, copy `env.example.txt` to `.env`, then `bun run dev` (app runs at http://localhost:3000)
 - Best for: SaaS admin dashboards, internal tools, analytics dashboards, client admin panels, and as a TanStack Start / React admin dashboard boilerplate for new shadcn/ui projects

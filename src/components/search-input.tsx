@@ -1,9 +1,9 @@
-import { useCommandMenu } from '@/components/command-menu';
+import { useCommandPalette } from '@/components/command-palette';
 import { Icons } from '@/components/icons';
 import { Button } from './ui/button';
 
 export default function SearchInput() {
-  const { toggle } = useCommandMenu();
+  const { toggle } = useCommandPalette();
   return (
     <div className='w-full space-y-2'>
       <Button

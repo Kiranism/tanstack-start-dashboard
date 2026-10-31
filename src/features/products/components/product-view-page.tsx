@@ -20,7 +20,7 @@ function EditProductView({ productId }: { productId: number }) {
   const { data } = useSuspenseQuery(productByIdOptions(productId));
 
   if (!data?.success || !data?.product) {
-    notFound();
+    throw notFound();
   }
 
   return <ProductForm initialData={data.product as Product} pageTitle='Edit Product' />;

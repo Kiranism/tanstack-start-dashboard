@@ -19,11 +19,11 @@ export function ToggleGroupField({
     <Field>
       <FieldLabel id={labelId}>{label}</FieldLabel>
       <ToggleGroup
-        type='multiple'
+        multiple
         variant='outline'
         aria-labelledby={labelId}
         value={field.state.value || []}
-        onValueChange={(val: string[]) => field.handleChange(val)}
+        onValueChange={(val) => field.handleChange(val as string[])}
       >
         {children}
       </ToggleGroup>
