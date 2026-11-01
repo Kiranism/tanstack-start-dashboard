@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits"],
+  "timezone": "UTC",
+  "schedule": ["before 6am on monday"],
+  "minimumReleaseAge": "7 days",
+  "internalChecksFilter": "strict",
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": null,
+    "schedule": ["at any time"],
+    "labels": ["security"]
+  },
+  "packageRules": [
+    {
+      "description": "Batch non-major updates into one weekly PR",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "groupName": "non-major dependencies",
+      "groupSlug": "non-major"
+    },
+    {
+      "description": "Start, Router and the other TanStack packages are released together",
+      "matchPackageNames": ["/^@tanstack\\//"],
+      "groupName": "TanStack"
+    },
+    {
+      "description": "@base-ui/utils must match the version @base-ui/react requires",
+      "matchPackageNames": ["@base-ui/react", "@base-ui/utils"],
+      "groupName": "Base UI"
+    },
+    {
+      "description": "Keep @types/node on the deploy runtime's major (Node 24 LTS on Vercel)",
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "<25"
+    }
+  ]
+}
