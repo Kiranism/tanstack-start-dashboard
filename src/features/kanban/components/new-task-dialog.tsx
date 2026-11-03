@@ -16,7 +16,7 @@ import { useTaskStore } from '../utils/store';
 export default function NewTaskDialog() {
   const addTask = useTaskStore((state) => state.addTask);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;

@@ -38,7 +38,8 @@ export const Route = createRootRouteWithContext<{
   // Every route gets `context.user` (null when signed out). Cached in the query
   // client, so only the first load and sign in/out hit the server.
   beforeLoad: async ({ context }) => ({
-    user: await context.queryClient.ensureQueryData(currentUserQueryOptions())
+    // staleTime 'static' = the old ensureQueryData: fetch only when nothing is cached
+    user: await context.queryClient.query({ ...currentUserQueryOptions(), staleTime: 'static' })
   }),
   head: () => ({
     meta: [

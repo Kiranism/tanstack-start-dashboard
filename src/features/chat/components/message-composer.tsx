@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { SubmitEvent, useRef } from 'react';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -8,7 +8,7 @@ import type { Attachment } from '../utils/types';
 interface MessageComposerProps {
   draft: string;
   onDraftChange: (text: string) => void;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: SubmitEvent<HTMLFormElement>) => void;
   contactName: string;
   quickReplies: string[];
   attachments: Attachment[];
