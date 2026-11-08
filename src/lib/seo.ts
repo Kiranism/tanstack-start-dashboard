@@ -1,7 +1,7 @@
 import { siteConfig } from '@/config/site';
 
 export interface SeoArgs {
-  /** Page title. Falls back to the site name. */
+  /** Page title, suffixed with the site name. Falls back to the site title. */
   title?: string;
   /** Meta description. Falls back to the site description. */
   description?: string;
@@ -16,10 +16,25 @@ export interface SeoArgs {
 }
 
 /** Resolve a path or URL to an absolute URL against the configured site origin. */
-function absoluteUrl(pathOrUrl: string) {
+export function absoluteUrl(pathOrUrl: string) {
   if (!pathOrUrl) return siteConfig.url;
   if (pathOrUrl.startsWith('http')) return pathOrUrl;
   return `${siteConfig.url}${pathOrUrl.startsWith('/') ? '' : '/'}${pathOrUrl}`;
+}
+
+/**
+ * `Products | TanStack Start Dashboard by Kiranism`. Without a title, the
+ * site title. TanStack Router has no title template, so routes call this.
+ *
+ *   head: () => ({ meta: [{ title: pageTitle('Products') }] })
+ */
+export function pageTitle(title?: string) {
+  return title ? `${title} | ${siteConfig.name}` : siteConfig.title;
+}
+
+/** Canonical `<link>` for a public page, for TanStack Router's `head.links`. */
+export function canonicalLink(path: string) {
+  return { rel: 'canonical', href: absoluteUrl(path) };
 }
 
 /**
@@ -27,19 +42,20 @@ function absoluteUrl(pathOrUrl: string) {
  * standard SEO + Open Graph + Twitter Card tags.
  *
  * Usage in a route:
- *   head: () => ({ meta: seo({ title: 'Products', path: '/dashboard/product' }) })
+ *   head: () => ({ meta: seo({ title: 'About', path: '/about' }), links: [canonicalLink('/about')] })
  */
 export function seo({ title, description, keywords, image, path, noindex }: SeoArgs = {}) {
-  const metaTitle = title ?? siteConfig.name;
+  const metaTitle = pageTitle(title);
   const metaDescription = description ?? siteConfig.description;
   const metaKeywords = keywords ?? siteConfig.keywords.join(', ');
-  const metaImage = absoluteUrl(image ?? siteConfig.ogImage);
+  const metaImage = absoluteUrl(image ?? siteConfig.ogImage.url);
   const metaUrl = absoluteUrl(path ?? '/');
 
   return [
     { title: metaTitle },
     { name: 'description', content: metaDescription },
     { name: 'keywords', content: metaKeywords },
+    { name: 'author', content: siteConfig.author.name },
 
     // Open Graph
     { property: 'og:type', content: 'website' },
@@ -47,6 +63,14 @@ export function seo({ title, description, keywords, image, path, noindex }: SeoA
     { property: 'og:title', content: metaTitle },
     { property: 'og:description', content: metaDescription },
     { property: 'og:image', content: metaImage },
+    // Dimensions and alt only describe the default image.
+    ...(image
+      ? []
+      : [
+          { property: 'og:image:width', content: String(siteConfig.ogImage.width) },
+          { property: 'og:image:height', content: String(siteConfig.ogImage.height) },
+          { property: 'og:image:alt', content: siteConfig.ogImage.alt }
+        ]),
     { property: 'og:url', content: metaUrl },
 
     // Twitter

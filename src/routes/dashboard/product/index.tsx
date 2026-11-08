@@ -8,9 +8,10 @@ import { Icons } from '@/components/icons';
 import { productInfoContent } from '@/config/infoconfig';
 import { getProductFiltersFromSearch } from '@/features/products/components/product-tables/search-params';
 import { productsQueryOptions } from '@/features/products/api/queries';
+import { pageTitle } from '@/lib/seo';
 
 export const Route = createFileRoute('/dashboard/product/')({
-  head: () => ({ meta: [{ title: 'Dashboard: Products' }] }),
+  head: () => ({ meta: [{ title: pageTitle('Products') }] }),
   loaderDeps: ({ search }) => search,
   loader: ({ context: { queryClient }, deps }) => {
     // Kick off the fetch without blocking; useSuspenseQuery picks it up.

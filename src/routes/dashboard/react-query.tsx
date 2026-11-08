@@ -5,9 +5,10 @@ import PageContainer from '@/components/layout/page-container';
 import { Suspense } from 'react';
 import { PokemonSkeleton } from '@/features/react-query-demo/components/pokemon-skeleton';
 import { reactQueryInfoContent } from '@/features/react-query-demo/info-content';
+import { pageTitle } from '@/lib/seo';
 
 export const Route = createFileRoute('/dashboard/react-query')({
-  head: () => ({ meta: [{ title: 'Dashboard: React Query' }] }),
+  head: () => ({ meta: [{ title: pageTitle('React Query') }] }),
   loader: async ({ context: { queryClient } }) => {
     await queryClient.query({ ...pokemonOptions(25), staleTime: 'static' });
   },

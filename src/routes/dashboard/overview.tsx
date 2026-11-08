@@ -14,10 +14,11 @@ import { BarGraph } from '@/features/overview/components/bar-graph';
 import { RecentSales } from '@/features/overview/components/recent-sales';
 import { AreaGraph } from '@/features/overview/components/area-graph';
 import { PieGraph } from '@/features/overview/components/pie-graph';
+import { pageTitle } from '@/lib/seo';
 
 export const Route = createFileRoute('/dashboard/overview')({
   head: () => ({
-    meta: [{ title: 'Dashboard: Overview' }]
+    meta: [{ title: pageTitle('Overview') }]
   }),
   component: OverviewPage
 });

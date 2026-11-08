@@ -6,13 +6,26 @@
  * It is used to build absolute URLs for og:image / twitter:image and the sitemap.
  */
 export const siteConfig = {
-  name: 'TanStack Start Dashboard',
+  // Brand shown in page titles, og:site_name and the sidebar.
+  name: 'TanStack Start Dashboard by Kiranism',
+  shortName: 'TanStack Start Dashboard',
+  // Home page / fallback title (keep it under ~65 characters).
+  title: 'Admin Dashboard Template | TanStack Start Dashboard by Kiranism',
+  author: {
+    name: 'Kiranism',
+    url: 'https://github.com/Kiranism'
+  },
   // Canonical production URL — change this to your deployed domain.
   url: 'https://tanstack-start-dashboard.kiranism.dev',
   description:
     'Free, open-source (MIT) admin dashboard starter built with TanStack Start, shadcn/ui on Base UI primitives, Tailwind CSS v4, and TypeScript. Production-ready features: type-safe file-based routing, React Query data tables, TanStack Form + Zod, charts, a Kanban board, a chat UI, and a notification center.',
   // Path (relative to the site root) of the Open Graph / Twitter share image.
-  ogImage: '/tanstack-dashboard.png',
+  ogImage: {
+    url: '/tanstack-dashboard.png',
+    width: 3200,
+    height: 1920,
+    alt: 'TanStack Start Dashboard by Kiranism overview page'
+  },
   keywords: [
     'TanStack Start',
     'TanStack Router',

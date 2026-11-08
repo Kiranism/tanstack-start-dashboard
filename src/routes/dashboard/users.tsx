@@ -6,9 +6,10 @@ import { usersInfoContent } from '@/features/users/info-content';
 import { UserFormSheetTrigger } from '@/features/users/components/user-form-sheet';
 import { getUserFiltersFromSearch } from '@/features/users/components/users-table/search-params';
 import { usersQueryOptions } from '@/features/users/api/queries';
+import { pageTitle } from '@/lib/seo';
 
 export const Route = createFileRoute('/dashboard/users')({
-  head: () => ({ meta: [{ title: 'Dashboard: Users' }] }),
+  head: () => ({ meta: [{ title: pageTitle('Users') }] }),
   loaderDeps: ({ search }) => search,
   loader: ({ context: { queryClient }, deps }) => {
     // Kick off the fetch without blocking; useSuspenseQuery picks it up.

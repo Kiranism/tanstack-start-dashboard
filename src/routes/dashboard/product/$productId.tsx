@@ -3,9 +3,12 @@ import { NotFound } from '@/components/not-found';
 import PageContainer from '@/components/layout/page-container';
 import ProductViewPage from '@/features/products/components/product-view-page';
 import { productByIdOptions } from '@/features/products/api/queries';
+import { pageTitle } from '@/lib/seo';
 
 export const Route = createFileRoute('/dashboard/product/$productId')({
-  head: () => ({ meta: [{ title: 'Dashboard : Product View' }] }),
+  head: ({ params }) => ({
+    meta: [{ title: pageTitle(params.productId === 'new' ? 'New Product' : 'Product') }]
+  }),
   loader: async ({ context: { queryClient }, params }) => {
     if (params.productId === 'new') return;
     const id = Number(params.productId);

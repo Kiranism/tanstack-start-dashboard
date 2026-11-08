@@ -1,15 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { seo } from '@/lib/seo';
+import { canonicalLink, seo } from '@/lib/seo';
 
 export const Route = createFileRoute('/privacy-policy')({
   head: () => ({
     meta: seo({
       title: 'Privacy Policy',
       description:
-        'Privacy policy for the TanStack Start Dashboard starter template — how the demo application handles data.',
+        'How the TanStack Start Dashboard demo by Kiranism handles your data: what sign-in collects, why it is never sold or shared, and how to contact us.',
       path: '/privacy-policy'
-    })
+    }),
+    links: [canonicalLink('/privacy-policy')]
   }),
   component: PrivacyPolicyPage
 });

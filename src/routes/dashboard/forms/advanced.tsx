@@ -1,9 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import PageContainer from '@/components/layout/page-container';
 import AdvancedFormPatterns from '@/features/forms/components/advanced-form-patterns';
+import { pageTitle } from '@/lib/seo';
 
 export const Route = createFileRoute('/dashboard/forms/advanced')({
-  head: () => ({ meta: [{ title: 'Dashboard: Advanced Form Patterns' }] }),
+  head: () => ({ meta: [{ title: pageTitle('Advanced Form Patterns') }] }),
   component: () => (
     <PageContainer
       pageTitle='Advanced Form Patterns'
