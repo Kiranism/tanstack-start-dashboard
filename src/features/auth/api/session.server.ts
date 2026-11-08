@@ -16,7 +16,8 @@ const DEV_SESSION_SECRET = 'dev-only-session-secret-do-not-use-in-production';
  * it from server functions, server routes or middleware.
  */
 export function getAppSession() {
-  const password = process.env.SESSION_SECRET ?? (import.meta.env.DEV ? DEV_SESSION_SECRET : '');
+  // `||`, not `??`: a blank `SESSION_SECRET=` copied from env.example.txt counts as unset.
+  const password = process.env.SESSION_SECRET || (import.meta.env.DEV ? DEV_SESSION_SECRET : '');
   if (password.length < 32) {
     throw new Error('Set SESSION_SECRET to at least 32 characters (openssl rand -base64 32).');
   }

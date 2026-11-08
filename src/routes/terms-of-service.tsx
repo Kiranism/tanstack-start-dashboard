@@ -1,14 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { seo } from '@/lib/seo';
+import { canonicalLink, seo } from '@/lib/seo';
 
 export const Route = createFileRoute('/terms-of-service')({
   head: () => ({
     meta: seo({
       title: 'Terms of Service',
-      description: 'Terms of service for the TanStack Start Dashboard starter template.',
+      description:
+        'Terms of service for the TanStack Start Dashboard demo by Kiranism, a free, MIT-licensed admin dashboard template.',
       path: '/terms-of-service'
-    })
+    }),
+    links: [canonicalLink('/terms-of-service')]
   }),
   component: TermsOfServicePage
 });

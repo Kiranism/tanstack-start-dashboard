@@ -5,6 +5,7 @@ import Header from '@/components/layout/header';
 import { InfoSidebar } from '@/components/layout/info-sidebar';
 import { InfobarProvider } from '@/components/ui/infobar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { pageTitle } from '@/lib/seo';
 
 export const Route = createFileRoute('/dashboard')({
   // Guard every /dashboard route. Returning the user narrows it to non-null
@@ -16,14 +17,8 @@ export const Route = createFileRoute('/dashboard')({
     return { user: context.user };
   },
   head: () => ({
-    meta: [
-      { title: 'TanStack Dashboard Starter' },
-      {
-        name: 'description',
-        content: 'Dashboard with TanStack Start and Shadcn'
-      },
-      { name: 'robots', content: 'noindex, nofollow' }
-    ]
+    // Child routes set their own title. Dashboard pages stay out of search results.
+    meta: [{ title: pageTitle('Dashboard') }, { name: 'robots', content: 'noindex, nofollow' }]
   }),
   component: DashboardLayout
 });

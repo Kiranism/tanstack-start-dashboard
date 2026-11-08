@@ -1,15 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { seo } from '@/lib/seo';
+import { siteConfig } from '@/config/site';
+import { canonicalLink, seo } from '@/lib/seo';
 
 export const Route = createFileRoute('/about')({
   head: () => ({
     meta: seo({
       title: 'About',
       description:
-        'An open-source admin dashboard starter built with TanStack Start, shadcn/ui on Base UI primitives, Tailwind CSS v4, and TypeScript.',
+        'TanStack Start Dashboard by Kiranism: a free, open-source admin dashboard starter built with TanStack Start, shadcn/ui on Base UI, Tailwind CSS v4 and TypeScript.',
       path: '/about'
-    })
+    }),
+    links: [canonicalLink('/about')]
   }),
   component: AboutPage
 });
@@ -52,7 +54,15 @@ function AboutPage() {
         </div>
         <div className='mt-12 text-center'>
           <p className='text-sm text-muted-foreground'>
-            Built with TanStack Start, Tailwind CSS, and shadcn/ui
+            Built with TanStack Start, Tailwind CSS, and shadcn/ui by{' '}
+            <a
+              href={siteConfig.author.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='font-medium text-foreground underline-offset-4 hover:underline'
+            >
+              {siteConfig.author.name}
+            </a>
           </p>
         </div>
       </div>

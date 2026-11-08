@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { navGroups } from '@/config/nav-config';
+import { siteConfig } from '@/config/site';
 import { useFilteredNavGroups } from '@/hooks/use-nav';
 import type { NavItem } from '@/types';
 import { Link } from '@tanstack/react-router';
@@ -46,14 +47,17 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               size='lg'
-              render={<Link to='/dashboard/overview' aria-label='Dashboard' />}
+              render={<Link to='/dashboard/overview' aria-label={siteConfig.name} />}
             >
               <div className='flex aspect-square size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground'>
                 <Icons.logo className='size-4' />
               </div>
               <div className='grid flex-1 text-left text-sm leading-tight'>
+                {/* Split so the full brand fits the sidebar width. */}
                 <span className='truncate font-semibold'>TanStack Start</span>
-                <span className='truncate text-xs text-muted-foreground'>Dashboard</span>
+                <span className='truncate text-xs text-muted-foreground'>
+                  Dashboard by {siteConfig.author.name}
+                </span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
