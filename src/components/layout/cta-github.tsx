@@ -11,7 +11,7 @@ export default function CtaGithub() {
       rel='noopener noreferrer'
       target='_blank'
       className={cn(
-        buttonVariants({ variant: 'ghost', size: 'sm' }),
+        buttonVariants({ variant: 'ghost', size: 'icon' }),
         'group hidden transition-colors duration-300 hover:text-[#24292e] sm:flex dark:text-foreground dark:hover:text-yellow-400'
       )}
     >
