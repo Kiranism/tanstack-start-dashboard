@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Icons } from '@/components/icons';
 import { Link } from '@tanstack/react-router';
+import { cn } from '@/lib/utils';
 import {
   Infobar,
   InfobarContent,
@@ -28,12 +29,13 @@ const defaultData = {
   ]
 };
 
-export function InfoSidebar({ ...props }: React.ComponentProps<typeof Infobar>) {
+export function InfoSidebar({ className, ...props }: React.ComponentProps<typeof Infobar>) {
   const { content } = useInfobar();
   const data = content || defaultData;
 
   return (
-    <Infobar {...props}>
+    // The shell is a fixed-height column, so the panel fills it instead of sizing to the viewport
+    <Infobar {...props} className={cn('h-full rounded-none border-t-0', className)}>
       <InfobarHeader className='sticky top-0 z-10 flex flex-row items-center justify-between gap-2 border-b bg-sidebar px-4 py-3'>
         <div className='min-w-0 flex-1'>
           <h2 className='text-lg font-semibold wrap-break-word'>{data.title}</h2>

@@ -5,6 +5,7 @@ import Header from '@/components/layout/header';
 import { InfoSidebar } from '@/components/layout/info-sidebar';
 import { InfobarProvider } from '@/components/ui/infobar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import type { CSSProperties } from 'react';
 
 export const Route = createFileRoute('/dashboard')({
   // Guard every /dashboard route. Returning the user narrows it to non-null
@@ -31,7 +32,13 @@ export const Route = createFileRoute('/dashboard')({
 function DashboardLayout() {
   return (
     <CommandPalette>
-      <SidebarProvider>
+      {/* Fixed-height shell: the sidebar sits on the --sidebar canvas and the page is an
+          inset panel with a single scroller, so nothing needs calc(100vh - header) maths.
+          The 2.375rem icon rail leaves 12px either side of the 32px icons. */}
+      <SidebarProvider
+        className='h-dvh'
+        style={{ '--sidebar-width-icon': '2.375rem' } as CSSProperties}
+      >
         <a
           href='#main-content'
           className='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-md focus:ring-2 focus:ring-ring focus:outline-none'
@@ -39,10 +46,19 @@ function DashboardLayout() {
           Skip to content
         </a>
         <AppSidebar />
-        <SidebarInset id='main-content' tabIndex={-1}>
+        <SidebarInset
+          id='main-content'
+          tabIndex={-1}
+          className='min-h-0 min-w-0 overflow-hidden outline-none md:ring-1 md:ring-foreground/10'
+        >
           <Header />
-          <InfobarProvider defaultOpen={false}>
-            <Outlet />
+          <InfobarProvider defaultOpen={false} className='min-h-0'>
+            <div
+              data-slot='page-scroller'
+              className='flex min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-auto'
+            >
+              <Outlet />
+            </div>
             <InfoSidebar side='right' />
           </InfobarProvider>
         </SidebarInset>

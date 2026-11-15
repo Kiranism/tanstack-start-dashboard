@@ -4,15 +4,16 @@ import type { InfobarContent } from '@/components/ui/infobar';
 
 function PageSkeleton() {
   return (
-    <div className='flex flex-1 animate-pulse flex-col gap-4 p-4 md:px-6'>
-      <div className='flex items-center justify-between'>
-        <div>
-          <div className='mb-2 h-8 w-48 rounded bg-muted' />
-          <div className='h-4 w-96 rounded bg-muted' />
-        </div>
+    <div
+      role='status'
+      aria-label='Loading page'
+      className='flex flex-1 animate-pulse flex-col gap-4'
+    >
+      <div className='flex flex-col gap-2'>
+        <div className='h-8 w-64 rounded-md bg-muted' />
+        <div className='h-4 w-96 max-w-full rounded-md bg-muted' />
       </div>
-      <div className='mt-6 h-40 w-full rounded-lg bg-muted' />
-      <div className='h-40 w-full rounded-lg bg-muted' />
+      <div className='mt-2 h-[50vh] w-full rounded-xl bg-muted' />
     </div>
   );
 }
@@ -38,7 +39,7 @@ export default function PageContainer({
 }) {
   if (!access) {
     return (
-      <div className='flex flex-1 items-center justify-center p-4 md:px-6'>
+      <div role='status' className='flex flex-1 items-center justify-center p-4 md:px-6'>
         {accessFallback ?? (
           <div className='text-center text-lg text-muted-foreground'>
             You do not have access to this page.
@@ -53,15 +54,17 @@ export default function PageContainer({
   const hasHeader = pageTitle || pageHeaderAction;
 
   return (
-    <div className='flex flex-1 flex-col p-4 md:px-6'>
+    // The layout's page scroller is the only scroll container; flex-1 lets table, chat and
+    // kanban pages fill the panel while long pages simply grow and scroll
+    <div className='flex min-w-0 flex-1 flex-col p-4 md:p-6'>
       {hasHeader && (
-        <div className='mb-4 flex items-start justify-between gap-4'>
+        <div className='mb-6 flex flex-wrap items-start justify-between gap-x-4 gap-y-3'>
           <Heading
             title={pageTitle ?? ''}
             description={pageDescription ?? ''}
             infoContent={infoContent}
           />
-          {pageHeaderAction && <div className='shrink-0'>{pageHeaderAction}</div>}
+          {pageHeaderAction && <div className='flex flex-wrap gap-2'>{pageHeaderAction}</div>}
         </div>
       )}
       {content}

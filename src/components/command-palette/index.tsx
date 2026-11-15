@@ -182,7 +182,7 @@ export default function CommandPalette({ children }: { children: React.ReactNode
                   <Autocomplete.Input
                     aria-label='Search commands'
                     placeholder='Type a command or search…'
-                    className='w-full border-none bg-transparent px-4 py-3.5 text-sm outline-hidden placeholder:text-muted-foreground'
+                    className='h-12 w-full border-none bg-transparent px-4 text-base outline-hidden placeholder:text-muted-foreground md:text-sm'
                   />
                 </div>
                 <Dialog.Close className='sr-only'>Close command palette</Dialog.Close>
@@ -206,7 +206,7 @@ export default function CommandPalette({ children }: { children: React.ReactNode
                                 setOpen(false);
                                 action.perform();
                               }}
-                              className='relative mx-1.5 flex cursor-pointer items-center justify-between rounded-lg px-2.5 py-2.5 text-sm outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground'
+                              className='relative mx-1.5 flex cursor-pointer items-center justify-between gap-3 rounded-md px-2 py-2 text-sm outline-hidden select-none data-highlighted:bg-accent data-highlighted:text-accent-foreground'
                             >
                               <div className='flex flex-col'>
                                 <span>{action.name}</span>
@@ -231,7 +231,7 @@ export default function CommandPalette({ children }: { children: React.ReactNode
                   </Autocomplete.List>
                 </div>
 
-                <div className='flex items-center gap-3 border-t px-3 py-2 text-xs text-muted-foreground'>
+                <div className='flex h-10 items-center gap-4 border-t bg-muted/50 px-3 text-xs text-muted-foreground'>
                   <span className='flex items-center gap-1'>
                     <Kbd>↑</Kbd>
                     <Kbd>↓</Kbd> navigate

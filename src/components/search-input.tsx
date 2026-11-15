@@ -1,22 +1,37 @@
+import { useSyncExternalStore } from 'react';
 import { useCommandPalette } from '@/components/command-palette';
 import { Icons } from '@/components/icons';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
+import { Kbd } from '@/components/ui/kbd';
+
+const noopSubscribe = () => () => {};
+const isApplePlatform = () => /Mac|iPhone|iPad/.test(navigator.userAgent);
 
 export default function SearchInput() {
   const { toggle } = useCommandPalette();
+  // Server render assumes ⌘ and the client corrects it after hydration, so there's no mismatch
+  const isMac = useSyncExternalStore(noopSubscribe, isApplePlatform, () => true);
+
   return (
-    <div className='w-full space-y-2'>
+    <>
+      <button
+        type='button'
+        onClick={toggle}
+        className='mr-1 hidden h-8 w-44 items-center gap-2 rounded-lg border border-input bg-card px-2.5 text-sm text-muted-foreground transition-[color,background-color,border-color,box-shadow] outline-none hover:border-foreground/20 hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 sm:flex md:w-56 lg:w-72 dark:bg-input/30'
+      >
+        <Icons.search className='size-4 shrink-0' />
+        <span className='flex-1 truncate text-left'>Search...</span>
+        <Kbd>{isMac ? '⌘K' : 'Ctrl K'}</Kbd>
+      </button>
       <Button
-        variant='outline'
-        className='relative h-9 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64'
+        variant='ghost'
+        size='icon'
+        className='sm:hidden'
+        aria-label='Search'
         onClick={toggle}
       >
-        <Icons.search className='mr-2 h-4 w-4' />
-        Search...
-        <kbd className='pointer-events-none absolute top-[0.3rem] right-[0.3rem] hidden h-6 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 select-none sm:flex'>
-          <span className='text-xs'>⌘</span>K
-        </kbd>
+        <Icons.search />
       </Button>
-    </div>
+    </>
   );
 }
