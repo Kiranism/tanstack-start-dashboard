@@ -191,6 +191,8 @@ You should now be able to access the application at http://localhost:3000. Sign 
 
 `vite dev` works without any environment variables. Production builds require `SESSION_SECRET` (at least 32 characters, e.g. `openssl rand -base64 32`).
 
+Use Node.js 22.12 or newer (`.nvmrc` pins 24). `bun install` sets up the git hooks: pre-commit formats staged files, pre-push runs the production build. CI runs `format:check`, `lint` and `build` on every pull request.
+
 ## Deploy
 
 The starter builds with [Nitro](https://nitro.build), the default host in TanStack's own CLI templates (`npm create @tanstack/start`). Set `SESSION_SECRET` (at least 32 characters) wherever you deploy.
@@ -199,11 +201,22 @@ The starter builds with [Nitro](https://nitro.build), the default host in TanSta
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Vercel             | Import the repo. `vercel.json` selects the TanStack Start framework preset; build command `bun run build`.                                                                                                                             |
 | Railway, Render    | Connect the repo; they detect the Nitro build.                                                                                                                                                                                         |
-| Node.js / Docker   | `bun run build`, then `bun run start` (`node .output/server/index.mjs`).                                                                                                                                                               |
+| Node.js            | `bun run build`, then `bun run start` (`node .output/server/index.mjs`).                                                                                                                                                               |
+| Docker             | `Dockerfile` (Node.js) or `Dockerfile.bun` (Bun). See [Docker](#docker) below.                                                                                                                                                         |
 | Cloudflare Workers | Official setup: replace `nitro()` in `vite.config.ts` with `@cloudflare/vite-plugin` and add a `wrangler.jsonc`, as in [`start-basic-cloudflare`](https://github.com/TanStack/router/tree/main/examples/react/start-basic-cloudflare). |
 | Netlify            | Official setup: replace `nitro()` with [`@netlify/vite-plugin-tanstack-start`](https://www.npmjs.com/package/@netlify/vite-plugin-tanstack-start).                                                                                     |
 
 Nitro detects the target in each host's CI. To force one, set `SERVER_PRESET` at build time (for example `SERVER_PRESET=node-server bun run build`). See TanStack's [hosting guide](https://tanstack.com/start/latest/docs/framework/react/guide/hosting) for details.
+
+### Docker
+
+Both Dockerfiles build a self-contained `.output/` and run it as a non-root user on port 3000:
+
+```bash
+docker build -t tanstack-dashboard .                  # Node.js
+docker build -f Dockerfile.bun -t tanstack-dashboard . # or Bun
+docker run -p 3000:3000 -e SESSION_SECRET="$(openssl rand -base64 32)" tanstack-dashboard
+```
 
 For fully static marketing pages, see the `prerender` option in [`start-basic-static`](https://github.com/TanStack/router/tree/main/examples/react/start-basic-static).
 
@@ -224,7 +237,7 @@ For fully static marketing pages, see the `prerender` option in [`start-basic-st
 
 If you find this template helpful, please consider giving it a star!
 
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat-square&logo=buymeacoffee)](https://buymeacoffee.com/kir4n)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat-square&logo=buymeacoffee)](https://buymeacoffee.com/kiranism)
 
 Cheers!
 

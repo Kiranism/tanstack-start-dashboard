@@ -1,0 +1,53 @@
+# Dependencies (installed inside Docker)
+node_modules/
+
+# Build outputs (generated during docker build)
+.output/
+dist/
+build/
+.vercel/
+.nitro/
+.tanstack/
+src/routeTree.gen.ts
+
+# Tests
+coverage/
+*.test.*
+*.spec.*
+
+# Git and editors
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Environment variables
+.env
+.env*.local
+
+# Docker files
+Dockerfile*
+.dockerignore
+compose.yaml
+compose.yml
+docker-compose*.yml
+
+# Documentation
+*.md
+docs/
+
+# CI/CD and git hooks
+.github/
+.husky/
+
+# TypeScript build metadata
+*.tsbuildinfo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# AI tool configs
+.agents/
+.claude/
+skills-lock.json

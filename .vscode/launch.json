@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "TanStack Start: debug server-side",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "bun run dev"
+    },
+    {
+      "name": "TanStack Start: debug client-side",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000"
+    },
+    {
+      "name": "TanStack Start: debug full stack",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "bun run dev",
+      "serverReadyAction": {
+        "pattern": "Local:.+(https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    }
+  ]
+}
